@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="text-main text-center">
+        <h2>{{ page_title }}</h2>
+        <p>Clarks is a family run 5 star restaurant, setup in 2022</p>
+        <br>
+        <p>Please come and book a table today <a href="#">Click here to book</a></p>
+        <div>
+            <h2>Opening times</h2>
+            <p>
+                Thursday Dinner 5pm-late
+                Friday, Saturday + Sunday Lunch 12pm-3pm + Dinner 5pm-late
+            </p>
+        </div>
+        <section>
+            <h2>Reviews</h2>
+            {% for review in reviews %}
+                <div class="reviews row featurette">
+                    <div class="col-md-7">
+                        <h2>{{ review.name }}</h2>
+                        <p>from {{ review.location }}</p>
+                    </div>
+                    <div class="col-md-5">
+                        <h4>Review</h4>
+                        <p>{{ review.stars }}</p>
+                        <br>
+                        <p>
+                            {{ review.review }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}

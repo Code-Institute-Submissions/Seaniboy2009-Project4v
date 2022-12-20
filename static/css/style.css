@@ -1,0 +1,54 @@
+/* ************************************************* Background Image */
+body {
+    background-image: linear-gradient(rgb(90 51 42 / 60%), rgb(22 21 20)), url("https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/02/how-to-cook-steak-1061w.jpg");
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+main {
+    min-height: 100vh;
+    background-color: rgba(71, 67, 66, 0.671);
+}
+
+/* ************************************************* Colour */
+
+#mainNav {
+    background-color: rgba(71, 67, 66, 0.9);
+}
+
+.text-main, h1, text-faded {
+    color: #000000;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.footer {
+    background-color: rgba(71, 67, 66, 0.9);
+}
+
+/* ************************************************* heading */
+
+.site-heading .site-heading-stars {
+    display: block;
+    font-size: 5rem;
+    font-weight: 100;
+    line-height: 4rem;
+}
+
+.featurette {
+    margin-bottom: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    width: 100%;
+    border-bottom: solid 5px rgba(0, 0, 0, 0.9);
+    border-width: thin;
+}
+
+/* ************************************************* menu */
+
+.featurette-image {
+    max-width: 80%;
+    border-radius: 40%;
+}

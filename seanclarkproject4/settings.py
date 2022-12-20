@@ -142,4 +142,10 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME_KEY'),
+    'API_KEY': os.environ.get('API_KEY_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET_KEY'),
+}
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
