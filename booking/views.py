@@ -10,3 +10,23 @@ class HomePage(View):
             request,
             "index.html"
         )
+
+
+class BookingPage(View):
+
+    def get(self, request, *args, **kwargs):
+
+        return render(
+            request,
+            "book.html"
+        )
+
+
+class MenuPage(View):
+
+    def get(self, request, *args, **kwargs):
+
+        return render(
+            request,
+            "menu.html"
+        )
