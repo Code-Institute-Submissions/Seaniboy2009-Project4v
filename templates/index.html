@@ -14,22 +14,17 @@
         </div>
         <section>
             <h2>Reviews</h2>
-            {% for review in reviews %}
+            <p>{{ review.title }}</p>
                 <div class="reviews row featurette">
                     <div class="col-md-7">
-                        <h2>{{ review.name }}</h2>
-                        <p>from {{ review.location }}</p>
+                        <h2>{{ review.title }}</h2>
+                        <p>from {{ review.content }}</p>
                     </div>
                     <div class="col-md-5">
                         <h4>Review</h4>
                         <p>{{ review.stars }}</p>
-                        <br>
-                        <p>
-                            {{ review.review }}
-                        </p>
                     </div>
                 </div>
-            {% endfor %}
         </section>
     </div>
 {% endblock %}

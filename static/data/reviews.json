@@ -1,0 +1,31 @@
+[{
+        "name": "Mark",
+        "location": "Glasgow",
+        "review": "Amazing, will be going here again",
+        "stars": " 4.5 / 5"
+    },
+    {
+        "name": "Jamie",
+        "location": "Greenock",
+        "review": "Food was good, service was ok",
+        "stars": " 3.4 / 5"
+    },
+    {
+        "name": "Kyle",
+        "location": "Greenock",
+        "review": "Best place i have ever been",
+        "stars": " 5 / 5"
+    },
+    {
+        "name": "Gemma",
+        "location": "Port glasgow",
+        "review": "Really good place to go with the family, bit pricey but worth it",
+        "stars": " 3.9 / 5"
+    },
+    {
+        "name": "Ewan",
+        "location": "Greenock",
+        "review": "Not the best",
+        "stars": " 2.1 / 5"
+    }
+]

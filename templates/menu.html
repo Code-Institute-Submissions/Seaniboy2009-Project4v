@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+{{ value|json_script:"menu" }}
 {% block content %}
     <div class="text-main text-center">
         <h2>{{ page_title }}</h2>
         <p>Our menu of steaks is sure to intice you</p>
         {% for item in menu %} 
+        <p>item</p>
             {% if loop.index % 2 != 0 %}
                 <div class="reviews row featurette">
                     <div class="col-md-7">
