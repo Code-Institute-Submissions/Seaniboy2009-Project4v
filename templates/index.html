@@ -14,17 +14,51 @@
         </div>
         <section>
             <h2>Reviews</h2>
+            {% for review in review_list %}
             <p>{{ review.title }}</p>
-                <div class="reviews row featurette">
+                <div class="reviews row">
                     <div class="col-md-7">
                         <h2>{{ review.title }}</h2>
                         <p>from {{ review.content }}</p>
                     </div>
                     <div class="col-md-5">
-                        <h4>Review</h4>
-                        <p>{{ review.stars }}</p>
+                        <h4>Rating</h4>
+                        <ul class="ul-list">
+                            {% if review.stars == 1 %}
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            {% elif review.stars == 2 %}
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            {% elif review.stars == 3 %}
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            {% elif review.stars == 4 %}
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-regular fa-star"></i></p>
+                            {% elif review.stars == 5 %}
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            <p><i class="fa-solid fa-star"></i></p>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
+            {% endfor %}
         </section>
     </div>
 {% endblock %}

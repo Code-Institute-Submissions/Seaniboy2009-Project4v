@@ -52,3 +52,7 @@ main {
     max-width: 80%;
     border-radius: 40%;
 }
+
+.ul-list {
+    display: inline-flex;
+}
