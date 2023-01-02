@@ -4,7 +4,9 @@
         <h2>Book a table today</h2>
         <h3>List of avalible tables</h3>
         {% for table in tables %}
+        <div>
             <p>Table: {{ table.table_number }}</p>
+        </div>
         {% endfor %}
     </div>
 {% endblock %}
