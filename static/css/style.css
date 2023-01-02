@@ -28,6 +28,7 @@ main {
 
 .container {
     align-content: center;
+    margin-top: 5%;
 }
 
 /* nav bar is fixed so its always at top of screen and full size */
@@ -65,8 +66,10 @@ img {
     margin-bottom: .10%;
 }
 
-.ul-list {
-    display: inline-flex;
+.ul-list, .opening-times-ul, .footer-ul  {
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
 }
 
 

@@ -31,6 +31,12 @@
                             our menu</a></li>
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'booking' %}">Book
                             a table now</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'account_logout' %}">Logout</a></li>
+                    {% else %}
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'account_login' %}">Login</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Sign up</a></li>
+                    {% endif %}
                 </ul>
                 {% if user.is_authenticated %}
                 <span class="navbar-text text-muted">
@@ -41,22 +47,18 @@
         </nav>
     </div>
     <main class="container">
-        <header>
-            <img src="https://www.tastingtable.com/img/gallery/15-ingredients-that-will-seriously-elevate-your-steak/l-intro-1663169111.jpg"
-                alt="Main image of steak">
-        </header>
         {% block content %}
         {% endblock %}
     </main>
     <footer class="footer text-faded text-center py-5">
-        <div class="container">
-            <p class="m-0 small">Copyright &copy; Clarks Restaurant <span id="copyright"></span></p>
-        </div>
-        <div class="container">
-            <p class="m-0 small">0141 124 0000
-                contact@clarks.com
-                1109 fake Road
-                f12bght</p>
+        <div>
+            <ul class="footer-ul">
+                <li>Copyright &copy; Clarks Restaurant <span id="copyright"></span></li>
+                <li>Number: 0141 124 0000</li>
+                <li>Email: contact@clarks.com</li>
+                <li>Address: 1109 fake Road
+                    f12bght</li>
+            </ul>
         </div>
     </footer>
     <!-- Custom scripts -->
