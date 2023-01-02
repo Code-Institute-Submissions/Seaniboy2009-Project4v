@@ -1,13 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
-from .models import Review
+from .models import Review, Table
 
 
 class HomePage(View):
 
     def get(self, request, *args, **kwargs):
-        # queryset = Review.objects.all()
-        # reviews = get_object_or_404(queryset)
         reviews = Review.objects.all()
 
         return render(
@@ -20,10 +18,12 @@ class HomePage(View):
 class BookingPage(View):
 
     def get(self, request, *args, **kwargs):
+        tables = Table.objects.all()
 
         return render(
             request,
-            "book.html"
+            "book.html",
+            {'tables': tables}
         )
 
 

@@ -1,38 +1,37 @@
-/* ************************************************* Background Image */
-body {
-    /* background-image: linear-gradient(rgb(90 51 42 / 60%), rgb(22 21 20)), url("https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/02/how-to-cook-steak-1061w.jpg"); */
-    background-color: rgba(0, 0, 0, 0.9);
-}
-
-main {
-    min-height: 100vh;
-    background-color: rgba(71, 67, 66, 0.671);
-}
-
 /* ************************************************* Colour */
 
 .text-main, h1, text-faded {
     color: #000000;
 }
 
-.footer {
-    background-color: rgba(71, 67, 66, 0.9);
+.footer, #mainNav {
+    background-color: rgba(42 42 42 / 95%);
 }
 
 /* ************************************************* Base */
+body {
+    background-color: rgb(71 67 67);
+    background-image: none;
+    padding: 0%;
+    margin: 0%;
+    max-width: 100%;
+}
+
+main {
+    min-height: 100vh;
+    background-color: rgba(71, 67, 66, 0.9);
+}
 
 .text-center {
     text-align: center;
 }
 
 .container {
-    padding: 0;
-    margin: 0;
+    align-content: center;
 }
 
 /* nav bar is fixed so its always at top of screen and full size */
 #mainNav {
-    background-color: rgba(71, 67, 66, 0.9);
     border-radius: 8px;
     align-items: center;
     padding: 0px;
@@ -46,10 +45,10 @@ main {
 img {
     max-width: 100%;
     height: auto;
-    filter: ;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-/* ************************************************* heading */
 
 .site-heading .site-heading-stars {
     display: block;
@@ -58,21 +57,12 @@ img {
     line-height: 4rem;
 }
 
-.featurette {
-    margin-bottom: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    width: 100%;
-    border-bottom: solid 5px rgba(0, 0, 0, 0.9);
-    border-width: thin;
-}
-
-/* ************************************************* menu */
-
-.featurette-image {
-    max-width: 80%;
-    border-radius: 40%;
+.footer {
+    border-radius: 8px;
+    align-items: center;
+    left: .10%;
+    right: .10%;
+    margin-bottom: .10%;
 }
 
 .ul-list {
@@ -80,9 +70,8 @@ img {
 }
 
 
-@media (min-width: 1400px) {
-
+@media (min-width: 1920px) {
     .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-        max-width: 100%;
+        max-width: 1920px;
     }
 }

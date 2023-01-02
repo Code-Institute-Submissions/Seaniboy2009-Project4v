@@ -3,5 +3,8 @@
     <div class="text-main text-center">
         <h2>{{ page_title }}</h2>
         <p>lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum</p>
+        {% for table in tables %}
+            <p>{{ table.name }}</p>
+        {% endfor %}
     </div>
 {% endblock %}

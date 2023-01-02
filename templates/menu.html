@@ -2,33 +2,7 @@
 {{ value|json_script:"menu" }}
 {% block content %}
     <div class="text-main text-center">
-        <h2>{{ page_title }}</h2>
+        <h2>Menu</h2>
         <p>Our menu of steaks is sure to intice you</p>
-        {% for item in menu %} 
-        <p>item</p>
-            {% if loop.index % 2 != 0 %}
-                <div class="reviews row featurette">
-                    <div class="col-md-7">
-                        <h2>{{ loop.index }}. {{ item.name }}</h2>
-                        <p>{{ item.description }}</p>
-                        <p>{{ item.price }}</p>
-                    </div>
-                    <div class="col-md-5">
-                        <img src="{{ item.image }}" alt="food image" class="featurette-image image-responsive">
-                    </div>
-                </div>
-            {% else %}
-                <div class="reviews row featurette">
-                    <div class="col-md-5">
-                        <img src="{{ item.image }}" alt="food image" class="featurette-image image-responsive">
-                    </div>
-                    <div class="col-md-7">
-                        <h2>{{ loop.index }}. {{ item.name }}</h2>
-                        <p>{{ item.description }}</p>
-                        <p>{{ item.price }}</p>
-                    </div>
-                </div>
-            {% endif %}
-    {% endfor %}
     </div>
 {% endblock %}

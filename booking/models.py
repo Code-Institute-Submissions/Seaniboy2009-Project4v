@@ -31,3 +31,16 @@ class Review(models.Model):
 
     def number_of_likes(self):
         return self.stars.count()
+
+
+class Table(models.Model):
+    table_number = models.IntegerField(unique=True)
+    name = models.CharField(max_length=200, unique=True, default='table')
+    num_seats = models.IntegerField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_on"]
+
+    def __str__(self):
+        return self.name
