@@ -3,9 +3,27 @@
     <div class="text-main text-center">
         <h2>Book a table today</h2>
         <h3>List of avalible tables</h3>
+        {% if user.is_staff %}
+        <div class="table-admin-pannel">
+            <h3>Admin console</h3>
+            <form method="post">
+                <label for=""></label>
+                <input type="text" name="name">
+                <input type="text">
+                <button type="submit">Add new table</button>
+            </form>
+        </div>
+        {% endif %}
         {% for table in tables %}
-        <div>
+        <div class="container">
             <p>Table: {{ table.table_number }}</p>
+            {% if user.is_staff %}
+            <button>Update</button>
+            <button>Delete</button>
+            <ul class="table-crud-ul">
+                <li><button>{{ table.time }}</button></li>
+            </ul>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

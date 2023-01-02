@@ -8,6 +8,10 @@
     background-color: rgba(42 42 42 / 95%);
 }
 
+.table-admin-pannel {
+    background-color: rgba(42 42 42 / 95%);
+}
+
 /* ************************************************* Base */
 body {
     background-color: rgb(71 67 67);
@@ -24,11 +28,6 @@ main {
 
 .text-center {
     text-align: center;
-}
-
-.container {
-    align-content: center;
-    margin-top: 5%;
 }
 
 /* nav bar is fixed so its always at top of screen and full size */
@@ -66,12 +65,27 @@ img {
     margin-bottom: .10%;
 }
 
-.ul-list, .opening-times-ul, .footer-ul  {
+.ul-list, .opening-times-ul, .footer-ul, .table-crud-ul  {
     list-style-type:none;
     margin: 0;
     padding: 0;
 }
 
+.table-admin-pannel {
+    max-width: 30%;
+    border-radius: 8px;
+    align-items: center;
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: 90%;
+    margin-top: 5%;
+}
+
+.container {
+    align-content: center;
+    margin-top: 5%;
+}
 
 @media (min-width: 1920px) {
     .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {

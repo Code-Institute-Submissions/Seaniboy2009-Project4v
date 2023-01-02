@@ -65,3 +65,18 @@ class Table(models.Model):
 
     def __str__(self):
         return f"Table number {self.table_number}"
+
+
+class Booking(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='bookings')
+
+    booking_time = models.DateTimeField()
+    booked_on = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=15)
+    email = models.EmailField()
+    number = models.IntegerField()
+    special_requirments = models.CharField(max_length=50)
+    Approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Booked by: {self.name}"
