@@ -1,6 +1,6 @@
 /* ************************************************* Background Image */
 body {
-    background-image: linear-gradient(rgb(90 51 42 / 60%), rgb(22 21 20)), url("https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/02/how-to-cook-steak-1061w.jpg");
+    /* background-image: linear-gradient(rgb(90 51 42 / 60%), rgb(22 21 20)), url("https://iamafoodblog.b-cdn.net/wp-content/uploads/2021/02/how-to-cook-steak-1061w.jpg"); */
     background-color: rgba(0, 0, 0, 0.9);
 }
 
@@ -11,20 +11,42 @@ main {
 
 /* ************************************************* Colour */
 
-#mainNav {
-    background-color: rgba(71, 67, 66, 0.9);
-}
-
 .text-main, h1, text-faded {
     color: #000000;
 }
+
+.footer {
+    background-color: rgba(71, 67, 66, 0.9);
+}
+
+/* ************************************************* Base */
 
 .text-center {
     text-align: center;
 }
 
-.footer {
+.container {
+    padding: 0;
+    margin: 0;
+}
+
+/* nav bar is fixed so its always at top of screen and full size */
+#mainNav {
     background-color: rgba(71, 67, 66, 0.9);
+    border-radius: 8px;
+    align-items: center;
+    padding: 0px;
+    position: fixed;
+    top: 0;
+    left: .10%;
+    right: .10%;
+    margin-top: .10%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    filter: ;
 }
 
 /* ************************************************* heading */
@@ -55,4 +77,12 @@ main {
 
 .ul-list {
     display: inline-flex;
+}
+
+
+@media (min-width: 1400px) {
+
+    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+        max-width: 100%;
+    }
 }
