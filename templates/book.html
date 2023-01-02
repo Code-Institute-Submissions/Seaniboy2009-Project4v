@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="text-main text-center">
-        <h2>{{ page_title }}</h2>
-        <p>lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum</p>
+        <h2>Book a table today</h2>
+        <h3>List of avalible tables</h3>
         {% for table in tables %}
-            <p>{{ table.name }}</p>
+            <p>Table: {{ table.table_number }}</p>
         {% endfor %}
     </div>
 {% endblock %}
