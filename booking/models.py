@@ -5,18 +5,6 @@ from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Awaiting"), (1, "Approved"))
 
-BOOKING_TIMES = (
-    ('8:00', '8:00'),
-    ('9:00', '9:00'),
-    ('10:00', '10:00'),
-    ('11:00', '11:00'),
-    ('12:00', '12:00'),
-    ('13:00', '13:00'),
-    ('14:00', '14:00'),
-    ('15:00', '15:00'),
-    ('16:00', '16:00'),
-)
-
 TABLE_SEATS = (
     ('2', '2'),
     ('4', '4'),
@@ -54,11 +42,9 @@ class Review(models.Model):
 
 class Table(models.Model):
     table_number = models.IntegerField(unique=True)
-    name = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    booked = models.BooleanField(default=False)
     num_seats = models.CharField(max_length=10, choices=TABLE_SEATS, default='2')
-    time = models.CharField(max_length=10, choices=BOOKING_TIMES, default='8:00')
+    has_booking = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-created_on"]
@@ -69,14 +55,13 @@ class Table(models.Model):
 
 class Booking(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='bookings')
-
     booking_time = models.DateTimeField()
+    number_of_guests = models.IntegerField(default=2)
     booked_on = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=15)
-    email = models.EmailField()
-    number = models.IntegerField()
-    special_requirments = models.CharField(max_length=50)
-    Approved = models.BooleanField(default=False)
+    booked_by = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="booked_by"
+    )
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Booked by: {self.name}"
+        return f"Booked by:"

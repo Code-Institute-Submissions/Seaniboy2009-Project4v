@@ -1,30 +1,119 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
+
     <div class="text-main text-center">
         <h2>Book a table today</h2>
-        <h3>List of avalible tables</h3>
         {% if user.is_staff %}
         <div class="table-admin-pannel">
             <h3>Admin console</h3>
-            <form method="post">
-                <label for=""></label>
-                <input type="text" name="name">
-                <input type="text">
-                <button type="submit">Add new table</button>
-            </form>
+            <div class="dropdown">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="btn btn-info">
+                            Create Table
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dLabel">
+                                <form method="post">
+                                    <label for="create-name">Name of Table</label>
+                                    <input type="text" id="create-name" aria-describedby="createname" placeholder="Name of table">
+                                    <label for="create-seats">Name of Seats</label>
+                                    <input type="text" id="create-seats" aria-describedby="createseats" placeholder="Number of seats">
+                                    <button type="submit" class="btn btn-secondary">Add new table</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" class="btn btn-info">
+                            Delete Table
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dLabel">
+                                <form method="post">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect1">Tables</label>
+                                        <select class="form-control" id="exampleFormControlSelect1">
+                                            {% for table in tables %}
+                                            <option>Table number:{{ table.table_number }}</option>
+                                            {% endfor %}
+                                            <option>test</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endif %}
-        {% for table in tables %}
         <div class="container">
-            <p>Table: {{ table.table_number }}</p>
+            <div class="row text-center">
+                {% if user.is_authenticated %}
+                <div class="col-6">
+                    <form method="post" class="form-style">
+                        <h3>Select a date and time below</h3>
+                        {{ booking_form | crispy }}
+                        {% csrf_token %}
+                        <!-- <input type="date">  -->
+                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <h3>Thank you for making your booking with us</h3>
+                </div>
+                {% else %}
+                <div class="col"></div>
+                    <p>Please <a class="nav-link text-uppercase" href="{% url 'account_login' %}">Login</a> or <a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Sign up</a> to book a table with us:</p>
+                {% endif %}
+            </div>
             {% if user.is_staff %}
-            <button>Update</button>
-            <button>Delete</button>
-            <ul class="table-crud-ul">
-                <li><button>{{ table.time }}</button></li>
-            </ul>
+            <div class="row text-danger">
+                <ul class="collapsible"></ul>
+                {% for table in tables %}
+                    <li>
+                        <p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                                aria-expanded="false" aria-controls="collapseExample">
+                                Table: {{ table.table_number }} ID:<{{ table.table_number }}>
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                {% for booking in bookings %}
+                                    <p>Table number: {{ table.table_number }} ID {{ table.id }}</p>
+                                    {% if booking.table == table %}
+                                    <div class="text-success">
+                                        <p>for this table</p>
+                                        <p>Bookings Number: {{ bookings.id }}</p>
+                                        <p>Time of booking: {{ booking.booking_time }}</p>
+                                        <p>Table: {{ table.table_number }} ID {{ table.id }}</p>
+                                    </div>
+                                    {% else %}
+                                    <div class="text-info">
+                                        <p>for this table</p>
+                                        <p>Bookings Number: {{ bookings.id }}</p>
+                                        <p>Time of booking: {{ booking.booking_time }}</p>
+                                        <p>Table: {{ table.table_number }} ID {{ table.id }}</p>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if user.is_staff %}
+                                    <button>Update</button>
+                                    <button>Delete</button>
+                                    <button class="btn btn-success">{{ table.table_number }}</button>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </div>
             {% endif %}
         </div>
-        {% endfor %}
     </div>
 {% endblock %}

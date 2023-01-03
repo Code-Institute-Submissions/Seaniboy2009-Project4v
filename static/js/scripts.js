@@ -12,4 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // update copyright date
     copyright_text.innerText = new Date().getFullYear();
+
+    $('.collapse').collapse()
 })

@@ -1,7 +1,7 @@
 /* ************************************************* Colour */
 
 .text-main, h1, text-faded {
-    color: #000000;
+    color: #ffffff;
 }
 
 .footer, #mainNav {
@@ -72,19 +72,25 @@ img {
 }
 
 .table-admin-pannel {
-    max-width: 30%;
+    width: 16%;
     border-radius: 8px;
     align-items: center;
     padding: 0px;
     position: fixed;
+    height: 24%;
     top: 0;
-    left: 90%;
+    left: 84%;
     margin-top: 5%;
 }
 
 .container {
     align-content: center;
     margin-top: 5%;
+}
+
+.form-style {
+    max-width: 50%;
+    margin-left: 25%;
 }
 
 @media (min-width: 1920px) {
