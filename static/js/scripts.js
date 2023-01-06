@@ -13,5 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // update copyright date
     copyright_text.innerText = new Date().getFullYear();
 
-    $('.collapse').collapse()
+    // For dropdown list under bookings
+    // $('.collapse').collapse()
+
+    // CLose any alerts after 3000 Mseconds 
+    setTimeout(function () {
+        let messages = document.getElementById('msg');
+        let alert = new bootstrap.Alert(messages);
+        alert.close();
+    }, 2500);
 })

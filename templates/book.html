@@ -10,6 +10,7 @@
             <div class="dropdown">
                 <div class="container">
                     <div class="row">
+                        <!-- Create new table -->
                         <div class="col-6">
                             <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" class="btn btn-info">
@@ -17,14 +18,16 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dLabel">
                                 <form method="post">
-                                    <label for="create-name">Name of Table</label>
-                                    <input type="text" id="create-name" aria-describedby="createname" placeholder="Name of table">
+                                    <label for="table-number">Name of Table</label>
+                                    <input type="text" id="table-number" name="table-number" aria-describedby="table number" placeholder="Table number">
                                     <label for="create-seats">Name of Seats</label>
-                                    <input type="text" id="create-seats" aria-describedby="createseats" placeholder="Number of seats">
-                                    <button type="submit" class="btn btn-secondary">Add new table</button>
+                                    <input type="text" id="create-seats" name="create-seats" aria-describedby="createseats" placeholder="Number of seats">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-secondary" name="submit-new-table">Add new table</button>
                                 </form>
                             </div>
                         </div>
+                        <!-- Delete existing table -->
                         <div class="col-6">
                             <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false" class="btn btn-info">
@@ -41,9 +44,28 @@
                                             <option>test</option>
                                         </select>
                                     </div>
+                                    {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Current Tables</h4>
+                            {% for table in tables %}
+                            <p>Table: {{ table.table_number }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="post" class="form-style">
+                                <h3>Select a date and time below</h3>
+                                {{ create_table_form | crispy }}
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success btn-lg" name="submit-new-table">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -58,8 +80,7 @@
                         <h3>Select a date and time below</h3>
                         {{ booking_form | crispy }}
                         {% csrf_token %}
-                        <!-- <input type="date">  -->
-                        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                        <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
                     </form>
                 </div>
                 <div class="col">
@@ -93,8 +114,8 @@
                                         <p>Table: {{ table.table_number }} ID {{ table.id }}</p>
                                     </div>
                                     {% else %}
-                                    <div class="text-info">
-                                        <p>for this table</p>
+                                    <div class="text-danger">
+                                        <p>Not for this table</p>
                                         <p>Bookings Number: {{ bookings.id }}</p>
                                         <p>Time of booking: {{ booking.booking_time }}</p>
                                         <p>Table: {{ table.table_number }} ID {{ table.id }}</p>
