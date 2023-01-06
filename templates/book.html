@@ -17,13 +17,11 @@
                             Create Table
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dLabel">
-                                <form method="post">
-                                    <label for="table-number">Name of Table</label>
-                                    <input type="text" id="table-number" name="table-number" aria-describedby="table number" placeholder="Table number">
-                                    <label for="create-seats">Name of Seats</label>
-                                    <input type="text" id="create-seats" name="create-seats" aria-describedby="createseats" placeholder="Number of seats">
+                                <form method="post" class="form-style">
+                                    <h3>Create new table below</h3>
+                                    {{ create_table_form | crispy }}
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-secondary" name="submit-new-table">Add new table</button>
+                                    <button type="submit" class="btn btn-success btn-lg" name="submit-new-table">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -50,24 +48,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>Current Tables</h4>
-                            {% for table in tables %}
-                            <p>Table: {{ table.table_number }}</p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <form method="post" class="form-style">
-                                <h3>Select a date and time below</h3>
-                                {{ create_table_form | crispy }}
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-success btn-lg" name="submit-new-table">Submit</button>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -91,43 +71,34 @@
                     <p>Please <a class="nav-link text-uppercase" href="{% url 'account_login' %}">Login</a> or <a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Sign up</a> to book a table with us:</p>
                 {% endif %}
             </div>
+            <!-- List of all tables and there bookings -->
             {% if user.is_staff %}
             <div class="row text-danger">
                 <ul class="collapsible"></ul>
                 {% for table in tables %}
                     <li>
                         <p>
+                            <!-- Name and number of the table -->
                             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
                                 aria-expanded="false" aria-controls="collapseExample">
-                                Table: {{ table.table_number }} ID:<{{ table.table_number }}>
+                                Table: {{ table.table_number }} ID: <{{ table.table_number }}>
                             </button>
                         </p>
+                        <!-- bookings for the table -->
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                                 {% for booking in bookings %}
-                                    <p>Table number: {{ table.table_number }} ID {{ table.id }}</p>
-                                    {% if booking.table == table %}
-                                    <div class="text-success">
-                                        <p>for this table</p>
-                                        <p>Bookings Number: {{ bookings.id }}</p>
-                                        <p>Time of booking: {{ booking.booking_time }}</p>
-                                        <p>Table: {{ table.table_number }} ID {{ table.id }}</p>
+                                {% if booking.table == table %}
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="text-success">
+                                            <p>Booking</p>
+                                            <p>Booking Number: {{ booking.id }}</p>
+                                            <p>Time of booking: {{ booking.booking_time }}</p>
+                                        </div>
                                     </div>
-                                    {% else %}
-                                    <div class="text-danger">
-                                        <p>Not for this table</p>
-                                        <p>Bookings Number: {{ bookings.id }}</p>
-                                        <p>Time of booking: {{ booking.booking_time }}</p>
-                                        <p>Table: {{ table.table_number }} ID {{ table.id }}</p>
-                                    </div>
-                                    {% endif %}
-
-                                    {% if user.is_staff %}
-                                    <button>Update</button>
-                                    <button>Delete</button>
-                                    <button class="btn btn-success">{{ table.table_number }}</button>
-                                    {% endif %}
-
+                                </div>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>

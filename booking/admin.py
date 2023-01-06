@@ -18,7 +18,7 @@ class ReviewAdmin(admin.ModelAdmin):
 class TableAdmin(admin.ModelAdmin):
 
     list_filter = ('created_on',)
-    list_display = ('id', 'table_number', 'created_on',)
+    list_display = ('id', 'table_number', 'created_on', 'has_booking')
     search_fields = ['table_number', ]
 
 

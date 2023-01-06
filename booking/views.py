@@ -41,29 +41,28 @@ class BookingPage(View):
         booking_form = BookingForm(data=request.POST)
 
         if 'submit-booking' in request.POST:
-            messages.info(request, 'Booking submitted')
-            # bookingform = BookingForm(request.POST, prefix='banned')
-            # if bookingform.is_valid():
-            #     bookingform.save()
-            # if booking_form.is_valid():
-            #     booking_form.instance.table_number = request.user.email
-            #     booking_form.instance.num_seats = request.user.username
-            #     booking = booking_form.save(commit=False)
-            #     booking.save()
-            # else:
-            #     booking_form = BookingForm()
+            messages.info(request, 'Booking Form submitted')
+            bookingform = BookingForm(request.POST)
+
+            if bookingform.is_valid():
+                booking = booking_form.save(commit=False)
+                # commit=False tells Django that "Don't send this to database yet.
+                table = tables[1]
+                booking.table = table
+
+                booking.save()
+                messages.success(request, f'New Booking created and added to {table.table_number}')
+            else:
+                messages.warning(request, 'Form not')
+                booking_form = BookingForm()
 
         elif 'submit-new-table' in request.POST:
-            messages.info(request, 'New table created')
+            messages.info(request, 'New Table Form submitted')
             form = CreateTableForm(request.POST)
 
             if form.is_valid():
-                messages.info(request, 'Form valid')
-
                 table = form.save()
-            # bookingform = BookingForm(request.POST, prefix='banned')
-            # if bookingform.is_valid():
-            #     bookingform.save()
+                messages.success(request, 'New table created')
 
         return render(
             request,
