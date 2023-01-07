@@ -20,7 +20,7 @@ class HomePage(View):
 class BookingPage(View):
 
     def get(self, request, *args, **kwargs):
-        tables = Table.objects.all()
+        tables = list(Table.objects.all())
         bookings = Booking.objects.all()
 
         return render(
@@ -37,25 +37,69 @@ class BookingPage(View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
-
         booking_form = BookingForm(data=request.POST)
 
+        def make_booking(table_to_book):
+            table = table_to_book
+            submited_booking.table = table
+            submited_booking.save()
+            messages.success(request, f'New Booking created and added to {table.table_number}')
+
+        def check_table(current_table, table_to_check):
+
+            if current_table == table_to_check:
+                return True
+            else:
+                return False
+
+        # if the submitted form is the booking form
         if 'submit-booking' in request.POST:
-            messages.info(request, 'Booking Form submitted')
             bookingform = BookingForm(request.POST)
 
             if bookingform.is_valid():
-                booking = booking_form.save(commit=False)
                 # commit=False tells Django that "Don't send this to database.
-                table = tables[1]
-                booking.table = table
+                submited_booking = booking_form.save(commit=False)
 
-                booking.save()
-                messages.success(request, f'New Booking created and added to {table.table_number}')
+                if bookings.count() == 0:
+                    table = tables[0]
+                    make_booking(table)
+                else:
+                    cant_book = True
+                    list_of_tables = []
+                    for table in tables:
+                        list_of_tables.append(table)
+                    booked_tables = []
+                    # check each booking
+                    for booking in bookings:
+                        print(f'Booking Number: {booking.id}')
+                        # check what table has the booking
+                        for table in list_of_tables:
+                            print(f'Table: {table.table_number}')
+                            # check if bookings has a booking for time and date, then check if its for the same table
+                            if submited_booking.booking_date == booking.booking_date and submited_booking.booking_time == booking.booking_time and booking.table == table:
+                                print(f'This table has the booking: {table.table_number}')
+                                booked_tables.append(table)
+                            else:
+                                print(f'This table does not have the booking: {table.table_number}')
+                        print(f'List of Booked Tables: {booked_tables}')
+                        print(f'List of all Tables: {list_of_tables}')
+                    if booked_tables == list_of_tables:
+                        print('All tables are booked')
+                        messages.warning(request, 'No free tables for this date and time')
+                    else:
+                        print('tables are avalible')
+                        avalible_tables = []
+                        for table in list_of_tables:
+                            if table not in booked_tables:
+                                avalible_tables.append(table)
+                        print(f'Tables that are avalible: {avalible_tables}')
+                        make_booking(avalible_tables[0])
+
             else:
-                messages.warning(request, 'Form not')
+                messages.warning(request, 'Form not (1.4)')
                 booking_form = BookingForm()
 
+        # if the submitted form is the create table form
         elif 'submit-new-table' in request.POST:
             messages.info(request, 'New Table Form submitted')
             form = CreateTableForm(request.POST)
@@ -74,6 +118,12 @@ class BookingPage(View):
                 'bookings': bookings,
             },
         )
+
+    def make_booking(self, booking):
+        table = tables[1]
+        booking.table = table
+        booking.save()
+        messages.success(request, f'New Booking created and added to {table.table_number}')
 
 
 class MenuPage(View):

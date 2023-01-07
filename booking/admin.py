@@ -25,4 +25,4 @@ class TableAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
 
-    list_display = ('booked_by', 'table', 'booking_time', 'booking_date', 'booked_on', 'approved',)
+    list_display = ('id', 'booked_by', 'table', 'booking_time', 'booking_date', 'booked_on', 'approved',)
