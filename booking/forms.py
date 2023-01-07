@@ -1,6 +1,7 @@
 from .models import Booking, Table
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django import forms
+import datetime
 
 
 class BookingForm(forms.ModelForm):
@@ -8,7 +9,8 @@ class BookingForm(forms.ModelForm):
         model = Booking
         fields = ('table', 'number_of_guests', 'booking_time', 'booked_by')
         widgets = {
-            'booking_time': forms.TextInput(attrs={'type': 'date'}),
+            'booking_date': forms.TextInput(attrs={'type': 'date'}),
+            'booking_time': forms.TextInput(attrs={'type': 'time'}),
         }
 
 

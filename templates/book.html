@@ -74,8 +74,8 @@
             <!-- List of all tables and there bookings -->
             {% if user.is_staff %}
             <div class="row text-danger">
-                <ul class="collapsible"></ul>
-                {% for table in tables %}
+                <ul class="collapsible ul-list">
+                    {% for table in tables %}
                     <li>
                         <p>
                             <!-- Name and number of the table -->
@@ -103,7 +103,8 @@
                             </div>
                         </div>
                     </li>
-                {% endfor %}
+                    {% endfor %}
+                </ul>
             </div>
             {% endif %}
         </div>

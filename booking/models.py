@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from cloudinary.models import CloudinaryField
@@ -10,6 +11,16 @@ TABLE_SEATS = (
     ('4', '4'),
     ('5', '5'),
     ('6', '6'),
+)
+
+TIME_SLOTS = (
+    (datetime.time(10, 00, 00), u'10 AM'),
+    (datetime.time(11, 00, 00), u'11 AM'),
+    (datetime.time(12, 00, 00), u'12 AM'),
+    (datetime.time(13, 00, 00), u'1 PM'),
+    (datetime.time(14, 00, 00), u'2 PM'),
+    (datetime.time(15, 00, 00), u'3 PM'),
+    (datetime.time(16, 00, 00), u'4 PM'),
 )
 
 
@@ -55,7 +66,8 @@ class Table(models.Model):
 
 class Booking(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='bookings')
-    booking_time = models.DateTimeField()
+    booking_time = models.TimeField(choices=TIME_SLOTS)
+    booking_date = models.DateField(default=datetime.date.today)
     number_of_guests = models.IntegerField(default=2)
     booked_on = models.DateTimeField(auto_now_add=True)
     booked_by = models.ForeignKey(

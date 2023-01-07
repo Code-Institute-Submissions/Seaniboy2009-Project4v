@@ -46,7 +46,7 @@ class BookingPage(View):
 
             if bookingform.is_valid():
                 booking = booking_form.save(commit=False)
-                # commit=False tells Django that "Don't send this to database yet.
+                # commit=False tells Django that "Don't send this to database.
                 table = tables[1]
                 booking.table = table
 
