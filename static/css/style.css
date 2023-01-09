@@ -81,6 +81,13 @@ img {
     margin-left: 25%;
 }
 
+.booking-border {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    margin: 0.25rem;
+}
+
 @media (min-width: 1920px) {
     .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
         max-width: 1920px;
