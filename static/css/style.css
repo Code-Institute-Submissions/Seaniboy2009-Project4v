@@ -71,18 +71,6 @@ img {
     padding: 0;
 }
 
-.table-admin-pannel {
-    width: 16%;
-    border-radius: 8px;
-    align-items: center;
-    padding: 0px;
-    position: fixed;
-    height: auto;
-    top: 0;
-    left: 84%;
-    margin-top: 5%;
-}
-
 .container {
     align-content: center;
     margin-top: 5%;

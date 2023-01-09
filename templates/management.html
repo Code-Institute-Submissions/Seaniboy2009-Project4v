@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Staff Management</h2>
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="confirmModalLabel">Confirm you want to delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="delete-table-form" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% if user.is_staff %}
+    <div class="row">
+        <div class="col-6">
+            <div class="table-admin-pannel">
+                <h3>Admin console</h3>
+                <div class="dropdown">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Create new table -->
+                            <div class="col-6">
+                                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="btn btn-info">
+                                    Create Table
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dLabel">
+                                    <form method="post" class="form-style">
+                                        <h3>Create new table below</h3>
+                                        {{ create_table_form | crispy }}
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success btn-lg"
+                                            name="submit-new-table">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Delete existing table -->
+                            <div class="col-6">
+                                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" class="btn btn-info">
+                                    Delete Table
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dLabel">
+                                    <form id="delete-table-form" method="post">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">Tables</label>
+                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                {% for table in tables %}
+                                                <option>Table number:{{ table.table_number }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% csrf_token %}
+                                        <!-- <button type="submit" class="btn btn-danger">Delete</button> -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row text-danger">
+                <ul class="collapsible ul-list">
+                    {% for table in tables %}
+                    <li>
+                        <p>
+                            <!-- Name and number of the table -->
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Table: {{ table.table_number }} ID: <{{ table.table_number }}>
+                            </button>
+                        </p>
+                        <!-- bookings for the table -->
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                {% for booking in bookings %}
+                                {% if booking.table == table %}
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="text-success">
+                                            <p>Booking</p>
+                                            <p>Booking Number: {{ booking.id }}</p>
+                                            <p>Time: {{ booking.booking_time }}</p>
+                                            <p>Date: {{ booking.booking_date }}</p>
+                                            <p>Booked by: {{ booking.booked_by }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

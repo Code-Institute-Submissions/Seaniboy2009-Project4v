@@ -4,54 +4,6 @@
 
     <div class="text-main text-center">
         <h2>Book a table today</h2>
-        {% if user.is_staff %}
-        <div class="table-admin-pannel">
-            <h3>Admin console</h3>
-            <div class="dropdown">
-                <div class="container">
-                    <div class="row">
-                        <!-- Create new table -->
-                        <div class="col-6">
-                            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="btn btn-info">
-                            Create Table
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dLabel">
-                                <form method="post" class="form-style">
-                                    <h3>Create new table below</h3>
-                                    {{ create_table_form | crispy }}
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-success btn-lg" name="submit-new-table">Submit</button>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Delete existing table -->
-                        <div class="col-6">
-                            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" class="btn btn-info">
-                            Delete Table
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dLabel">
-                                <form method="post">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Tables</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            {% for table in tables %}
-                                            <option>Table number:{{ table.table_number }}</option>
-                                            {% endfor %}
-                                            <option>test</option>
-                                        </select>
-                                    </div>
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
         <div class="container">
             <div class="row text-center">
                 {% if user.is_authenticated %}
@@ -71,44 +23,6 @@
                     <p>Please <a class="nav-link text-uppercase" href="{% url 'account_login' %}">Login</a> or <a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Sign up</a> to book a table with us:</p>
                 {% endif %}
             </div>
-            <!-- List of all tables and there bookings -->
-            {% if user.is_staff %}
-            <div class="row text-danger">
-                <ul class="collapsible ul-list">
-                    {% for table in tables %}
-                    <li>
-                        <p>
-                            <!-- Name and number of the table -->
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                                aria-expanded="false" aria-controls="collapseExample">
-                                Table: {{ table.table_number }} ID: <{{ table.table_number }}>
-                            </button>
-                        </p>
-                        <!-- bookings for the table -->
-                        <div class="collapse" id="collapseExample">
-                            <div class="card card-body">
-                                {% for booking in bookings %}
-                                {% if booking.table == table %}
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="text-success">
-                                            <p>Booking</p>
-                                            <p>Booking Number: {{ booking.id }}</p>
-                                            <p>Time: {{ booking.booking_time }}</p>
-                                            <p>Date: {{ booking.booking_date }}</p>
-                                            <p>Booked by: {{ booking.booked_by }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
         </div>
     </div>
 {% endblock %}
