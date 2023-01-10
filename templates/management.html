@@ -84,11 +84,7 @@
                 {% for table in tables %}
                 <h4>Table{{ table.table_number }}</h4>
                 <p>Number of seats: {{ table.num_seats }}</p>
-                    {% for booking in bookings %}
-                        {% if booking.table == table%}
-                        <p>Bookings: {{ booking.id }}</p>
-                        {% endif %}
-                    {% endfor %}
+                <p>Number of bookings: {{ table.num_of_bookings }}</p>
                 <br>
                 {% endfor %}
             </ul>

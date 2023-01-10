@@ -62,6 +62,9 @@ class Table(models.Model):
 
     def __str__(self):
         return f"Table number {self.table_number}"
+    
+    def update_num_of_bookings(self):
+        self.num_of_bookings += 1
 
 
 class Booking(models.Model):

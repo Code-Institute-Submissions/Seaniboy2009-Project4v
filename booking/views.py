@@ -40,50 +40,50 @@ class BookingPage(View):
         bookings = Booking.objects.all()
         booking_form = BookingForm(data=request.POST)
 
+        # bookingform = BookingForm(request.POST)
+
         def make_booking(table_to_book):
             """
-            Update the booking form with the picked table and user who booked and submit to the DB
+            Update the booking form with the table and user, update the
+            tables number of bookings
             """
             submited_booking.table = table_to_book
             submited_booking.booked_by = request.user
             submited_booking.save()
+            table_to_book.update_num_of_bookings()
+            table_to_book.save()
             messages.success(request, f'Thank you for making a booking with us, see you on {submited_booking.booking_date}')
             return HttpResponseRedirect(reverse("home"))
 
         def check_avalible_tables():
             """
-            Check the list of all tables and look though each and see if they have a booking for the time and date, if they dont
-            they will be added to a list of avalible tables
+            Check the list of all tables and look though each and see if they
+            have a booking for the time and date, if they dontthey will be
+            added to a list of avalible tables
             """
             list_of_tables = list(tables)
-            list_of_free_tables = []
-
             booked_tables = []
+
             for booking in bookings:
-                print(f'Booking Number: {booking.id}')
-                # check what table has the booking
                 for table in list_of_tables:
-                    print(f'Table: {table.table_number}')
-                    # check if bookings has a booking for time and date, then check if its for the same table
                     if submited_booking.booking_date == booking.booking_date and submited_booking.booking_time == booking.booking_time and booking.table == table:
+                        print(f'Booking Number: {booking.id}')
                         print(f'This table has the booking: {table.table_number}: Added to booked tables')
                         print('___________________________________________________')
                         booked_tables.append(table)
                     else:
+                        print(f'Booking Number: {booking.id}')
                         print(f'This table does not have the booking: {table.table_number} Added to avalible tables')
                         print('___________________________________________________')
-                        list_of_free_tables.append(table)
 
-            list_of_free_tables.sort(key=lambda x: x.table_number)
             list_of_tables.sort(key=lambda x: x.table_number)
             booked_tables.sort(key=lambda x: x.table_number)
             print('___________________________________________________')
-            print(list_of_free_tables)
             print(list_of_tables)
             print(booked_tables)
             print('___________________________________________________')
             if booked_tables == list_of_tables:
-                messages.warning(request, 'No free tables for this date and time')
+                messages.warning(request, 'Our apologies it looks like we are fully booked for this time and date')
                 print('___________________________________________________')
             else:
                 avalible_tables = []
@@ -93,50 +93,15 @@ class BookingPage(View):
                 print(f'Table {avalible_tables[0]} is avalble')
                 return avalible_tables[0]
 
-        # if the submitted form is the booking form
-        if 'submit-booking' in request.POST:
-            bookingform = BookingForm(request.POST)
+        if booking_form.is_valid():
+            submited_booking = booking_form.save(commit=False)
 
-            if bookingform.is_valid():
-                # commit=False tells Django "Don't send this to database.
-                submited_booking = booking_form.save(commit=False)
+            free_table = check_avalible_tables()
+            if free_table:
+                make_booking(free_table)
 
-                table = check_avalible_tables()
-
-                if table:
-                    make_booking(table)
-
-
-                # list_of_tables = []
-                # for table in tables:
-                #     list_of_tables.append(table)
-
-                # booked_tables = []
-                # for booking in bookings:
-                #     print(f'Booking Number: {booking.id}')
-                #     # check what table has the booking
-                #     for table in list_of_tables:
-                #         print(f'Table: {table.table_number}')
-                #         # check if bookings has a booking for time and date, then check if its for the same table
-                #         if submited_booking.booking_date == booking.booking_date and submited_booking.booking_time == booking.booking_time and booking.table == table:
-                #             print(f'This table has the booking: {table.table_number}')
-                #             booked_tables.append(table)
-                #         else:
-                #             print(f'This table does not have the booking: {table.table_number}')
-
-                # list_of_tables.sort(key=lambda x: x.table_number)
-                # booked_tables.sort(key=lambda x: x.table_number)
-                # if booked_tables == list_of_tables:
-                #     messages.warning(request, 'No free tables for this date and time')
-                # else:
-                #     avalible_tables = []
-                #     for table in list_of_tables:
-                #         if table not in booked_tables:
-                #             avalible_tables.append(table)
-                #     make_booking(avalible_tables[0])
-
-            else:
-                booking_form = BookingForm()
+        else:
+            booking_form = BookingForm()
 
         return render(
             request,
