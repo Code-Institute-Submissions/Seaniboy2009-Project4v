@@ -55,7 +55,7 @@ class Table(models.Model):
     table_number = models.IntegerField(unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     num_seats = models.CharField(max_length=10, choices=TABLE_SEATS, default='2')
-    has_booking = models.BooleanField(default=False)
+    num_of_bookings = models.IntegerField(default=0)
 
     class Meta:
         ordering = ["-created_on"]

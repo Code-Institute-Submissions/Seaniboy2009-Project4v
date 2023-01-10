@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
-<div class="container">
+<div class="container text-center text-main">
     <div class="row">
         <div class="col-12">
-            <h2>Staff Management</h2>
+            <h2><u>Staff Management</u></h2>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-6">
+            <h3><u>Table Management</u></h3>
+        </div>
+        <div class="col-6">
+            <h3><u>List of all tables</u></h3>
         </div>
     </div>
     <!-- Modal -->
@@ -31,7 +39,6 @@
     <div class="row">
         <div class="col-6">
             <div>
-                <h3>Admin console</h3>
                 <div class="dropdown">
                     <div class="container">
                         <div class="row">
@@ -60,14 +67,6 @@
                                 <div class="dropdown-menu" aria-labelledby="dLabel">
                                     <form id="delete-table-form" method="post">
                                         {{ delete_table_form | crispy }}
-                                        <!-- <div class="form-group">
-                                            <label for="table-list">Tables</label>
-                                            <select class="form-control" id="tablelist" name="table-number">-
-                                                {% for table in tables %}
-                                                <option value="{{ table.table_number }}">Table number:{{ table.table_number }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div> -->
                                         {% csrf_token %}
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
                                             Delete
@@ -80,16 +79,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
-            <h3>Tables</h3>
+        <div class="col-6 text-center">
             <ul>
                 {% for table in tables %}
                 <h4>Table{{ table.table_number }}</h4>
+                <p>Number of seats: {{ table.num_seats }}</p>
                     {% for booking in bookings %}
                         {% if booking.table == table%}
                         <p>Bookings: {{ booking.id }}</p>
                         {% endif %}
                     {% endfor %}
+                <br>
                 {% endfor %}
             </ul>
         </div>
