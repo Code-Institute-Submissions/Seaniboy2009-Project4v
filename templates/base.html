@@ -40,12 +40,12 @@
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Sign up</a></li>
                     {% endif %}
                 </ul>
-                {% if user.is_authenticated %}
+                {% if user.is_staff %}
                 <span class="navbar-text text-muted">
                     <a class="nav-link text-uppercase" href="{% url 'management' %}">Management</a>
                 </span>
                 {% endif %}
-                {% if user.is_staff %}
+                {% if user.is_authenticated %}
                 <span class="navbar-text text-muted">
                     Logged in as: {{ user.username }}
                 </span>

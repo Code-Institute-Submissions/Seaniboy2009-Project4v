@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking
-from .forms import BookingForm, CreateTableForm
+from .forms import BookingForm, CreateTableForm, DeleteTableForm
 
 
 class HomePage(View):
@@ -43,7 +44,8 @@ class BookingPage(View):
             table = table_to_book
             submited_booking.table = table
             submited_booking.save()
-            messages.success(request, f'New Booking created and added to {table.table_number}')
+            messages.success(request, f'Thank you for making a booking with us, see you on {booking.booking_date}')
+            return HttpResponseRedirect(reverse("home"))
 
         def check_table(current_table, table_to_check):
 
@@ -66,7 +68,7 @@ class BookingPage(View):
 
                 for table in tables:
                     list_of_tables.append(table)
-                
+
                 # check each booking
                 for booking in bookings:
                     print(f'Booking Number: {booking.id}')
@@ -82,31 +84,17 @@ class BookingPage(View):
 
                 list_of_tables.sort(key=lambda x: x.table_number)
                 booked_tables.sort(key=lambda x: x.table_number)
-                print(f'List of Booked Tables: {booked_tables}')
-                print(f'List of all Tables: {list_of_tables}')
                 if booked_tables == list_of_tables:
-                    print('All tables are booked')
                     messages.warning(request, 'No free tables for this date and time')
                 else:
-                    print('tables are avalible')
                     avalible_tables = []
                     for table in list_of_tables:
                         if table not in booked_tables:
                             avalible_tables.append(table)
-                    print(f'Tables that are avalible: {avalible_tables}')
                     make_booking(avalible_tables[0])
 
             else:
-                messages.warning(request, 'Form not (1.4)')
                 booking_form = BookingForm()
-
-        # if the submitted form is the create table form
-        elif 'submit-new-table' in request.POST:
-            form = CreateTableForm(request.POST)
-
-            if form.is_valid():
-                table = form.save()
-                messages.success(request, 'New table created')
 
         return render(
             request,
@@ -118,12 +106,6 @@ class BookingPage(View):
                 'bookings': bookings,
             },
         )
-
-    def make_booking(self, booking):
-        table = tables[1]
-        booking.table = table
-        booking.save()
-        messages.success(request, f'New Booking created and added to {table.table_number}')
 
 
 class MenuPage(View):
@@ -147,6 +129,7 @@ class managementPage(View):
             "management.html",
             {
                 'create_table_form': CreateTableForm(),
+                'delete_table_form': DeleteTableForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
@@ -155,8 +138,28 @@ class managementPage(View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
-        table_Form = CreateTableForm(data=request.POST)
 
-        if form.is_valid():
-            table = form.save()
-            messages.success(request, 'New table created')
+        if 'create-table' in request.POST:
+            create_table = CreateTableForm(data=request.POST)
+            print(f'Create table submitted')
+
+            if create_table.is_valid():
+                table = create_table.save()
+                messages.success(request, 'New table created')
+
+        if 'delete-table' in request.POST:
+            delete_table = DeleteTableForm(data=request.POST)
+            item = get_object_or_404(Table, table_number=request.POST['table_number'])
+            print(item)
+            item.delete()
+
+        return render(
+            request,
+            "management.html",
+            {
+                'create_table_form': CreateTableForm(),
+                'delete_table_form': DeleteTableForm(),
+                'tables': tables,
+                'bookings': bookings,
+            },
+        )
