@@ -107,7 +107,8 @@ WSGI_APPLICATION = 'seanclarkproject4.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if development:
+if development == True:
+    print('development True')
 
     DATABASES = {
         'default': {
@@ -116,6 +117,7 @@ if development:
         }
     }
 else:
+    print('development false')
 
     DATABASES = {
         'default':

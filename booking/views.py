@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import Review, Table, Booking
+from .models import Review, Table, Booking, User
 from .forms import BookingForm, CreateTableForm, DeleteTableForm
 
 
@@ -41,18 +41,11 @@ class BookingPage(View):
         booking_form = BookingForm(data=request.POST)
 
         def make_booking(table_to_book):
-            table = table_to_book
-            submited_booking.table = table
+            submited_booking.table = table_to_book
+            submited_booking.booked_by = request.user
             submited_booking.save()
-            messages.success(request, f'Thank you for making a booking with us, see you on {booking.booking_date}')
+            messages.success(request, f'Thank you for making a booking with us, see you on {submited_booking.booking_date}')
             return HttpResponseRedirect(reverse("home"))
-
-        def check_table(current_table, table_to_check):
-
-            if current_table == table_to_check:
-                return True
-            else:
-                return False
 
         # if the submitted form is the booking form
         if 'submit-booking' in request.POST:
@@ -149,9 +142,9 @@ class managementPage(View):
 
         if 'delete-table' in request.POST:
             delete_table = DeleteTableForm(data=request.POST)
-            item = get_object_or_404(Table, table_number=request.POST['table_number'])
-            print(item)
-            item.delete()
+            table = get_object_or_404(Table, table_number=request.POST['table_number'])
+            print(table)
+            table.delete()
 
         return render(
             request,
