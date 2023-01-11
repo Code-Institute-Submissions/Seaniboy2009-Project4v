@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, reverse
-from django.views import generic, View
-from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking, User
 from .forms import BookingForm, CreateTableForm, DeleteTableForm
+from django.views import generic, View
+from django.contrib import messages
 
 
 class HomePage(View):

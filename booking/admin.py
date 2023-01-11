@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Review, Table, Booking
+from .models import Review, Table, Booking, MenuItem
 
 
 @admin.register(Review)
@@ -26,3 +26,9 @@ class TableAdmin(admin.ModelAdmin):
 class BookingAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'booked_by', 'table', 'booking_time', 'booking_date', 'booked_on', 'approved',)
+
+
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+
+    list_display = ('name', 'description', 'price', 'img')

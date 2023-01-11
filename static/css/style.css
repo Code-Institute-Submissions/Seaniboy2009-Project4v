@@ -4,6 +4,10 @@
     color: #ffffff;
 }
 
+.center-image-text-color {
+    color: #ffffff;
+}
+
 .footer, #mainNav {
     background-color: rgba(42 42 42 / 95%);
 }
@@ -28,6 +32,14 @@ main {
 
 .text-center {
     text-align: center;
+}
+
+.center-image-text {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }
 
 /* nav bar is fixed so its always at top of screen and full size */

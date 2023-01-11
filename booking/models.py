@@ -80,3 +80,17 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"Booked by:"
+
+
+class MenuItem(models.Model):
+    name = models.CharField(max_length=20, default='menu item')
+    created_on = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=20, default='menu item')
+    price = models.IntegerField(default=9.99)
+    img = CloudinaryField('image', default='placeholder')
+
+    class Meta:
+        ordering = ["-created_on"]
+
+    def __str__(self):
+        return self.name
