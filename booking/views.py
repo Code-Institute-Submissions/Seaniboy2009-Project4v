@@ -55,6 +55,23 @@ class BookingPage(View):
             messages.success(request, f'Thank you for making a booking with us, see you on {submited_booking.booking_date}')
             return HttpResponseRedirect(reverse("home"))
 
+        def check_table_size(table):
+            """
+            Check the booking amount and compare to the tables that
+            have the size avalible
+            """
+            seats = int(table.num_seats)
+            request_seats = int(submited_booking.number_of_guests)
+
+            if seats >= request_seats:
+                print(f'Table:  {table} has enough seats')
+                return True
+            else:
+                print(f'Table:  {table} does not have enough seats')
+                print(f'Table seats: {seats}')
+                print(f'Requested seats: {request_seats}')
+                return False
+            
         def check_avalible_tables():
             """
             Check the list of all tables and look though each and see if they
@@ -89,9 +106,14 @@ class BookingPage(View):
                 avalible_tables = []
                 for table in list_of_tables:
                     if table not in booked_tables:
-                        avalible_tables.append(table)
-                print(f'Table {avalible_tables[0]} is avalble')
-                return avalible_tables[0]
+                        if check_table_size(table):
+                            avalible_tables.append(table)
+                
+                if avalible_tables:
+                    print(f'Table {avalible_tables[0]} is avalible')
+                    return avalible_tables[0]
+                else:
+                    messages.warning(request, 'Our apologies it looks like we have no free tables for your party size')
 
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
