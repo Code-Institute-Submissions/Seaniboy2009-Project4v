@@ -5,4 +5,17 @@
         <h2>Menu</h2>
         <p>Our menu of steaks is sure to intice you</p>
     </div>
+    <div class="container text-center text-main">
+        {% for item in menu_item %}
+        <div class="row">
+            <div class="col-6">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+                <p>Price: £ {{ item.price }}</p>
+            </div>
+            <div class="col-6 menu-image-container"><img src="{{ item.img.url }}" alt="Menu item image"></div>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
 {% endblock %}

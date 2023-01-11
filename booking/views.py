@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
-from .models import Review, Table, Booking, User
+from .models import Review, Table, Booking, MenuItem, User
 from .forms import BookingForm, CreateTableForm, DeleteTableForm
 from django.views import generic, View
 from django.contrib import messages
@@ -118,10 +118,14 @@ class BookingPage(View):
 class MenuPage(View):
 
     def get(self, request, *args, **kwargs):
+        menu_items = MenuItem.objects.all()
 
         return render(
             request,
-            "menu.html"
+            "menu.html",
+            {
+                'menu_item': menu_items,
+            }
         )
 
 

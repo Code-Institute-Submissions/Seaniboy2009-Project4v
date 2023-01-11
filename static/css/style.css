@@ -61,12 +61,13 @@ main {
     z-index: 1;
 }
 
-img {
+.image-container > img {
     max-width: 100%;
     height: auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 }
 
 .site-heading .site-heading-stars {
@@ -74,6 +75,10 @@ img {
     font-size: 5rem;
     font-weight: 100;
     line-height: 4rem;
+}
+
+.menu-image-container > img {
+    max-width: 50%;
 }
 
 .footer {
