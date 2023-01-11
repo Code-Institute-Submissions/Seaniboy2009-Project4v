@@ -40,12 +40,10 @@ class BookingPage(View):
         bookings = Booking.objects.all()
         booking_form = BookingForm(data=request.POST)
 
-        # bookingform = BookingForm(request.POST)
-
         def make_booking(table_to_book):
             """
             Update the booking form with the table and user, update the
-            tables number of bookings
+            table bookings
             """
             submited_booking.table = table_to_book
             submited_booking.booked_by = request.user
@@ -57,8 +55,7 @@ class BookingPage(View):
 
         def check_table_size(table):
             """
-            Check the booking amount and compare to the tables that
-            have the size avalible
+            Check the booking party size and compare to the table max size
             """
             seats = int(table.num_seats)
             request_seats = int(submited_booking.number_of_guests)
@@ -84,33 +81,20 @@ class BookingPage(View):
             for booking in bookings:
                 for table in list_of_tables:
                     if submited_booking.booking_date == booking.booking_date and submited_booking.booking_time == booking.booking_time and booking.table == table:
-                        print(f'Booking Number: {booking.id}')
-                        print(f'This table has the booking: {table.table_number}: Added to booked tables')
-                        print('___________________________________________________')
                         booked_tables.append(table)
-                    else:
-                        print(f'Booking Number: {booking.id}')
-                        print(f'This table does not have the booking: {table.table_number} Added to avalible tables')
-                        print('___________________________________________________')
 
             list_of_tables.sort(key=lambda x: x.table_number)
             booked_tables.sort(key=lambda x: x.table_number)
-            print('___________________________________________________')
-            print(list_of_tables)
-            print(booked_tables)
-            print('___________________________________________________')
             if booked_tables == list_of_tables:
                 messages.warning(request, 'Our apologies it looks like we are fully booked for this time and date')
-                print('___________________________________________________')
             else:
                 avalible_tables = []
                 for table in list_of_tables:
                     if table not in booked_tables:
                         if check_table_size(table):
                             avalible_tables.append(table)
-                
+   
                 if avalible_tables:
-                    print(f'Table {avalible_tables[0]} is avalible')
                     return avalible_tables[0]
                 else:
                     messages.warning(request, 'Our apologies it looks like we have no free tables for your party size')

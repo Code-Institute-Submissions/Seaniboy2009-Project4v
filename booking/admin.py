@@ -31,4 +31,4 @@ class BookingAdmin(admin.ModelAdmin):
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'description', 'price', 'img')
+    list_display = ('name', 'description', 'course', 'price', 'img')

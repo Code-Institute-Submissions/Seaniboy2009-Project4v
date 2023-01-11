@@ -77,8 +77,12 @@ main {
     line-height: 4rem;
 }
 
-.menu-image-container > img {
+.menu-image-container {
     max-width: 50%;
+}
+
+.menu-item-container {
+    height: 30%;
 }
 
 .footer {

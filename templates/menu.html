@@ -6,16 +6,32 @@
         <p>Our menu of steaks is sure to intice you</p>
     </div>
     <div class="container text-center text-main">
-        {% for item in menu_item %}
-        <div class="row">
-            <div class="col-6">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.description }}</p>
-                <p>Price: £ {{ item.price }}</p>
+        <div class="row text-center">
+            <div class="col">
+                <h3>Main</h3>
+                {% for item in menu_item %}
+                {% if 'main' in item.course %}
+                <div class="row border-bottom border-ligth menu-item-container"><p>{{ item.name }} : £ {{ item.price }}</p>
+                    <div class="col"><p>{{ item.description }}</p></div>
+                    <div class="col"><img class="menu-image-container" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+                </div>
+                <br>
+                {% endif %}
+                {% endfor %}
             </div>
-            <div class="col-6 menu-image-container"><img src="{{ item.img.url }}" alt="Menu item image"></div>
+            <div class="col-1"></div>
+            <div class="col">
+                <h3>Sides</h3>
+                {% for item in menu_item %}
+                {% if 'side' in item.course %}
+                <div class="row border-bottom border-light menu-item-container"><p>{{ item.name }} : £ {{ item.price }}</p>
+                    <div class="col"><p>{{ item.description }}</p></div>
+                    <div class="col"><img class="menu-image-container" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+                </div>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
-        <br>
-        {% endfor %}
     </div>
 {% endblock %}

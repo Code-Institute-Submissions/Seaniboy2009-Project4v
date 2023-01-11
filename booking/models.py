@@ -13,6 +13,13 @@ TABLE_SEATS = (
     ('6', '6'),
 )
 
+COURSE_SELECTION = (
+    ('main', 'main'),
+    ('starter', 'starter'),
+    ('side', 'side'),
+    ('desert', 'desert'),
+)
+
 TIME_SLOTS = (
     (datetime.time(10, 00, 00), u'10 AM'),
     (datetime.time(11, 00, 00), u'11 AM'),
@@ -88,6 +95,7 @@ class MenuItem(models.Model):
     description = models.CharField(max_length=20, default='menu item')
     price = models.IntegerField(default=9.99)
     img = CloudinaryField('image', default='placeholder')
+    course = models.CharField(max_length=20, choices=COURSE_SELECTION, default='main')
 
     class Meta:
         ordering = ["-created_on"]
