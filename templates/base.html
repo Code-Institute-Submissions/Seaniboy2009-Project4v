@@ -25,7 +25,7 @@
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation"><span
                     class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse navbar-colour" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
                     </li>
@@ -41,8 +41,8 @@
                     {% endif %}
                 </ul>
                 {% if user.is_staff %}
-                <span class="navbar-text text-muted">
-                    <a class="nav-link text-uppercase" href="{% url 'management' %}">Management</a>
+                <span class="navbar-text">
+                    <a class="nav-link" href="{% url 'management' %}">Management</a>
                 </span>
                 {% endif %}
                 {% if user.is_authenticated %}

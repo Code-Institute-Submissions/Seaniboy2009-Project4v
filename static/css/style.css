@@ -4,6 +4,10 @@
     color: #ffffff;
 }
 
+.navbar-colour {
+    background-color: rgba(42 42 42 / 95%);
+}
+
 .center-image-text-color {
     color: #ffffff;
 }
@@ -26,7 +30,7 @@ body {
 }
 
 main {
-    min-height: 100vh;
+    min-height: 165vh;
     background-color: rgba(71, 67, 66, 0.9);
 }
 
