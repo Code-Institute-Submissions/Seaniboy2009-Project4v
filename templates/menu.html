@@ -13,7 +13,7 @@
                 {% if 'main' in item.course %}
                 <div class="row border-bottom border-ligth menu-item-container"><p>{{ item.name }} : £ {{ item.price }}</p>
                     <div class="col"><p>{{ item.description }}</p></div>
-                    <div class="col"><img class="menu-image-container" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+                    <div class="col"><img class="menu-image-container border border-ligth" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
                 </div>
                 <br>
                 {% endif %}
@@ -26,7 +26,7 @@
                 {% if 'side' in item.course %}
                 <div class="row border-bottom border-light menu-item-container"><p>{{ item.name }} : £ {{ item.price }}</p>
                     <div class="col"><p>{{ item.description }}</p></div>
-                    <div class="col"><img class="menu-image-container" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+                    <div class="col"><img class="menu-image-container border border-ligth" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
                 </div>
                 <br>
                 {% endif %}
