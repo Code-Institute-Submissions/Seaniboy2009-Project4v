@@ -117,16 +117,6 @@
                                                     <p>Booking Number: {{ booking.id }}</p>
                                                 </span>
                                             </div>
-                                            <form method="POST">
-                                                {{ delete_booking_form | crispy }}
-                                                {% csrf_token %}
-                                                <input type="hidden" name="id" value="{{ booking.id }}">
-                                                <div class="col-2">
-                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal" name="delete-booking">
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </form>
                                         </div>
                                         <div class="row">
                                             <div class="col-10">
@@ -137,10 +127,41 @@
                                                     <p>Number of quests: {{booking.number_of_guests}}</p>
                                                 </span>
                                             </div>
-                                            <div class="col-2">
-                                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confirmModal">
-                                                    Update
-                                                </button>
+                                            <div class="dropdown">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false" class="btn btn-danger">
+                                                                Edit Booking
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dLabel">
+                                                                <form id="delete-table-form" method="post">
+                                                                    {{ edit_booking_form | crispy }}
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="id" value="{{ booking.id }}">
+                                                                    <div class="col-2">
+                                                                        <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#confirmModal" name="edit-booking">
+                                                                            Update
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <form id="delete-table-form" method="post">
+                                                                {{ delete_booking_form | crispy }}
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="id" value="{{ booking.id }}">
+                                                                <div class="col-2">
+                                                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal" name="delete-booking">
+                                                                        Delete
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

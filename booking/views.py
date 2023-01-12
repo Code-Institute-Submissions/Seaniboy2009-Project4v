@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking, MenuItem, User
-from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm
+from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm, EditBookingForm
 from django.views import generic, View
 from django.contrib import messages
 
@@ -148,6 +148,7 @@ class managementPage(View):
                 'create_table_form': CreateTableForm(),
                 'delete_table_form': DeleteTableForm(),
                 'delete_booking_form': DeleteBookingForm(),
+                'edit_booking_form': EditBookingForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
@@ -159,26 +160,40 @@ class managementPage(View):
 
         if 'create-table' in request.POST:
             create_table = CreateTableForm(data=request.POST)
-            print(f'Create table submitted')
 
             if create_table.is_valid():
+                print("Form is valid")
                 table = create_table.save()
                 messages.success(request, 'New table created')
 
         if 'delete-table' in request.POST:
             delete_table = DeleteTableForm(data=request.POST)
-            table = get_object_or_404(Table, table_number=request.POST['table_number'])
-            print(table)
-            table.delete()
+
+            if delete_table.is_valid():
+                print("Form is valid")
+                table = get_object_or_404(Table, table_number=request.POST['table_number'])
+                print(table)
+                table.delete()
 
         if 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
-            booking = get_object_or_404(Booking, id=request.POST['id'])
-            table = booking.table
-            table.remove_num_of_bookings()
-            print(table)
-            table.save()
-            booking.delete()
+
+            if delete_booking.is_valid():
+                print("Form is valid")
+                booking = get_object_or_404(Booking, id=request.POST['id'])
+                table = booking.table
+                table.remove_num_of_bookings()
+                print(table)
+                table.save()
+                booking.delete()
+
+        if 'edit-booking' in request.POST:
+            edit_booking = EditBookingForm(data=request.POST)
+            
+            if edit_booking.is_valid():
+                print("Form is valid")
+                booking = get_object_or_404(Booking, id=request.POST['id'])
+                print(booking)
 
         return render(
             request,
@@ -187,6 +202,7 @@ class managementPage(View):
                 'create_table_form': CreateTableForm(),
                 'delete_table_form': DeleteTableForm(),
                 'delete_booking_form': DeleteBookingForm(),
+                'edit_booking_form': EditBookingForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
