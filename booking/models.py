@@ -86,7 +86,9 @@ class Booking(models.Model):
     booked_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="booked_by"
     )
-    approved = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=20, blank=True)
+    last_name = models.CharField(max_length=20, blank=True)
+    email = models.EmailField(max_length=20, blank=True)
 
     def __str__(self):
         return f"Booked by:"

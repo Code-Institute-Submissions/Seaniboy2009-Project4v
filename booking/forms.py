@@ -28,7 +28,7 @@ class BookingForm(forms.ModelForm):
         model = Booking
         booking_time = forms.ChoiceField(choices=TIME_SLOTS,)
         number_of_guests = forms.ChoiceField(choices=NUMBER_OF_SEATS,)
-        fields = ('number_of_guests', 'booking_date', 'booking_time',)
+        fields = ('number_of_guests', 'booking_date', 'booking_time', 'first_name', 'last_name', 'email')
         widgets = {
             'booking_date': forms.TextInput(attrs={'type': 'date'}),
         }

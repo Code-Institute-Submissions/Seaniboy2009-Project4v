@@ -9,7 +9,7 @@
                 {% if user.is_authenticated %}
                 <div class="col-6">
                     <form method="post" class="form-style">
-                        <h3>Select a date and time below</h3>
+                        <h3>HOW MANY GUESTS AND WHEN?</h3>
                         {{ booking_form | crispy }}
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
