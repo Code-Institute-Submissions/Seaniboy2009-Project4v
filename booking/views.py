@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking, MenuItem, User
-from .forms import BookingForm, CreateTableForm, DeleteTableForm
+from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm
 from django.views import generic, View
 from django.contrib import messages
 
@@ -48,7 +48,7 @@ class BookingPage(View):
             submited_booking.table = table_to_book
             submited_booking.booked_by = request.user
             submited_booking.save()
-            table_to_book.update_num_of_bookings()
+            table_to_book.add_num_of_bookings()
             table_to_book.save()
             messages.success(request, f'Thank you for making a booking with us, see you on {submited_booking.booking_date}')
             return HttpResponseRedirect(reverse("home"))
@@ -147,6 +147,7 @@ class managementPage(View):
             {
                 'create_table_form': CreateTableForm(),
                 'delete_table_form': DeleteTableForm(),
+                'delete_booking_form': DeleteBookingForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
@@ -170,12 +171,22 @@ class managementPage(View):
             print(table)
             table.delete()
 
+        if 'delete-booking' in request.POST:
+            delete_booking = DeleteBookingForm(data=request.POST)
+            booking = get_object_or_404(Booking, id=request.POST['id'])
+            table = booking.table
+            table.remove_num_of_bookings()
+            print(table)
+            table.save()
+            booking.delete()
+
         return render(
             request,
             "management.html",
             {
                 'create_table_form': CreateTableForm(),
                 'delete_table_form': DeleteTableForm(),
+                'delete_booking_form': DeleteBookingForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
