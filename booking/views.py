@@ -189,11 +189,73 @@ class managementPage(View):
 
         if 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
-            
+            submited_booking = edit_booking.save(commit=False)
+            list_of_tables = list(tables)
+            booked_tables = []
+
+            def check_table_size(table):
+                """
+                Check the booking party size and compare to the table max size
+                """
+                seats = int(table.num_seats)
+                request_seats = int(submited_booking.number_of_guests)
+
+                if seats >= request_seats:
+                    print(f'Table:  {table} has enough seats')
+                    return True
+                else:
+                    print(f'Table:  {table} does not have enough seats')
+                    print(f'Table seats: {seats}')
+                    print(f'Requested seats: {request_seats}')
+                    return False
+
             if edit_booking.is_valid():
                 print("Form is valid")
                 booking = get_object_or_404(Booking, id=request.POST['id'])
-                print(booking)
+                free_table = []
+                booked_tables = []
+
+                for booking in bookings:
+                    for table in list_of_tables:
+                        if submited_booking.booking_time == booking.booking_time and submited_booking.booking_date == booking.booking_date and booking.table == table:
+                            booked_tables.append(table)
+                            print('booked already')
+                        else:
+                            free_table.append(table)
+                            print('Not booked')
+
+                free_table.sort(key=lambda x: x.table_number)
+                booked_tables.sort(key=lambda x: x.table_number)
+
+                if booked_tables == list_of_tables:
+                    print('fully booked for this time and date')
+                else:
+                    avalible_tables = []
+                    for table in list_of_tables:
+                        if table not in booked_tables:
+                            if check_table_size(table):
+                                avalible_tables.append(table)
+    
+                    if avalible_tables:
+                        table = avalible_tables[0]
+                        print('__________________________________________________')
+                        print(f'Booking: {booking}')
+                        print('TABLE:')
+                        print(f'From: {booking.table}')
+                        print(f'To: {table}')
+                        print('DATE: ')
+                        print(f'From: {booking.booking_date}')
+                        print(f'To: {submited_booking.booking_date}')
+                        print('TIME:')
+                        print(f'From: {booking.booking_time}')
+                        print(f'To: {submited_booking.booking_time}')
+                        print('__________________________________________________')
+                        booking.table = table
+                        booking.booking_date = submited_booking.booking_date
+                        booking.booking_time = submited_booking.booking_time
+                        booking.save()
+                    else:
+                        print('no free tables for your party size')
 
         return render(
             request,
