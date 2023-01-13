@@ -7,10 +7,10 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0, "Awaiting"), (1, "Approved"))
 
 TABLE_SEATS = (
-    ('2', '2'),
-    ('4', '4'),
-    ('5', '5'),
-    ('6', '6'),
+    (2, '2'),
+    (4, '4'),
+    (5, '5'),
+    (6, '6'),
 )
 
 COURSE_SELECTION = (
@@ -81,7 +81,7 @@ class Booking(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='bookings')
     booking_time = models.TimeField(choices=TIME_SLOTS)
     booking_date = models.DateField(default=datetime.date.today)
-    number_of_guests = models.IntegerField(default=2)
+    number_of_guests = models.IntegerField(default=2, choices=TABLE_SEATS)
     booked_on = models.DateTimeField(auto_now_add=True)
     booked_by = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="booked_by"

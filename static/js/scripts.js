@@ -13,13 +13,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // update copyright date
     copyright_text.innerText = new Date().getFullYear();
 
-    // For dropdown list under bookings
-    // $('.collapse').collapse()
-
-    // CLose any alerts after 3000 Mseconds 
+    // Close any alerts after 3000 Mseconds 
     setTimeout(function () {
         let messages = document.getElementById('msg');
         let alert = new bootstrap.Alert(messages);
         alert.close();
     }, 3000);
+
+    $('#confirmModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('whatever') // Extract info from data-* attributes
+
+        console.log(button.value)
+
+        var modal = $(this)
+        modal.find('.modal-title').text('New message to ' + recipient)
+        modal.find('.modal-body input').val(recipient)
+      })
 })
