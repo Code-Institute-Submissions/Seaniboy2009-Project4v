@@ -93,7 +93,7 @@ class BookingPage(View):
                     if table not in booked_tables:
                         if check_table_size(table):
                             avalible_tables.append(table)
-   
+
                 if avalible_tables:
                     return avalible_tables[0]
                 else:
@@ -138,7 +138,7 @@ class MenuPage(View):
 class managementPage(View):
 
     def get(self, request, *args, **kwargs):
-        tables = list(Table.objects.all())
+        tables = Table.objects.all()
         bookings = Booking.objects.all()
 
         return render(
@@ -172,7 +172,6 @@ class managementPage(View):
             if delete_table.is_valid():
                 print("Form is valid")
                 table = get_object_or_404(Table, table_number=request.POST['table_number'])
-                print(table)
                 table.delete()
 
         if 'delete-booking' in request.POST:
@@ -183,13 +182,13 @@ class managementPage(View):
                 booking = get_object_or_404(Booking, id=request.POST['id'])
                 table = booking.table
                 table.remove_num_of_bookings()
-                print(table)
                 table.save()
                 booking.delete()
 
         if 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
             submited_booking = edit_booking.save(commit=False)
+            list(tables)
             list_of_tables = list(tables)
             booked_tables = []
 
@@ -212,21 +211,15 @@ class managementPage(View):
             if edit_booking.is_valid():
                 print("Form is valid")
                 booking = get_object_or_404(Booking, id=request.POST['id'])
-                free_table = []
-                booked_tables = []
 
+                booked_tables = []
                 for booking in bookings:
                     for table in list_of_tables:
                         if submited_booking.booking_time == booking.booking_time and submited_booking.booking_date == booking.booking_date and booking.table == table:
                             booked_tables.append(table)
                             print('booked already')
-                        else:
-                            free_table.append(table)
-                            print('Not booked')
 
-                free_table.sort(key=lambda x: x.table_number)
                 booked_tables.sort(key=lambda x: x.table_number)
-
                 if booked_tables == list_of_tables:
                     print('fully booked for this time and date')
                 else:
@@ -235,7 +228,7 @@ class managementPage(View):
                         if table not in booked_tables:
                             if check_table_size(table):
                                 avalible_tables.append(table)
-    
+
                     if avalible_tables:
                         table = avalible_tables[0]
                         print('__________________________________________________')
