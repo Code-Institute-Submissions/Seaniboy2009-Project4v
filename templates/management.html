@@ -98,19 +98,105 @@
         <div class="col-12">
             <div class="row">
                 <h3>Manage Bookings</h3>
-                <ul class="collapsible tables-ul-list">
+                <!-- Bookings collapsible -->
+                <div id="accordion">
+                    {% for table in tables %}
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                            Table {{ table.table_number }} Bookings
+                            </button>
+                        </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            {% for booking in bookings %}
+                            {% if booking.table == table %}
+                            <div class="container text-success">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="border border-primary rounded-0 booking-border">
+                                            <p>Booking Number: {{ booking.id }}</p>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="border border-success rounded-0 booking-border">
+                                            <p>Time: {{ booking.booking_time }}</p>
+                                            <p>Date: {{ booking.booking_date }}</p>
+                                            <p>Booked by: {{ booking.booked_by }}</p>
+                                            <p>Number of guests: {{booking.number_of_guests }}</p>
+                                            <p>Guest name: {{booking.first_name }}</p>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="dropdown">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button id="dLabel" type="button" data-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false"
+                                                    class="btn btn-warning">
+                                                    Edit Booking
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dLabel">
+                                                    <form id="delete-table-form" method="post">
+                                                        {{ edit_booking_form | crispy }}
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id"
+                                                            value="{{ booking.id }}">
+                                                        <div class="col-2">
+                                                            <button type="submit" class="btn btn-warning"
+                                                                data-toggle="modal"
+                                                                data-target="#confirmModal"
+                                                                name="edit-booking">
+                                                                Update
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <form id="delete-table-form" method="post">
+                                                    {{ delete_booking_form | crispy }}
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="id" value="{{ booking.id }}">
+                                                    <div class="col-2">
+                                                        <button type="submit" class="btn btn-danger"
+                                                            data-toggle="modal" data-target="#confirmModal"
+                                                            name="delete-booking">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- <ul class="collapsible tables-ul-list">
+                    List of tables and there bookings, can edit and delete bookings from here
                     {% for table in tables %}
                     <li>
                         <div class="table-bookings mb-2">
                             <div>
-                                <!-- Name and number of the table -->
+                                <!-- Name and number of the table
                                 <button class="btn btn-primary" type="button" data-toggle="collapse"
                                     data-target="#collapse{{table.table_number}}" aria-expanded="false"
                                     aria-controls="collapseExample">
                                     <p>Table {{ table.table_number }} Bookings</p>
                                 </button>
                             </div>
-                            <!-- bookings for the tables -->
+                            <!-- bookings for the tables
                             <div class="collapse" id="collapse{{table.table_number}}">
                                 <div class="card card-body">
                                     {% for booking in bookings %}
@@ -185,10 +271,10 @@
                                 </div>
                             </div>
                         </div>
+                    </li>
+                    {% endfor %}
+                </ul> -->
             </div>
-            </li>
-            {% endfor %}
-            </ul>
         </div>
     </div>
 </div>

@@ -17,6 +17,17 @@
                 </div>
                 <div class="col">
                     <h3>Thank you for making your booking with us</h3>
+                    {% for booking in bookings %}
+                    {% if user.is_authenticated %}
+                    <span class="navbar-text text-muted">
+                        {% if user.id is booking.booked_by.id %}
+                        <h4>Your bookings</h4>
+                        <p>For: {{ booking.booking_date }}</p>
+                        <p>At: {{ booking.booking_time }}</p>
+                        {% endif %}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 {% else %}
                 <div class="col"></div>
