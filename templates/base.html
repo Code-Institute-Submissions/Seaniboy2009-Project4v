@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Restaurant clarks">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7e29e2724b.js" crossorigin="anonymous"></script>
@@ -26,7 +27,7 @@
                 aria-expanded="false" aria-label="Toggle navigation"><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse navbar-colour" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mx-auto text-main">
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'menu' %}">See
@@ -69,7 +70,7 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="footer text-faded text-center py-5">
+    <footer class="footer text-white text-center py-5">
         <div>
             <ul class="footer-ul">
                 <li>Copyright &copy; Clarks Restaurant <span id="copyright"></span></li>

@@ -97,7 +97,7 @@ class Booking(models.Model):
 class MenuItem(models.Model):
     name = models.CharField(max_length=20, default='menu item')
     created_on = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=20, default='menu item')
+    description = models.CharField(max_length=100, default='menu item')
     price = models.IntegerField(default=9.99)
     img = CloudinaryField('image', default='placeholder')
     course = models.CharField(max_length=20, choices=COURSE_SELECTION, default='main')

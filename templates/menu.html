@@ -1,37 +1,52 @@
 {% extends "base.html" %}
 {{ value|json_script:"menu" }}
 {% block content %}
-    <div class="text-main text-center container">
-        <h2>Menu</h2>
-        <p>Our menu of steaks is sure to intice you</p>
-    </div>
-    <div class="container text-center text-main">
-        <div class="row text-center">
-            <div class="col">
-                <h3>Main</h3>
-                {% for item in menu_item %}
-                {% if 'main' in item.course %}
-                <div class="row border-bottom border-ligth menu-item-container"><p>{{ item.name }} : £ {{ item.price }}</p>
-                    <div class="col"><p>{{ item.description }}</p></div>
-                    <div class="col"><img class="menu-image-container border border-ligth" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+<div class="text-main text-center container">
+    <h2>Menu</h2>
+    <p>As award-winning Masters of Steak, you’ll find true luxury in our prime steak cuts, aged for at least 30 days,
+        accredited by the Craft Guild of Chefs to ensure you’re only served the best. </p>
+</div>
+<div class="container text-center text-main">
+    <div class="row text-center">
+        <div class="col">
+            <h3>Main</h3>
+            {% for item in menu_item %}
+            {% if 'main' in item.course %}
+            <div class="row border-bottom border-ligth menu-item-container">
+                <p>{{ item.name }} : £ {{ item.price }}</p>
+                <div class="col">
+                    <p>{{ item.description }}</p>
                 </div>
-                <br>
-                {% endif %}
-                {% endfor %}
+                <div class="col"><img class="menu-image-container border border-ligth" src="{{ item.img.url }}"
+                        alt="Image of {{ item.name }}"></div>
             </div>
-            <div class="col-1"></div>
-            <div class="col">
-                <h3>Sides</h3>
-                {% for item in menu_item %}
-                {% if 'side' in item.course %}
-                <div class="row border-bottom border-light menu-item-container"><p>{{ item.name }} : £ {{ item.price }}</p>
-                    <div class="col"><p>{{ item.description }}</p></div>
-                    <div class="col"><img class="menu-image-container border border-ligth" src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+            <br>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-1"></div>
+        <div class="col">
+            <h3>Sides</h3>
+            {% for item in menu_item %}
+            {% if 'side' in item.course %}
+            <div class="row border-bottom border-light menu-item-container">
+                <p>{{ item.name }} : £ {{ item.price }}</p>
+                <div class="col">
+                    <p>{{ item.description }}</p>
                 </div>
-                <br>
-                {% endif %}
-                {% endfor %}
+                <div class="col"><img class="menu-image-container border border-ligth" src="{{ item.img.url }}"
+                        alt="Image of {{ item.name }}"></div>
             </div>
+            <br>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
+</div>
+<div class="">
+    <div class="image-container">
+        <img src="https://res.cloudinary.com/dgj9rjuka/image/upload/v1673617297/steak-bone-banner-collage-top-view-free-space-your-text_187166-4157_rjzqod.jpg"
+            class="img-fluid" alt="Responsive image">
+    </div>
+</div>
 {% endblock %}
