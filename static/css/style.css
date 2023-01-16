@@ -1,9 +1,9 @@
 /* ************************************************* Colour */
-.text-main, h1, .text-faded, .model-text-colour, .center-image-text-colour {
+.text-main, .text-faded, .model-text-colour {
     color: #000000;
 }
 
-#mainNav .navbar-brand, .nav-link, a {
+#mainNav, .navbar-brand, .center-image-text-color {
     color: #ffffff;
 }
 
@@ -15,6 +15,14 @@ main {
     background-color: rgb(0, 0, 0)
 }
 
+.text-main-a, .nav-link {
+    color: #027523;
+}
+
+.text-main-a:hover {
+    color: #25cb6d;
+}
+
 /* ************************************************* Base */
 body {
     background-color: rgb(255, 255, 255);
@@ -24,10 +32,6 @@ body {
     max-width: 100%;
 }
 
-/* main {
-    min-height: 165vh;
-} */
-
 .image-container {
     position: inherit;
     text-align: center;
@@ -36,6 +40,14 @@ body {
 .text-center {
     text-align: center;
 }
+
+.text-main-a {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
 
 .center-image-text {
     position: absolute;
@@ -68,10 +80,6 @@ body {
 .menu-image-container {
     max-width: 50%;
 }
-
-/* .menu-item-container {
-    height: 30%;
-} */
 
 .footer {
     align-items: center;

@@ -31,7 +31,7 @@
                 </div>
                 {% else %}
                 <div class="col"></div>
-                    <p>Please <a class="nav-link text-uppercase" href="{% url 'account_login' %}">Login</a> or <a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Sign up</a> to book a table with us:</p>
+                    <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a> to book a table with us:</p>
                 {% endif %}
             </div>
         </div>
