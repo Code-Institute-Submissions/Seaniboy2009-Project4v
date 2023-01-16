@@ -68,6 +68,15 @@ body {
     margin-top: 0;
     height: 10%;
     z-index: 1;
+    height: 7%;
+}
+
+.message-container {
+    align-items: center;
+    position: fixed;
+    margin-top: 0;
+    height: 10%;
+    z-index: 1;
 }
 
 .site-heading .site-heading-stars {
@@ -109,7 +118,7 @@ body {
 
 .container {
     align-content: center;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .form-style {
