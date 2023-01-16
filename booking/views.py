@@ -47,6 +47,8 @@ class BookingPage(View):
             """
             submited_booking.table = table_to_book
             submited_booking.booked_by = request.user
+            if not submited_booking.first_name:
+                submited_booking.first_name = request.user
             submited_booking.save()
             table_to_book.add_num_of_bookings()
             table_to_book.save()
