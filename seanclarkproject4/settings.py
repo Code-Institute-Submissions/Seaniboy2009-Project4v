@@ -18,7 +18,7 @@ import os
 if os.path.isfile('env.py'):
     import env
 
-development = bool(os.environ.get('DEVELOPMENT'))
+development = os.environ.get('DEVELOPMENT')
 print(f'Development is set to {development}')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'seanclarkproject4.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if development == True:
+if development:
     print('development True')
 
     DATABASES = {

@@ -39,6 +39,18 @@ class TestModels(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'book.html')
 
+    def test_get_login_page(self):
+        """Get login page url"""
+        response = self.client.get('/accounts/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_get_create_account_page(self):
+        """Get create account page url"""
+        response = self.client.get('/accounts/signup/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/signup.html')
+
     def test_get_management_page(self):
         """Get management url"""
         response = self.client.get('/management/')
