@@ -162,25 +162,32 @@ class managementPage(View):
 
         if 'create-table' in request.POST:
             create_table = CreateTableForm(data=request.POST)
+            print(create_table)
 
             if create_table.is_valid():
-                print("Form is valid")
+                print("create-table Form is valid")
                 table = create_table.save()
                 messages.success(request, 'New table created')
 
         if 'delete-table' in request.POST:
             delete_table = DeleteTableForm(data=request.POST)
+            print(delete_table)
+            table = get_object_or_404(Table, table_number=request.POST['table_number'])
 
-            if delete_table.is_valid():
-                print("Form is valid")
-                table = get_object_or_404(Table, table_number=request.POST['table_number'])
+            if table:
+                print(table)
                 table.delete()
+                messages.success(request, f'{table} deleted')
+            else:
+                messages.warning(request, 'table does not exist')
+                print('Does not exist')
 
         if 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
+            print(delete_booking)
 
             if delete_booking.is_valid():
-                print("Form is valid")
+                print("delete-booking Form is valid")
                 booking = get_object_or_404(Booking, id=request.POST['id'])
                 table = booking.table
                 table.remove_num_of_bookings()
@@ -189,6 +196,7 @@ class managementPage(View):
 
         if 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
+            print(edit_booking)
             submited_booking = edit_booking.save(commit=False)
             list(tables)
             list_of_tables = list(tables)
@@ -211,7 +219,7 @@ class managementPage(View):
                     return False
 
             if edit_booking.is_valid():
-                print("Form is valid")
+                print("edit-booking Form is valid")
                 booking = get_object_or_404(Booking, id=request.POST['id'])
 
                 booked_tables = []
