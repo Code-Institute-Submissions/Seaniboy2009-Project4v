@@ -19,8 +19,31 @@ class TestModels(TestCase):
         table = Table.objects.create(table_number=1, num_seats=2)
         booking = Booking.objects.create(table=table, booked_by=self.test_user, booking_time=datetime.time(10, 00, 00))
         bookings = Booking.objects.all()
-        check_avalible_tables()
         self.assertEqual(len(bookings), 1)
+
+    def test_get_home_page(self):
+        """Get home page url"""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index.html')
+
+    def test_get_menu_page(self):
+        """Get menu page url"""
+        response = self.client.get('/menu/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'menu.html')
+
+    def test_get_booking_page(self):
+        """Get booking page url"""
+        response = self.client.get('/booking/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'book.html')
+
+    def test_get_management_page(self):
+        """Get management url"""
+        response = self.client.get('/management/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'management.html')
 
     @classmethod
     def tearDownClass(cls):
