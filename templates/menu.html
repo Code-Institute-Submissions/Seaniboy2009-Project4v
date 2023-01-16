@@ -9,7 +9,6 @@
 <div class="container text-center text-main">
     <div class="row text-center">
         <div class="col">
-            <h3>Menu</h3>
             <!-- Starter menu items, colapsable -->
             <div id="accordion">
                 <div class="card">
@@ -23,9 +22,9 @@
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                         {% for item in menu_item %}
-                        {% if 'side' in item.course %}
+                        {% if 'starter' in item.course %}
                         <div class="row border-bottom border-light menu-item-container">
-                            <p>{{ item.name }} : £ {{ item.price }}</p>
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
                             <div class="col">
                                 <p>{{ item.description }}</p>
                             </div>
@@ -54,7 +53,7 @@
                         {% for item in menu_item %}
                         {% if 'main' in item.course %}
                         <div class="row border-bottom border-ligth menu-item-container">
-                            <p>{{ item.name }} : £ {{ item.price }}</p>
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
                             <div class="col">
                                 <p>{{ item.description }}</p>
                             </div>
@@ -83,7 +82,7 @@
                         {% for item in menu_item %}
                         {% if 'side' in item.course %}
                         <div class="row border-bottom border-light menu-item-container">
-                            <p>{{ item.name }} : £ {{ item.price }}</p>
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
                             <div class="col">
                                 <p>{{ item.description }}</p>
                             </div>
@@ -110,9 +109,9 @@
                     <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                     <div class="card-body">
                         {% for item in menu_item %}
-                        {% if 'side' in item.course %}
+                        {% if 'desert' in item.course %}
                         <div class="row border-bottom border-light menu-item-container">
-                            <p>{{ item.name }} : £ {{ item.price }}</p>
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
                             <div class="col">
                                 <p>{{ item.description }}</p>
                             </div>

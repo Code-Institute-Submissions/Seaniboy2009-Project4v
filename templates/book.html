@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row text-center">
                 {% if user.is_authenticated %}
-                <div class="col-6">
+                <div class="col-md">
                     <form method="post" class="form-style">
                         <h3>HOW MANY GUESTS AND WHEN?</h3>
                         {{ booking_form | crispy }}
@@ -15,7 +15,7 @@
                         <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
                     </form>
                 </div>
-                <div class="col">
+                <div class="col-md">
                     <h3>Thank you for making your booking with us</h3>
                     {% for booking in bookings %}
                     {% if user.is_authenticated %}
