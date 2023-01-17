@@ -1,9 +1,13 @@
 /* ************************************************* Colour */
-.text-main, .text-faded, .model-text-colour {
+.text-main,
+.text-faded,
+.model-text-colour {
     color: #000000;
 }
 
-#mainNav, .navbar-brand, .center-image-text-color {
+#mainNav,
+.navbar-brand,
+.center-image-text-color {
     color: #ffffff;
 }
 
@@ -11,11 +15,15 @@ main {
     background-color: rgb(255, 255, 255);
 }
 
-#mainNav, .navbar-colour, .footer, .table-admin-pannel {
+#mainNav,
+.navbar-colour,
+.footer,
+.table-admin-pannel {
     background-color: rgb(0, 0, 0)
 }
 
-.text-main-a, .nav-link {
+.text-main-a,
+.nav-link {
     color: #027523;
 }
 
@@ -103,7 +111,11 @@ body {
     position: inherit;
 }
 
-.review-ul-list, .opening-times-ul, .footer-ul, .table-crud-ul, .tables-ul-list  {
+.review-ul-list,
+.opening-times-ul,
+.footer-ul,
+.table-crud-ul,
+.tables-ul-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -118,13 +130,13 @@ body {
     margin-right: 1%;
 }
 
-.tables-ul-list > li {
+.tables-ul-list>li {
     padding-top: 2%;
 }
 
 .container {
     align-content: center;
-    margin-top: 5%;
+    margin-top: 10%;
 }
 
 .form-style {
@@ -144,8 +156,15 @@ body {
 }
 
 @media (min-width: 1920px) {
-    .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+
+    .container-xxl,
+    .container-xl,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container {
         max-width: 1920px;
+        margin-top: 5%;
     }
 }
 
@@ -154,5 +173,5 @@ body {
     .container {
         margin-top: 13%;
     }
-    
+
 }

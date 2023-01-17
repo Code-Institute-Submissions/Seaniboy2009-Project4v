@@ -43,8 +43,9 @@ class BookingPage(View):
 
         def make_booking(table_to_book):
             """
-            Update the booking form with the table and user, update the
-            table bookings
+            Update the booking form with the table and user then update
+            the form and save this will then make the new booking.
+            this will also update the tables number of bookings
             """
             submited_booking.table = table_to_book
             
@@ -59,11 +60,12 @@ class BookingPage(View):
             table_to_book.add_num_of_bookings()
             table_to_book.save()
             messages.success(request, f'Thank you for making a booking with us, see you on {submited_booking.booking_date}')
-            return HttpResponseRedirect(reverse("home"))
+            return HttpResponseRedirect(request.META.get('book.html'))
 
         def check_table_size(table):
             """
-            Check the booking party size and compare to the table max size
+            Check the booking party size and compare to the table max size, this will
+            return true or false depending if the table has enough seats
             """
             seats = int(table.num_seats)
             request_seats = int(submited_booking.number_of_guests)
@@ -76,7 +78,7 @@ class BookingPage(View):
                 print(f'Table seats: {seats}')
                 print(f'Requested seats: {request_seats}')
                 return False
-            
+
         def check_avalible_tables():
             """
             Check the list of all tables and look though each and see if they
@@ -174,6 +176,8 @@ class managementPage(View):
                 print("create-table Form is valid")
                 table = create_table.save()
                 messages.success(request, 'New table created')
+            else:
+                messages.warning(request, 'Table with that name/number already exists')
 
         if 'delete-table' in request.POST:
             delete_table = DeleteTableForm(data=request.POST)
@@ -247,18 +251,6 @@ class managementPage(View):
 
                     if avalible_tables:
                         table = avalible_tables[0]
-                        print('__________________________________________________')
-                        print(f'Booking: {booking}')
-                        print('TABLE:')
-                        print(f'From: {booking.table}')
-                        print(f'To: {table}')
-                        print('DATE: ')
-                        print(f'From: {booking.booking_date}')
-                        print(f'To: {submited_booking.booking_date}')
-                        print('TIME:')
-                        print(f'From: {booking.booking_time}')
-                        print(f'To: {submited_booking.booking_time}')
-                        print('__________________________________________________')
                         booking.table = table
                         booking.booking_date = submited_booking.booking_date
                         booking.booking_time = submited_booking.booking_time
