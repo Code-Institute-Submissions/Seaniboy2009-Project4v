@@ -223,6 +223,15 @@ class managementPage(View):
                 table.save()
                 booking.delete()
 
+        if 'create-menu-item' in request.POST:
+            print('create-menu-item called')
+            create_menu_item = CreateMenuItemForm(data=request.POST)
+
+            if create_menu_item.is_valid():
+                print('create-menu-item form is valid')
+                create_menu_item.save()
+                messages.success(request, 'New menu item created')
+
         if 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
             print(edit_booking)
