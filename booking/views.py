@@ -38,6 +38,7 @@ class BookingPage(View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
+        user_admin = User.objects.get(username='admin')
         booking_form = BookingForm(data=request.POST)
 
         def make_booking(table_to_book):
@@ -46,9 +47,14 @@ class BookingPage(View):
             table bookings
             """
             submited_booking.table = table_to_book
-            submited_booking.booked_by = request.user
-            if not submited_booking.first_name:
-                submited_booking.first_name = request.user
+            
+            if request.user is None:
+                print('User signed in')
+                submited_booking.booked_by = request.user
+            else:
+                print('User not signed in')
+                submited_booking.booked_by = user_admin
+
             submited_booking.save()
             table_to_book.add_num_of_bookings()
             table_to_book.save()

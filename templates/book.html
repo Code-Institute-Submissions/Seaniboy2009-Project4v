@@ -2,39 +2,42 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-    <div class="container text-main text-center">
-        <h2>Book a table today</h2>
-        <div class="container">
-            <div class="row text-center">
-                {% if user.is_authenticated %}
-                <div class="col-md">
-                    <form method="post" class="form-style">
-                        <h3>HOW MANY GUESTS AND WHEN?</h3>
-                        {{ booking_form | crispy }}
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
-                    </form>
-                </div>
-                <div class="col-md">
-                    <h3>Thank you for making your booking with us</h3>
-                    <h4>Your bookings</h4>
-                    {% for booking in bookings %}
-                    {% if user.is_authenticated %}
-                    <span class="navbar-text text-muted">
-                        {% if user.id is booking.booked_by.id %}
-                        <h5>Your booking number {{ booking.id }}</h5>
-                        <p>name: {{ booking.name }}</p>
-                        <p>For: {{ booking.booking_date }} at: {{ booking.booking_time }}</p>
-                        {% endif %}
-                    </span>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                {% else %}
-                <div class="col"></div>
-                    <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a> to book a table with us:</p>
-                {% endif %}
+<div class="container text-main text-center">
+    <h2>Book a table today</h2>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md">
+                <form method="post" class="form-style">
+                    <h3>HOW MANY GUESTS AND WHEN?</h3>
+                    {{ booking_form | crispy }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
+                </form>
             </div>
+            {% if user.is_authenticated %}
+            <div class="col-md">
+                <h3>Thank you for making your booking with us</h3>
+                <h4>Your bookings</h4>
+                {% for booking in bookings %}
+                {% if user.is_authenticated %}
+                <span class="navbar-text text-muted">
+                    {% if user.id is booking.booked_by.id %}
+                    <h5>Your booking number {{ booking.id }}</h5>
+                    <p>name: {{ booking.name }}</p>
+                    <p>For: {{ booking.booking_date }} at: {{ booking.booking_time }}</p>
+                    {% endif %}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="col">
+                <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a
+                        href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a> to view your bookings with us, otherwise you can book as a guest:
+                </p>
+            </div>
+            {% endif %}
         </div>
     </div>
+</div>
 {% endblock %}
