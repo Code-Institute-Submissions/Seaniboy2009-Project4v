@@ -43,6 +43,7 @@ body {
 .image-container {
     position: inherit;
     text-align: center;
+    margin-top: 3%;
 }
 
 .text-center {
@@ -55,7 +56,6 @@ body {
     padding: 0;
     text-decoration: none;
 }
-
 
 .center-image-text {
     position: absolute;
@@ -100,15 +100,16 @@ body {
 
 .menu-image-container {
     max-width: 50%;
+    max-height: 80%;
 }
 
 .footer {
     align-items: center;
     left: 0;
     right: 0;
-    margin-bottom: 0;
+    margin-top: 5%;
     bottom: 0;
-    position: inherit;
+    position: relative;
 }
 
 .review-ul-list,
