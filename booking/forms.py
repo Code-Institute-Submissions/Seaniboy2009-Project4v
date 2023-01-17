@@ -1,4 +1,4 @@
-from .models import Booking, Table, TIME_SLOTS
+from .models import Booking, Table, TIME_SLOTS, MenuItem
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django import forms
 import datetime
@@ -41,3 +41,9 @@ class EditBookingForm(forms.ModelForm):
         widgets = {
             'booking_date': forms.TextInput(attrs={'type': 'date'}),
         }
+
+
+class CreateMenuItemForm(forms.ModelForm):
+    class Meta:
+        model = MenuItem
+        fields = ('name', 'description', 'price', 'img', 'course')

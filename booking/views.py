@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking, MenuItem, User
-from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm, EditBookingForm
+from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm, EditBookingForm, CreateMenuItemForm
 from django.views import generic, View
 from django.contrib import messages
 
@@ -79,11 +79,11 @@ class BookingPage(View):
                 print(f'Requested seats: {request_seats}')
                 return False
 
-        def check_avalible_tables():
+        def check_available_tables():
             """
             Check the list of all tables and look though each and see if they
             have a booking for the time and date, if they dontthey will be
-            added to a list of avalible tables
+            added to a list of available tables
             """
             list_of_tables = list(tables)
             booked_tables = []
@@ -98,21 +98,21 @@ class BookingPage(View):
             if booked_tables == list_of_tables:
                 messages.warning(request, 'Our apologies it looks like we are fully booked for this time and date')
             else:
-                avalible_tables = []
+                available_tables = []
                 for table in list_of_tables:
                     if table not in booked_tables:
                         if check_table_size(table):
-                            avalible_tables.append(table)
+                            available_tables.append(table)
 
-                if avalible_tables:
-                    return avalible_tables[0]
+                if available_tables:
+                    return available_tables[0]
                 else:
                     messages.warning(request, 'Our apologies it looks like we have no free tables for your party size')
 
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
 
-            free_table = check_avalible_tables()
+            free_table = check_available_tables()
             if free_table:
                 make_booking(free_table)
 
@@ -159,6 +159,7 @@ class managementPage(View):
                 'delete_table_form': DeleteTableForm(),
                 'delete_booking_form': DeleteBookingForm(),
                 'edit_booking_form': EditBookingForm(),
+                'create_menu_item_form': CreateMenuItemForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
@@ -243,14 +244,14 @@ class managementPage(View):
                 if booked_tables == list_of_tables:
                     print('fully booked for this time and date')
                 else:
-                    avalible_tables = []
+                    available_tables = []
                     for table in list_of_tables:
                         if table not in booked_tables:
                             if check_table_size(table):
-                                avalible_tables.append(table)
+                                available_tables.append(table)
 
-                    if avalible_tables:
-                        table = avalible_tables[0]
+                    if available_tables:
+                        table = available_tables[0]
                         booking.table = table
                         booking.booking_date = submited_booking.booking_date
                         booking.booking_time = submited_booking.booking_time
@@ -266,6 +267,7 @@ class managementPage(View):
                 'delete_table_form': DeleteTableForm(),
                 'delete_booking_form': DeleteBookingForm(),
                 'edit_booking_form': EditBookingForm(),
+                'create_menu_item_form': CreateMenuItemForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
