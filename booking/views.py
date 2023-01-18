@@ -113,11 +113,9 @@ class BookingPage(View):
             submited_booking.table = table_to_book
 
             # if request.user is None:
-            if user.authenticated:
-                print('User signed in')
+            if request.user.is_authenticated:
                 submited_booking.booked_by = request.user
             else:
-                print('User not signed in')
                 submited_booking.booked_by = user_admin
 
             submited_booking.save()
@@ -129,7 +127,8 @@ class BookingPage(View):
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
 
-            free_table = check_available_tables(submited_booking, request, False)
+            free_table = check_available_tables(submited_booking,
+                                                request, False)
             if free_table:
                 make_booking(free_table)
 
@@ -198,13 +197,15 @@ class ManagementPage(LoginRequiredMixin, View):
                 table = create_table.save()
                 messages.success(request, 'New table created')
             else:
-                messages.warning(request, 'Table with that name/number already exists')
+                messages.warning(request,
+                                 'Table with that name/number already exists')
 
         elif 'delete-table' in request.POST:
             print('delete-table')
             delete_table = DeleteTableForm(data=request.POST)
             print(delete_table)
-            table = get_object_or_404(Table, table_number=request.POST['table_number'])
+            table = get_object_or_404(Table,
+                                      table_number=request.POST['table_number'])
 
             if table:
                 print(table)
