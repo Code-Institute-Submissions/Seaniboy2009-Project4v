@@ -49,12 +49,5 @@ class CreateMenuItemForm(forms.ModelForm):
 
 
 class DeleteMenuItemForm(forms.Form):
-    # menuItem = MenuItem.objects.all()
-    # menuItemList = []
-    # for item in menuItem:
-    #     menuItemList.append((f'{item.name}', f'{item.name}'))
-
-    # model = MenuItem
-    # print(menuItemList)
     name = forms.ModelChoiceField(queryset=MenuItem.objects.all())
     fields = (name,)

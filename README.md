@@ -75,6 +75,8 @@
     - Python validation using [Python](https://pythontutor.com/python-debugger.html#mode=edit)
     - Spellchecker [Online Spellchecker](https://www.online-spellcheck.com/)
 
+- automation testing
+
 - test cases (user story based)
     - user viewing the menu
         - menu url is available and visible in the navigation bar
@@ -116,8 +118,7 @@
         - DEVELOPMENT
         - PORT
         - SECRET_KEY
-
-    - once done i then clicked on the deploy tab linked to my github, selected the main branch then deployed, i set this to automatic deploys so when ever i made a change it would do it. New app > settings > config var > build packs > deploy
+- once done i then clicked on the deploy tab linked to my github, selected the main branch then deployed, i set this to automatic deploys so when ever i made a change it would do it. New app > settings > config var > build packs > deploy
    
 - via gitpod
    - Deployment from gitpod was done by adding changes to the python3 command line, command to add changes git add ., adds each file to the commit, then type in commit -m "changes in here", once i was happy with that i could then push them to github, using git push command, as i set up heroku with auto deploy it would pull the updates sent from github.
