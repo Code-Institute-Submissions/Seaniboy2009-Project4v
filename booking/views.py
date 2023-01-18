@@ -186,6 +186,8 @@ class managementPage(View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
+        print('Form submitted')
+        print(request.POST)
 
         if 'create-table' in request.POST:
             create_table = CreateTableForm(data=request.POST)
