@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking, MenuItem, User
-from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm, EditBookingForm, CreateMenuItemForm
+from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm, EditBookingForm, CreateMenuItemForm, DeleteMenuItemForm
 from django.views import generic, View
 from django.contrib import messages
 
@@ -178,6 +178,7 @@ class managementPage(View):
                 'delete_booking_form': DeleteBookingForm(),
                 'edit_booking_form': EditBookingForm(),
                 'create_menu_item_form': CreateMenuItemForm(),
+                'delete_menu_item_form': DeleteMenuItemForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
@@ -190,17 +191,18 @@ class managementPage(View):
         print(request.POST)
 
         if 'create-table' in request.POST:
+            print('create-table')
             create_table = CreateTableForm(data=request.POST)
             print(create_table)
 
             if create_table.is_valid():
-                print("create-table Form is valid")
                 table = create_table.save()
                 messages.success(request, 'New table created')
             else:
                 messages.warning(request, 'Table with that name/number already exists')
 
         if 'delete-table' in request.POST:
+            print('delete-table')
             delete_table = DeleteTableForm(data=request.POST)
             print(delete_table)
             table = get_object_or_404(Table, table_number=request.POST['table_number'])
@@ -214,6 +216,7 @@ class managementPage(View):
                 print('Does not exist')
 
         if 'delete-booking' in request.POST:
+            print('delete-booking')
             delete_booking = DeleteBookingForm(data=request.POST)
             print(delete_booking)
 
@@ -225,14 +228,17 @@ class managementPage(View):
                 table.save()
                 booking.delete()
 
-        if 'create-menu-item' in request.POST:
-            print('create-menu-item called')
-            create_menu_item = CreateMenuItemForm(data=request.POST)
+        if 'delete-menu-item' in request.POST:
+            print('delete-menu-item called')
+            delete_menu_item = DeleteMenuItemForm(data=request.POST)
+            print(request.POST['name'])
+            menuItem = get_object_or_404(MenuItem, id=request.POST['name'])
+            print(menuItem)
 
-            if create_menu_item.is_valid():
+            if delete_menu_item.is_valid():
                 print('create-menu-item form is valid')
-                create_menu_item.save()
-                messages.success(request, 'New menu item created')
+                menuItem.delete()
+                messages.success(request, 'Item was deleted')
 
         if 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
@@ -244,36 +250,6 @@ class managementPage(View):
 
             check_available_tables(submited_booking, request, True)
 
-            # if edit_booking.is_valid():
-            #     print("edit-booking Form is valid")
-            #     booking = get_object_or_404(Booking, id=request.POST['id'])
-
-            #     booked_tables = []
-            #     for booking in bookings:
-            #         for table in list_of_tables:
-            #             if submited_booking.booking_time == booking.booking_time and submited_booking.booking_date == booking.booking_date and booking.table == table:
-            #                 booked_tables.append(table)
-            #                 print('booked already')
-
-            #     booked_tables.sort(key=lambda x: x.table_number)
-            #     if booked_tables == list_of_tables:
-            #         print('fully booked for this time and date')
-            #     else:
-            #         available_tables = []
-            #         for table in list_of_tables:
-            #             if table not in booked_tables:
-            #                 if check_table_size(table, booking):
-            #                     available_tables.append(table)
-
-            #         if available_tables:
-            #             table = available_tables[0]
-            #             booking.table = table
-            #             booking.booking_date = submited_booking.booking_date
-            #             booking.booking_time = submited_booking.booking_time
-            #             booking.save()
-            #         else:
-            #             print('no free tables for your party size')
-
         return render(
             request,
             "management.html",
@@ -283,6 +259,7 @@ class managementPage(View):
                 'delete_booking_form': DeleteBookingForm(),
                 'edit_booking_form': EditBookingForm(),
                 'create_menu_item_form': CreateMenuItemForm(),
+                'delete_menu_item_form': DeleteMenuItemForm(),
                 'tables': tables,
                 'bookings': bookings,
             },

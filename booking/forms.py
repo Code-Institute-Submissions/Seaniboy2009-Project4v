@@ -36,7 +36,6 @@ class EditBookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         booking_time = forms.ChoiceField(choices=TIME_SLOTS,)
-        # number_of_guests = forms.ChoiceField(choices=NUMBER_OF_SEATS,)
         fields = ('number_of_guests', 'booking_date', 'booking_time',)
         widgets = {
             'booking_date': forms.TextInput(attrs={'type': 'date'}),
@@ -47,3 +46,15 @@ class CreateMenuItemForm(forms.ModelForm):
     class Meta:
         model = MenuItem
         fields = ('name', 'description', 'price', 'img', 'course')
+
+
+class DeleteMenuItemForm(forms.Form):
+    # menuItem = MenuItem.objects.all()
+    # menuItemList = []
+    # for item in menuItem:
+    #     menuItemList.append((f'{item.name}', f'{item.name}'))
+
+    # model = MenuItem
+    # print(menuItemList)
+    name = forms.ModelChoiceField(queryset=MenuItem.objects.all())
+    fields = (name,)
