@@ -142,10 +142,26 @@ class BookingPage(View):
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
 
-            free_table = check_available_tables(submited_booking,
-                                                request, False)
-            if free_table:
-                make_booking(free_table)
+            # check if user has booked before and if its for the same date/time
+            has_booked = False
+            if bookings:
+                for booking in bookings:
+                    if (booking.first_name == submited_booking.first_name
+                       and booking.last_name == submited_booking.last_name
+                       and booking.booking_date == submited_booking.booking_date
+                       and booking.booking_time == submited_booking.booking_time):
+
+                        has_booked = True
+                        break
+
+            if has_booked:
+                messages.info(request, 'You have already made a'
+                                       'booking with us')
+            else:
+                free_table = check_available_tables(submited_booking,
+                                                    request, False)
+                if free_table:
+                    make_booking(free_table)
 
         else:
             booking_form = BookingForm()
