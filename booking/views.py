@@ -1,10 +1,16 @@
+from .forms import (BookingForm,
+                    CreateTableForm,
+                    DeleteTableForm,
+                    DeleteBookingForm,
+                    EditBookingForm,
+                    CreateMenuItemForm,
+                    DeleteMenuItemForm)
 from django.shortcuts import render, get_object_or_404, reverse
-from django.http import HttpResponseRedirect
 from .models import Review, Table, Booking, MenuItem, User
-from .forms import BookingForm, CreateTableForm, DeleteTableForm, DeleteBookingForm, EditBookingForm, CreateMenuItemForm, DeleteMenuItemForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.views import generic, View
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def check_table_size(table, booking):
@@ -23,8 +29,8 @@ def check_table_size(table, booking):
 def check_available_tables(submited_booking, request, edit):
     """
     Check the list of all tables and look though each and see if they
-    have a booking for the time and date of the submited_booking, if they dont they will be
-    added to a list of available tables
+    have a booking for the time and date of the submited_booking,
+    if they dont they will be added to a list of available tables
     """
     tables = Table.objects.all()
     bookings = Booking.objects.all()
@@ -34,15 +40,21 @@ def check_available_tables(submited_booking, request, edit):
     list_of_tables = list(tables)
     booked_tables = []
 
+    # Goes over each booking and its assigned table and sees if it has the
+    # booking if the table does not have the booking it can be used
     for booking in bookings:
         for table in list_of_tables:
-            if submited_booking.booking_date == booking.booking_date and submited_booking.booking_time == booking.booking_time and booking.table == table:
+            if (submited_booking.booking_date == booking.booking_date
+               and submited_booking.booking_time == booking.booking_time
+               and booking.table == table):
                 booked_tables.append(table)
 
     list_of_tables.sort(key=lambda x: x.table_number)
     booked_tables.sort(key=lambda x: x.table_number)
     if booked_tables == list_of_tables:
-        messages.warning(request, 'Our apologies it looks like we are fully booked for this time and date')
+        messages.warning(request,
+                         'Our apologies it looks like we are fully'
+                         'booked for this time and date')
 
     else:
         available_tables = []
@@ -51,6 +63,7 @@ def check_available_tables(submited_booking, request, edit):
                 if check_table_size(table, submited_booking):
                     available_tables.append(table)
 
+        # checks if its an edidted booking or new booking
         if available_tables:
             if edit:
                 print('Edit')
@@ -60,13 +73,15 @@ def check_available_tables(submited_booking, request, edit):
                 booking_to_edit.booking_time = submited_booking.booking_time
                 booking_to_edit.save()
                 print(f'Edited {booking_to_edit}')
-                messages.info(request, f'Booking updated {submited_booking.booking_date}')
+                messages.info(request, 'Booking updated'
+                              f'{submited_booking.booking_date}')
 
             else:
                 print('Not edit')
                 return available_tables[0]
         else:
-            messages.warning(request, 'Our apologies it looks like we have no free tables for your party size')
+            messages.warning(request, 'Our apologies it looks like we have no '
+                             'free tables for your party size')
 
 
 class HomePage(View):
@@ -112,7 +127,6 @@ class BookingPage(View):
             """
             submited_booking.table = table_to_book
 
-            # if request.user is None:
             if request.user.is_authenticated:
                 submited_booking.booked_by = request.user
             else:
@@ -121,7 +135,8 @@ class BookingPage(View):
             submited_booking.save()
             table_to_book.add_num_of_bookings()
             table_to_book.save()
-            messages.success(request, f'Thank you for making a booking with us, see you on {submited_booking.booking_date}')
+            messages.success(request, 'Thank you for making a booking with us,'
+                             f'see you on {submited_booking.booking_date}')
             return HttpResponseRedirect(request.META.get('book.html'))
 
         if booking_form.is_valid():
@@ -205,7 +220,8 @@ class ManagementPage(LoginRequiredMixin, View):
             delete_table = DeleteTableForm(data=request.POST)
             print(delete_table)
             table = get_object_or_404(Table,
-                                      table_number=request.POST['table_number'])
+                                      id=request.POST
+                                      ['table_number'])
 
             if table:
                 print(table)
