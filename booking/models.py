@@ -32,6 +32,9 @@ TIME_SLOTS = (
 
 
 class Review(models.Model):
+    """
+    Model for reviews
+    """
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     user = models.ForeignKey(
@@ -59,6 +62,9 @@ class Review(models.Model):
 
 
 class Table(models.Model):
+    """
+    Model for tables
+    """
     table_number = models.IntegerField(unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     num_seats = models.IntegerField(default=2, choices=TABLE_SEATS)
@@ -72,13 +78,17 @@ class Table(models.Model):
     
     def add_num_of_bookings(self):
         self.num_of_bookings += 1
-    
+
     def remove_num_of_bookings(self):
         self.num_of_bookings -= 1
 
 
 class Booking(models.Model):
-    table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='bookings')
+    """
+    Model for bookings
+    """
+    table = models.ForeignKey(Table, on_delete=models.CASCADE,
+                              related_name='bookings')
     booking_time = models.TimeField(choices=TIME_SLOTS)
     booking_date = models.DateField(default=datetime.date.today)
     number_of_guests = models.IntegerField(default=2, choices=TABLE_SEATS)
@@ -95,12 +105,16 @@ class Booking(models.Model):
 
 
 class MenuItem(models.Model):
+    """
+    Model for menu items
+    """
     name = models.CharField(max_length=20, default='menu item')
     created_on = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=100, default='menu item')
     price = models.IntegerField(default=10)
     img = CloudinaryField('image', default='placeholder')
-    course = models.CharField(max_length=20, choices=COURSE_SELECTION, default='main')
+    course = models.CharField(max_length=20, choices=COURSE_SELECTION,
+                              default='main')
 
     class Meta:
         ordering = ["-created_on"]

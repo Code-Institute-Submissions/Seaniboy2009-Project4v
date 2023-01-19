@@ -11,10 +11,15 @@ class CreateTableForm(forms.ModelForm):
         fields = ('table_number', 'num_seats')
 
 
-class DeleteTableForm(forms.ModelForm):
-    class Meta:
-        model = Table
-        fields = ('table_number',)
+# class DeleteTableForm(forms.ModelForm):
+#     class Meta:
+#         model = Table
+#         fields = ('table_number',)
+
+
+class DeleteTableForm(forms.Form):
+    table_number = forms.ModelChoiceField(queryset=Table.objects.all())
+    fields = (table_number,)
 
 
 class BookingForm(forms.ModelForm):

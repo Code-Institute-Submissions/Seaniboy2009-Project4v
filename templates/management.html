@@ -96,7 +96,7 @@
                     Create Menu Item
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel">
-                    <form method="post" class="form-style">
+                    <form method="post" class="form-style" enctype="multipart/form-data">
                         <h3>Create new table below</h3>
                         {{ create_menu_item_form | crispy }}
                         {% csrf_token %}

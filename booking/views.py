@@ -230,7 +230,7 @@ class ManagementPage(LoginRequiredMixin, View):
 
         elif 'create-menu-item' in request.POST:
             print('create-menu-item called')
-            create_menu_item = CreateMenuItemForm(data=request.POST)
+            create_menu_item = CreateMenuItemForm(request.POST, request.FILES)
 
             if create_menu_item.is_valid():
                 print('create-menu-item form is valid')
