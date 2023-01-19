@@ -9,7 +9,11 @@
 - as a user i want to see my confirmed booking
 - as a admin i want to create and delete tables in the restaurant and update the site
 - as a admin i want to be able to view all tables
+- as a admin i want to be able to create new tables
+- as a admin i want to be able to delete tables
 - as a admin i want to be able to see all bookings and manage
+- as a admin i want to be able to create menu items
+- as a admin i want to be able to delete menu items
 ## 3. Features: 
 - navigation bar
 - no login
@@ -80,20 +84,92 @@
 - test cases (user story based)
     - user viewing the menu
         - menu url is available and visible in the navigation bar
-    - user booking a table
-        - menu url is available and visible in the navigation bar
-    - user viewing  there bookings (Login and active account required)
-        - menu url is available and visible in the navigation bar
-    - admin viewing the bookings (Login and active account required)
-        - menu url is available and visible in the navigation bar
-    - admin creating a table (admin account required)
-        - menu url is available and visible in the navigation bar
-    - admin deleting a table (admin account required)
-        - menu url is available and visible in the navigation bar
-    - admin updating a booking (admin account required)
-        - menu url is available and visible in the navigation bar
-    - admin deleting a booking (admin account required)
-        - menu url is available and visible in the navigation bar
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673958261/Wireframe/navfull_q5evlf.png)
+
+- user clicked menu
+- user then has a list of starters, mains, sides and deserts
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954942/Wireframe/menu_qay4dp.png)
+
+- user can click to see each item
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131345/Wireframe/menuitem_jn2zju.png)
+
+- user booking a table
+    - Booking url is available and visible in the navigation bar
+    - user can enter amount of people, date, time, name and email
+    - user can then click submit
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/booking-loggedout_eekm6l.png)
+
+- user will be told if its booked
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131344/Wireframe/booking_sucess_vq1zsx.png)
+
+- user will be told if it cant book
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131595/Wireframe/party_to_big_ckllme.png)
+
+- user will be told if they have booked for this time/date already
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131344/Wireframe/already_made_booking_ehfsfv.png)
+
+- user viewing  there bookings (Login and active account required)
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/booking-loggedin_enhwat.png)
+
+- admin viewing tables (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin signed in and can see the list of tables that are avalible on the right
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131807/Wireframe/list_of_all_tables_jffzub.png)
+
+- admin viewing the bookings (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin signs in and can see the tables bookings and can then expand by clicking each table to see the booking
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/manage_bookings_qbcq9i.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131807/Wireframe/manage_bookings_open_fnuyku.png)
+
+- admin creating a table (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin can click on create table and fillout the number and select capacity of the table and click submit
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/create_table_lig8ha.png)
+
+- admin deleting a table (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin can click delete then have a list of avalible tables, select one then click delete again
+    - confirmation will popup admin can cancel or delete
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/delete_table_mjylgr.png
+
+- admin updating a booking (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin can click the table then on the booking update button, then can then change all the values and click update
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/edit_booking_vndjwo.png)
+
+- admin deleting a booking (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin can click the table then on the delete button of the booking
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131807/Wireframe/manage_bookings_open_fnuyku.png)
+
+- admin creating menu item (admin account required)
+    - management url is available and visible in the navigation bar
+    - admin can click on create menu item and fillout the details and click submit
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/create_menu_izykm7.png)
+
+- admin deleting menu item(admin account required)
+    - management url is available and visible in the navigation bar
+    - admin can click delete then have a list of avalible menu items, select one then click delete again
+    - confirmation will popup admin can cancel or delete
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/delete_menu_ircalr.png)
+
 
 - fixed bugs
     - had a hard time trying to implement more than one table booking, the code was fine for any booking with one table, but as soon as there were two tables the functons where not working, i had to re-do the code a few times
