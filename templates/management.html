@@ -17,7 +17,7 @@
     </div>
     {% if user.is_staff %}
     <div class="dropdown row">
-        <div class="col">
+        <div class="col text-center">
             <!-- Create new table -->
             <div class="col">
                 <button id="dLabel1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -26,14 +26,16 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel1">
                     <form id="create-table-form" method="post" class="form-style">
-                        <h3>Create new table below</h3>
+                        <strong>Create new table below</strong>
                         {{ create_table_form | crispy }}
                         {% csrf_token %}
+                        <br>
                         <button type="submit" class="btn btn-success btn-lg" form="create-table-form"
-                            name="create-table">Submit</button>
+                            name="create-table">Create</button>
                     </form>
                 </div>
             </div>
+            <br>
             <!-- Delete table -->
             <div class="col">
                 <button id="dLabel2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -42,8 +44,10 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel2">
                     <form id="delete-table-form" method="post">
+                        <strong>Select table to delete</strong>
                         {{ delete_table_form | crispy }}
                         {% csrf_token %}
+                        <br>
                         <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-table-form"
                             data-target="#confirmModal" name="delete-table" value="delete-table">
                             Delete
@@ -63,7 +67,7 @@
         </div>
     </div>
     <div class="dropdown row">
-        <div class="col">
+        <div class="col text-center">
             <h3>Manage Menu</h3>
             <!-- Create menu item -->
             <div class="col">
@@ -73,13 +77,15 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel3">
                     <form method="post" class="form-style" enctype="multipart/form-data">
-                        <h3>Create new table below</h3>
+                        <strong>Create new menu item</strong>
                         {{ create_menu_item_form | crispy }}
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-success btn-lg" name="create-menu-item">Submit</button>
+                        <br>
+                        <button type="submit" class="btn btn-success btn-lg" name="create-menu-item">Create</button>
                     </form>
                 </div>
             </div>
+            <br>
             <!-- Delete menu item -->
             <div class="col">
                 <button id="dLabel4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -88,8 +94,10 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel4">
                     <form id="delete-menu-item-form" method="post">
+                        <strong>Select menu item to delete</strong>
                         {{ delete_menu_item_form | crispy }}
                         {% csrf_token %}
+                        <br>
                         <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-menu-item-form"
                             data-target="#confirmModal" name="delete-menu-item" value="delete-menu-item">
                             Delete

@@ -16,7 +16,8 @@ from django.contrib import messages
 def make_booking(request, table_to_book, submited_booking):
     """
     Update the booking form with the table and user then update
-    the form and save this will then make the new booking.
+    the form and save.
+    This will then make the new booking.
     this will also update the tables number of bookings
     """
     submited_booking.table = table_to_book
