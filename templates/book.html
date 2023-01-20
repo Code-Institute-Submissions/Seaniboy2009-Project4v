@@ -11,6 +11,7 @@
                     <h3>HOW MANY GUESTS AND WHEN?</h3>
                     {{ booking_form | crispy }}
                     {% csrf_token %}
+                    <br>
                     <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
                 </form>
             </div>
@@ -20,15 +21,16 @@
                 <h4>Your bookings</h4>
                 {% for booking in bookings %}
                 {% if user.is_authenticated %}
-                <span class="navbar-text text-muted">
+                <div class="navbar-text text-muted">
                     {% if user.id is booking.booked_by.id %}
                     <h5>Your booking number {{ booking.id }}</h5>
-                    <p>name: {{ booking.first_name }}</p>
+                    <p>Booking Name: {{ booking.first_name }}</p>
                     <p>For: {{ booking.booking_date }} at: {{ booking.booking_time }}</p>
                     <form id="delete-booking-form" method="post">
                         {{ delete_booking_form | crispy }}
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{ booking.id }}">
+                        <br>
                         <div class="col">
                             <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
                             data-target="#confirmModal" name="delete-booking" value="delete-booking">
@@ -37,11 +39,11 @@
                         </div>
                     </form>
                     {% endif %}
-                </span>
+                </div>
                 {% endif %}
                 {% endfor %}
-                <strong><p>If you would like to cancel or update your booking, please contact us below, quoting your booking number <br> Number: 0141 124 0000
-                    Email: contact@clarks.com</p></strong>
+                <strong>If you would like to cancel or update your booking, please contact us below, quoting your booking number <br> Number: 0141 124 0000
+                    Email: contact@clarks.com</strong>
             </div>
             {% else %}
             <div class="col">
