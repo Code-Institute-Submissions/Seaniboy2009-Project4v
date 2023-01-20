@@ -23,8 +23,19 @@
                 <span class="navbar-text text-muted">
                     {% if user.id is booking.booked_by.id %}
                     <h5>Your booking number {{ booking.id }}</h5>
-                    <p>name: {{ booking.name }}</p>
+                    <p>name: {{ booking.first_name }}</p>
                     <p>For: {{ booking.booking_date }} at: {{ booking.booking_time }}</p>
+                    <form id="delete-booking-form" method="post">
+                        {{ delete_booking_form | crispy }}
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ booking.id }}">
+                        <div class="col">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
+                            data-target="#confirmModal" name="delete-booking" value="delete-booking">
+                            Delete
+                            </button>
+                        </div>
+                    </form>
                     {% endif %}
                 </span>
                 {% endif %}

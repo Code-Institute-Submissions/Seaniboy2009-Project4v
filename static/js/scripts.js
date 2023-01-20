@@ -15,13 +15,17 @@ document.addEventListener("DOMContentLoaded", () => {
         let modelHeading = document.getElementById("confirmModalLabel");
         let modelBody = document.getElementById("confirmModalBody");
         let deleteMenuButton = document.getElementById("delete-menu-button");
-        let tableButton = document.getElementById("delete-table-button");
-        tableButton.style.display = "none"
+        let deleteTableButton = document.getElementById("delete-table-button");
+        let deleteBookingButton = document.getElementById("delete-booking-button");
+
+        // Set all the buttons to not visible
+        deleteTableButton.style.display = "none"
         deleteMenuButton.style.display = "none"
+        deleteBookingButton.style.display = "none"
 
         if (buttonClicked.value === "delete-table") {
 
-            tableButton.style.display = "block"
+            deleteTableButton.style.display = "block"
             modelHeading.innerText = `Confirm table deletion`;
             modelBody.innerText = `Please confirm you want to delete this table, once deleted this can not be undone, 
                                     this will also delete all bookings for this table.`;
@@ -30,6 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
             deleteMenuButton.style.display = "block"
             modelHeading.innerText = `Confirm menu item deletion`;
             modelBody.innerText = `Please confirm you want to delete this Menu item, once deleted this can not be undone.`;
+        } else if (buttonClicked.value === "delete-booking") {
+
+            deleteBookingButton.style.display = "block"
+            modelHeading.innerText = `Confirm booking deletion`;
+            modelBody.innerText = `Please confirm you want to delete this booking, once deleted this can not be undone.`;
         }
     }
     

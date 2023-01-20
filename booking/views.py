@@ -108,6 +108,7 @@ class BookingPage(View):
             {
                 'booking_form': BookingForm(),
                 'create_table_form': CreateTableForm(),
+                'delete_booking_form': DeleteBookingForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
@@ -137,7 +138,6 @@ class BookingPage(View):
             table_to_book.save()
             messages.success(request, 'Thank you for making a booking with us,'
                              f'see you on {submited_booking.booking_date}')
-            return HttpResponseRedirect(request.META.get('book.html'))
 
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
@@ -163,6 +163,19 @@ class BookingPage(View):
                 if free_table:
                     make_booking(free_table)
 
+        elif 'delete-booking' in request.POST:
+            print('delete-booking')
+            delete_booking = DeleteBookingForm(data=request.POST)
+            print(delete_booking)
+
+            if delete_booking.is_valid():
+                print("delete-booking Form is valid")
+                booking = get_object_or_404(Booking, id=request.POST['id'])
+                table = booking.table
+                table.remove_num_of_bookings()
+                table.save()
+                booking.delete()
+
         else:
             booking_form = BookingForm()
 
@@ -172,6 +185,7 @@ class BookingPage(View):
             {
                 'booking_form': BookingForm(),
                 'create_table_form': CreateTableForm(),
+                'delete_booking_form': DeleteBookingForm(),
                 'tables': tables,
                 'bookings': bookings,
             },
