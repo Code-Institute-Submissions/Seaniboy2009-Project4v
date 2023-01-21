@@ -2,22 +2,11 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container text-center text-main">
-    <div class="row">
-        <div class="col-12">
-            <h2><u>Staff Management</u></h2>
-        </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-6">
-            <h3><u>Table Management</u></h3>
-        </div>
-        <div class="col-6">
-            <h3><u>List of all tables</u></h3>
-        </div>
-    </div>
     {% if user.is_staff %}
+    <!-- Tables row -->
     <div class="dropdown row">
-        <div class="col text-center">
+        <div class="col-md-auto text-center">
+            <h3><u>Table Management</u></h3>
             <!-- Create new table -->
             <div class="col">
                 <button id="dLabel1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -57,7 +46,8 @@
             </div>
         </div>
         <!-- List of tables -->
-        <div class="col-6 text-center">
+        <div class="col-md-auto text-center">
+            <h3><u>List of all tables</u></h3>
             {% for table in tables %}
             <strong>Table: {{ table.table_number }}</strong>
             <p>Number of seats: {{ table.num_seats }}</p>
@@ -66,9 +56,10 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Menu and bookings row -->
     <div class="dropdown row">
-        <div class="col text-center">
-            <h3>Manage Menu</h3>
+        <div class="col-md-auto text-center">
+            <h3><u>Manage Menu</u></h3>
             <!-- Create menu item -->
             <div class="col">
                 <button id="dLabel3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -106,8 +97,8 @@
                 </div>
             </div>
         </div>
-        <div class="col">
-            <h3>Manage Bookings</h3>
+        <div class="col-md-auto">
+            <h3><u>Manage Bookings</u></h3>
             <!-- Bookings collapsible -->
             <div id="accordion">
                 {% for table in tables %}
@@ -149,39 +140,43 @@
                                     <div class="container">
                                         <div class="row">
                                             <!-- Edit booking -->
-                                            <div class="col-6">
-                                                <button id="dLabel5" type="button" data-toggle="dropdown"
+                                            <div class="col-md-auto">
+                                                <div class="row-md">
+                                                    <button id="dLabel5" type="button" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false" class="btn btn-warning">
-                                                    Edit Booking
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dLabel5">
-                                                    <form id="edit-table-form" method="post">
-                                                        {{ edit_booking_form | crispy }}
+                                                    Edit
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dLabel5">
+                                                        <form id="edit-table-form" method="post">
+                                                            {{ edit_booking_form | crispy }}
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="id" value="{{ booking.id }}">
+                                                            <div class="col-2">
+                                                                <button type="submit" class="btn btn-warning"
+                                                                    name="edit-booking">
+                                                                    Update
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Delete booking -->
+                                            <div class="col-md-auto">
+                                                <div class="row-md">
+                                                    <form id="delete-booking-form" method="post">
+                                                        {{ delete_booking_form | crispy }}
                                                         {% csrf_token %}
                                                         <input type="hidden" name="id" value="{{ booking.id }}">
-                                                        <div class="col-2">
-                                                            <button type="submit" class="btn btn-warning"
-                                                                name="edit-booking">
-                                                                Update
+                                                        <div class="col">
+                                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                                form="delete-booking-form" data-target="#confirmModal"
+                                                                name="delete-booking" value="delete-booking">
+                                                                Delete
                                                             </button>
                                                         </div>
                                                     </form>
                                                 </div>
-                                            </div>
-                                            <!-- Delete booking -->
-                                            <div class="col-6">
-                                                <form id="delete-booking-form" method="post">
-                                                    {{ delete_booking_form | crispy }}
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="id" value="{{ booking.id }}">
-                                                    <div class="col-2">
-                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                            form="delete-booking-form" data-target="#confirmModal"
-                                                            name="delete-booking" value="delete-booking">
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
