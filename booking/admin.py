@@ -6,7 +6,8 @@ from .models import Review, Table, Booking, MenuItem
 class ReviewAdmin(admin.ModelAdmin):
 
     list_filter = ('created_on',)
-    list_display = ('id', 'title', 'slug', 'content', 'stars', 'created_on', 'status')
+    list_display = ('id', 'title', 'slug', 'content',
+                    'stars', 'created_on', 'status')
     search_fields = ['title', 'content']
     actions = ['approved_comments']
 
@@ -25,7 +26,8 @@ class TableAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'booked_by', 'table', 'booking_time', 'booking_date', 'booked_on', 'first_name',)
+    list_display = ('id', 'booked_by', 'table', 'booking_time',
+                    'booking_date', 'booked_on', 'first_name',)
 
 
 @admin.register(MenuItem)

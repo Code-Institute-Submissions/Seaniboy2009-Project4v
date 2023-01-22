@@ -8,7 +8,7 @@
         <div class="row text-center">
             <div class="col-md">
                 <form method="post" class="form-style">
-                    <h3>HOW MANY GUESTS AND WHEN?</h3>
+                    <strong>Please select your booking details below <br>For large groups please call to arange</strong>
                     {{ booking_form | crispy }}
                     {% csrf_token %}
                     <br>
@@ -17,8 +17,8 @@
             </div>
             {% if user.is_authenticated %}
             <div class="col-md">
-                <h3>Thank you for making your booking with us</h3>
-                <h4>Your bookings</h4>
+                <h4>Thank you for making your booking with us</h4>
+                <strong>Your bookings</strong>
                 {% for booking in bookings %}
                 {% if user.is_authenticated %}
                 <div class="navbar-text text-muted">
@@ -34,7 +34,7 @@
                         <div class="col">
                             <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
                             data-target="#confirmModal" name="delete-booking" value="delete-booking">
-                            Delete
+                            Cancel Booking
                             </button>
                         </div>
                     </form>
@@ -42,13 +42,13 @@
                 </div>
                 {% endif %}
                 {% endfor %}
-                <strong>If you would like to cancel or update your booking, please contact us below, quoting your booking number <br> Number: 0141 124 0000
+                <strong>If you would like to update your booking, please contact us below, quoting your booking number <br> Number: 0141 124 0000
                     Email: contact@clarks.com</strong>
             </div>
             {% else %}
             <div class="col">
                 <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a
-                        href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a> to view your bookings with us, otherwise you can book as a guest:
+                        href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a>You have to have an account to view your bookings.
                 </p>
             </div>
             {% endif %}

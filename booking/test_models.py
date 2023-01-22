@@ -29,14 +29,18 @@ class TestModels(TestCase):
     def test_create_booking(self):
         """Create a booking and test if the DB has 1 entry"""
         table = Table.objects.create(table_number=1, num_seats=2)
-        booking = Booking.objects.create(table=table, booked_by=self.test_user, booking_time=datetime.time(10, 00, 00))
+        booking = Booking.objects.create(table=table, booked_by=self.test_user,
+                                         booking_time=datetime.time
+                                         (10, 00, 00))
         bookings = Booking.objects.all()
         self.assertEqual(len(bookings), 1)
 
     def test_delete_booking(self):
         """Delete a booking and test if the DB has 0 entries"""
         table = Table.objects.create(table_number=1, num_seats=2)
-        booking = Booking.objects.create(table=table, booked_by=self.test_user, booking_time=datetime.time(10, 00, 00))
+        booking = Booking.objects.create(table=table, booked_by=self.test_user,
+                                         booking_time=datetime.time
+                                         (10, 00, 00))
         bookings = Booking.objects.all()
         booking.delete()
         self.assertEqual(len(bookings), 0)

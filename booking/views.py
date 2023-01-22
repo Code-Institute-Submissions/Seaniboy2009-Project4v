@@ -141,25 +141,6 @@ class BookingPage(View):
         user_admin = User.objects.get(username='admin')
         booking_form = BookingForm(data=request.POST)
 
-        # def make_booking(table_to_book):
-        #     """
-        #     Update the booking form with the table and user then update
-        #     the form and save this will then make the new booking.
-        #     this will also update the tables number of bookings
-        #     """
-        #     submited_booking.table = table_to_book
-
-        #     if request.user.is_authenticated:
-        #         submited_booking.booked_by = request.user
-        #     else:
-        #         submited_booking.booked_by = user_admin
-
-        #     submited_booking.save()
-        #     table_to_book.add_num_of_bookings()
-        #     table_to_book.save()
-        #     messages.success(request, 'Thank you for making a booking with us,'
-        #                      f'see you on {submited_booking.booking_date}')
-
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
 
