@@ -82,6 +82,9 @@
     - Spellchecker [Online Spellchecker](https://www.online-spellcheck.com/)
 
 - automation testing
+    - 11 tests created
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674475878/Wireframe/tests_v6wwnn.png)
 
 - test cases (user story based)
     - user viewing the menu

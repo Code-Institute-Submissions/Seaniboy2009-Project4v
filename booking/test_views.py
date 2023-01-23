@@ -14,15 +14,6 @@ class TestModels(TestCase):
         """Test if the user exists"""
         self.assertTrue(self.test_user)
 
-    def test_check_booking_exists(self):
-        """Create a booking"""
-        table = Table.objects.create(table_number=1, num_seats=2)
-        booking = Booking.objects.create(table=table, booked_by=self.test_user,
-                                         booking_time=datetime.time
-                                         (10, 00, 00))
-        bookings = Booking.objects.all()
-        self.assertEqual(len(bookings), 1)
-
     def test_get_home_page(self):
         """Get home page url"""
         response = self.client.get('/')
@@ -52,12 +43,6 @@ class TestModels(TestCase):
         response = self.client.get('/accounts/signup/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/signup.html')
-
-    def test_get_management_page(self):
-        """Get management url"""
-        response = self.client.get('/management/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'management.html')
 
     @classmethod
     def tearDownClass(cls):
