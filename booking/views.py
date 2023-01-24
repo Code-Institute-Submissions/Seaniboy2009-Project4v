@@ -14,6 +14,25 @@ from django.contrib import messages
 import datetime
 
 
+def compare_dates(request, submited_booking):
+    """
+    Compare todays today to the submitted booking and if
+    booking is less than todays date cant book, else
+    you can book
+    """
+    # Get todays date and the selected booking date
+    booking_date = str(submited_booking.booking_date)
+    today_date = str(datetime.datetime.now().strftime("%Y-%m-%d"))
+
+    # Compare booking date and todays date so bookings cant be
+    # in the past
+    if booking_date < today_date:
+        messages.warning(request, 'Date is in the past')
+        return False
+    else:
+        return True
+
+
 def make_booking(request, table_to_book, submited_booking):
     """
     Update the booking form with the table and user then update
@@ -22,6 +41,8 @@ def make_booking(request, table_to_book, submited_booking):
     this will also update the tables number of bookings
     """
     submited_booking.table = table_to_book
+    # the admin account is needed for users who did not
+    # login
     user_admin = User.objects.get(username='admin')
 
     if request.user.is_authenticated:
@@ -57,6 +78,8 @@ def check_available_tables(submited_booking, request, edit):
     """
     tables = Table.objects.all()
     bookings = Booking.objects.all()
+
+    # If this is already an existing booking try and get the object
     if edit:
         booking_to_edit = get_object_or_404(Booking, id=request.POST['id'])
 
@@ -72,6 +95,7 @@ def check_available_tables(submited_booking, request, edit):
                and booking.table == table):
                 booked_tables.append(table)
 
+    # Sort the lists so they can be compared correctly
     list_of_tables.sort(key=lambda x: x.table_number)
     booked_tables.sort(key=lambda x: x.table_number)
     if booked_tables == list_of_tables:
@@ -80,13 +104,15 @@ def check_available_tables(submited_booking, request, edit):
                          'booked for this time and date')
 
     else:
+        # Check the size of avalible tables and the booking party size
         available_tables = []
         for table in list_of_tables:
             if table not in booked_tables:
                 if check_table_size(table, submited_booking):
                     available_tables.append(table)
 
-        # checks if its an edidted booking or new booking
+        # if there are tables avalible we can update a booking or
+        # return the first avalible table
         if available_tables:
             if edit:
                 table = available_tables[0]
@@ -141,16 +167,8 @@ class BookingPage(View):
 
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
-            booking_date = str(submited_booking.booking_date)
-            today_date = str(datetime.datetime.now().strftime("%Y-%m-%d"))
-            print(today_date)
-            print(booking_date)
 
-            if booking_date < today_date:
-                print('date is in the past')
-                messages.warning(request, 'Date is in the past')
-
-            else:
+            if compare_dates(request, submited_booking):
                 # check if user has booked before and if its the same booking
                 has_booked = False
                 if bookings:
@@ -260,7 +278,7 @@ class ManagementPage(LoginRequiredMixin, View):
             if table:
                 table.delete()
                 messages.warning(request, f'{table} deleted')
-                
+   
             else:
                 messages.info(request, 'table does not exist')
 
@@ -297,10 +315,12 @@ class ManagementPage(LoginRequiredMixin, View):
         elif 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
             submited_booking = edit_booking.save(commit=False)
-            list(tables)
-            list_of_tables = list(tables)
-            booked_tables = []
-            check_available_tables(submited_booking, request, True)
+
+            if compare_dates(request, submited_booking):
+                list(tables)
+                list_of_tables = list(tables)
+                booked_tables = []
+                check_available_tables(submited_booking, request, True)
 
         return render(
             request,
