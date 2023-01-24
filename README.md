@@ -15,6 +15,7 @@
 - as a admin i want to be able to create menu items
 - as a admin i want to be able to delete menu items
 ## 3. Features: 
+- The booking system needs to have one table created for any bookings to be made, each booking request date and time is checked against the tables bookings, if no bookins then a booking can happen, if one table is booked for the time and date but another is not, a booking can happen, if all tables have a booking for the time and date then no bookings can happen, there is also a check for the date and time slot so users cant book the same time and date regardless of how many tables there are(avoid duplicate bookings)  
 - navigation bar
 - no login
 
@@ -60,7 +61,8 @@
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673958261/Wireframe/green_ye0hc8.png)
 
 ## 6. Wireframes
-- Table class
+- Table class, the booking system works around how many tables there is and if each table is free 
+for the time and date that is selected
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673955041/Wireframe/tablelayout_fvmdnk.png)
 
