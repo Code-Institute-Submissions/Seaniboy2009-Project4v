@@ -21,6 +21,7 @@ def make_booking(request, table_to_book, submited_booking):
     this will also update the tables number of bookings
     """
     submited_booking.table = table_to_book
+    user_admin = User.objects.get(username='admin')
 
     if request.user.is_authenticated:
         submited_booking.booked_by = request.user
@@ -57,7 +58,7 @@ def check_available_tables(submited_booking, request, edit):
     bookings = Booking.objects.all()
     if edit:
         booking_to_edit = get_object_or_404(Booking, id=request.POST['id'])
-        print(booking_to_edit)
+
     list_of_tables = list(tables)
     booked_tables = []
 
@@ -87,18 +88,15 @@ def check_available_tables(submited_booking, request, edit):
         # checks if its an edidted booking or new booking
         if available_tables:
             if edit:
-                print('Edit')
                 table = available_tables[0]
                 booking_to_edit.table = table
                 booking_to_edit.booking_date = submited_booking.booking_date
                 booking_to_edit.booking_time = submited_booking.booking_time
                 booking_to_edit.save()
-                print(f'Edited {booking_to_edit}')
                 messages.info(request, 'Booking updated'
                               f'{submited_booking.booking_date}')
 
             else:
-                print('Not edit')
                 return available_tables[0]
         else:
             messages.warning(request, 'Our apologies it looks like we have no '
@@ -138,7 +136,6 @@ class BookingPage(View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
-        user_admin = User.objects.get(username='admin')
         booking_form = BookingForm(data=request.POST)
 
         if booking_form.is_valid():
@@ -168,12 +165,9 @@ class BookingPage(View):
                     make_booking(request, free_table, submited_booking)
 
         elif 'delete-booking' in request.POST:
-            print('delete-booking')
             delete_booking = DeleteBookingForm(data=request.POST)
-            print(delete_booking)
 
             if delete_booking.is_valid():
-                print("delete-booking Form is valid")
                 booking = get_object_or_404(Booking, id=request.POST['id'])
                 table = booking.table
                 table.remove_num_of_bookings()
@@ -235,13 +229,9 @@ class ManagementPage(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
-        print('Form submitted')
-        print(request.POST)
 
         if 'create-table' in request.POST:
-            print('create-table')
             create_table = CreateTableForm(data=request.POST)
-            print(create_table)
 
             if create_table.is_valid():
                 table = create_table.save()
@@ -251,24 +241,19 @@ class ManagementPage(LoginRequiredMixin, View):
                                  'Table with that name/number already exists')
 
         elif 'delete-table' in request.POST:
-            print('delete-table')
             delete_table = DeleteTableForm(data=request.POST)
-            print(delete_table)
             table = get_object_or_404(Table,
                                       id=request.POST
                                       ['table_number'])
 
             if table:
-                print(table)
                 table.delete()
                 messages.warning(request, f'{table} deleted')
             else:
                 messages.info(request, 'table does not exist')
-                print('Does not exist')
 
         elif 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
-            print(delete_booking)
 
             if delete_booking.is_valid():
                 booking = get_object_or_404(Booking, id=request.POST['id'])
@@ -284,20 +269,21 @@ class ManagementPage(LoginRequiredMixin, View):
             if create_menu_item.is_valid():
                 create_menu_item.save()
                 messages.success(request, 'New menu item created')
+            else:
+                messages.warning(request, 'Form invalid')
 
         elif 'delete-menu-item' in request.POST:
             delete_menu_item = DeleteMenuItemForm(data=request.POST)
-            print(request.POST['name'])
             menuItem = get_object_or_404(MenuItem, id=request.POST['name'])
-            print(menuItem)
 
             if delete_menu_item.is_valid():
                 menuItem.delete()
                 messages.warning(request, 'Item was deleted')
+            else:
+                messages.warning(request, 'Form invalid')
 
         elif 'edit-booking' in request.POST:
             edit_booking = EditBookingForm(data=request.POST)
-            print(edit_booking)
             submited_booking = edit_booking.save(commit=False)
             list(tables)
             list_of_tables = list(tables)
