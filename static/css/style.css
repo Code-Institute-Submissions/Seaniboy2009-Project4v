@@ -156,6 +156,10 @@ body {
     padding: 0rem 2rem;
 }
 
+.form-control {
+    text-align: center;
+}
+
 @media (min-width: 1920px) {
 
     .container-xxl,

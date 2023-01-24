@@ -31,7 +31,7 @@ def make_booking(request, table_to_book, submited_booking):
     submited_booking.save()
     table_to_book.add_num_of_bookings()
     table_to_book.save()
-    messages.success(request, 'Thank you for making a booking with us,'
+    messages.success(request, 'Thank you for making a booking with us, '
                      f'see you on {submited_booking.booking_date}')
 
 
@@ -75,7 +75,7 @@ def check_available_tables(submited_booking, request, edit):
     booked_tables.sort(key=lambda x: x.table_number)
     if booked_tables == list_of_tables:
         messages.warning(request,
-                         'Our apologies it looks like we are fully'
+                         'Our apologies it looks like we are fully '
                          'booked for this time and date')
 
     else:
@@ -156,8 +156,9 @@ class BookingPage(View):
                         break
 
             if has_booked:
-                messages.info(request, 'You have already made a'
+                messages.info(request, 'You have already made a '
                                        'booking with us')
+
             else:
                 free_table = check_available_tables(submited_booking,
                                                     request, False)
@@ -249,6 +250,7 @@ class ManagementPage(LoginRequiredMixin, View):
             if table:
                 table.delete()
                 messages.warning(request, f'{table} deleted')
+                
             else:
                 messages.info(request, 'table does not exist')
 

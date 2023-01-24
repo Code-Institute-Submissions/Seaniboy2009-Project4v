@@ -1,8 +1,7 @@
 from .models import Booking, Table, TIME_SLOTS, MenuItem
-from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django import forms
-import datetime
 from crispy_forms.helper import FormHelper
+from django.forms import SelectDateWidget
 
 
 class CreateTableForm(forms.ModelForm):
@@ -30,7 +29,8 @@ class BookingForm(forms.ModelForm):
                   'last_name',
                   'email')
         widgets = {
-            'booking_date': forms.TextInput(attrs={'type': 'date'}),
+            # 'booking_date': forms.TextInput(attrs={'type': 'date'}),
+            'booking_date': SelectDateWidget(years=range(2023, 2025)),
         }
 
 

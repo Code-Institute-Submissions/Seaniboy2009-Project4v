@@ -89,7 +89,7 @@ class Booking(models.Model):
     """
     table = models.ForeignKey(Table, on_delete=models.CASCADE,
                               related_name='bookings')
-    booking_time = models.TimeField(choices=TIME_SLOTS)
+    booking_time = models.TimeField(default='10 AM', choices=TIME_SLOTS)
     booking_date = models.DateField(default=datetime.date.today)
     number_of_guests = models.IntegerField(default=2, choices=TABLE_SEATS)
     booked_on = models.DateTimeField(auto_now_add=True)

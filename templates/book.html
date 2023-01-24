@@ -7,12 +7,12 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-md">
-                <form method="post" class="form-style">
+                <form method="post" class="form-style text-center">
                     <strong>Please select your booking details below <br>For large groups please call to arange</strong>
                     {{ booking_form | crispy }}
                     {% csrf_token %}
                     <br>
-                    <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Submit</button>
+                    <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Book</button>
                 </form>
             </div>
             {% if user.is_authenticated %}
