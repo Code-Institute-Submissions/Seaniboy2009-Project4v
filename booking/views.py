@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.views import generic, View
 from django.contrib import messages
+import datetime
 
 
 def make_booking(request, table_to_book, submited_booking):
@@ -140,30 +141,39 @@ class BookingPage(View):
 
         if booking_form.is_valid():
             submited_booking = booking_form.save(commit=False)
+            booking_date = str(submited_booking.booking_date)
+            today_date = str(datetime.datetime.now().strftime("%Y-%m-%d"))
+            print(today_date)
+            print(booking_date)
 
-            # check if user has booked before and if its for the same date/time
-            has_booked = False
-            if bookings:
-                for booking in bookings:
-                    if (booking.first_name == submited_booking.first_name
-                       and booking.last_name == submited_booking.last_name
-                       and booking.booking_date ==
-                       submited_booking.booking_date
-                       and booking.booking_time ==
-                       submited_booking.booking_time):
-
-                        has_booked = True
-                        break
-
-            if has_booked:
-                messages.info(request, 'You have already made a '
-                                       'booking with us')
+            if booking_date < today_date:
+                print('date is in the past')
+                messages.warning(request, 'Date is in the past')
 
             else:
-                free_table = check_available_tables(submited_booking,
-                                                    request, False)
-                if free_table:
-                    make_booking(request, free_table, submited_booking)
+                # check if user has booked before and if its the same booking
+                has_booked = False
+                if bookings:
+                    for booking in bookings:
+                        if (booking.first_name == submited_booking.first_name
+                           and booking.last_name == submited_booking.last_name
+                           and booking.booking_date ==
+                           submited_booking.booking_date
+                           and booking.booking_time ==
+                           submited_booking.booking_time):
+
+                            has_booked = True
+                            break
+
+                if has_booked:
+                    messages.info(request, 'You have already made a '
+                                           'booking with us')
+
+                else:
+                    free_table = check_available_tables(submited_booking,
+                                                        request, False)
+                    if free_table:
+                        make_booking(request, free_table, submited_booking)
 
         elif 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
