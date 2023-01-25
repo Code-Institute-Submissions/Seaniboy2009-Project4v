@@ -29,7 +29,6 @@ class BookingForm(forms.ModelForm):
                   'last_name',
                   'email')
         widgets = {
-            # 'booking_date': forms.TextInput(attrs={'type': 'date'}),
             'booking_date': SelectDateWidget(years=range(2023, 2025)),
         }
 

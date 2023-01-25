@@ -44,6 +44,10 @@
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/management_wwjxda.png)
 
+- Table management, create and delete tables, no bookings can be made without a table created
+- Menu item creation and deletion
+- bookings edit and deletion
+
 ## 4. Future features
 - ability for users to update there booking rather than over the phone
 - a UI layout of where the table are in the restaurant
