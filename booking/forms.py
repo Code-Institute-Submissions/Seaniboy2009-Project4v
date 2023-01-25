@@ -19,17 +19,16 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         booking_time = forms.ChoiceField(choices=TIME_SLOTS,)
-        first_name = forms.CharField(required=True)
-        last_name = forms.CharField(required=True)
-        email = forms.EmailField(required=True, max_length=100)
+        # first_name = forms.CharField(required=True)
+        # last_name = forms.CharField(required=True)
+        # email = forms.EmailField(required=True, max_length=100)
         fields = ('number_of_guests',
                   'booking_date',
                   'booking_time',
-                  'first_name',
-                  'last_name',
-                  'email')
+                  'booked_by',)
         widgets = {
             'booking_date': SelectDateWidget(years=range(2023, 2025)),
+            'booked_by': forms.HiddenInput(),
         }
 
 

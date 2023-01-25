@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{{ value|json_script:"menu" }}
 {% block content %}
 <div class="text-main text-center container">
     <h2>Menu</h2>
@@ -8,124 +7,122 @@
 </div>
 <div class="container text-center text-main">
     <div class="row text-center">
-        <div class="col">
-            <!-- Starter menu items, colapsable -->
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                Starter
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            {% for item in menu_item %}
-                            {% if 'starter' in item.course %}
-                            <div class="row border-bottom border-light menu-item-container">
-                                <h4>{{ item.name }} : £ {{ item.price }}</h4>
-                                <div class="col">
-                                    <p>{{ item.description }}</p>
-                                </div>
-                                <div class="col"><img class="menu-image-container border border-ligth"
-                                        src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+        <!-- Starter menu items, colapsable -->
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            Starter
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        {% for item in menu_item %}
+                        {% if 'starter' in item.course %}
+                        <div class="row border-bottom border-ligth menu-item-container">
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
+                            <div class="col">
+                                <p>{{ item.description }}</p>
                             </div>
-                            <br>
-                            {% endif %}
-                            {% endfor %}
+                            <div class="col"><img class="menu-image-container border border-ligth"
+                                    src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
                         </div>
+                        <br>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            <!-- Mains menu items, colapsable -->
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                Mains
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            {% for item in menu_item %}
-                            {% if 'main' in item.course %}
-                            <div class="row border-bottom border-ligth menu-item-container">
-                                <h4>{{ item.name }} : £ {{ item.price }}</h4>
-                                <div class="col">
-                                    <p>{{ item.description }}</p>
-                                </div>
-                                <div class="col"><img class="menu-image-container border border-ligth"
-                                        src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+        </div>
+        <!-- Mains menu items, colapsable -->
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            Mains
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        {% for item in menu_item %}
+                        {% if 'main' in item.course %}
+                        <div class="row border-bottom border-ligth menu-item-container">
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
+                            <div class="col">
+                                <p>{{ item.description }}</p>
                             </div>
-                            <br>
-                            {% endif %}
-                            {% endfor %}
+                            <div class="col"><img class="menu-image-container border border-ligth"
+                                    src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
                         </div>
+                        <br>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            <!-- Sides menu items, colapsable -->
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                Sides
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                            {% for item in menu_item %}
-                            {% if 'side' in item.course %}
-                            <div class="row border-bottom border-light menu-item-container">
-                                <h4>{{ item.name }} : £ {{ item.price }}</h4>
-                                <div class="col">
-                                    <p>{{ item.description }}</p>
-                                </div>
-                                <div class="col"><img class="menu-image-container border border-ligth"
-                                        src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+        </div>
+        <!-- Sides menu items, colapsable -->
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            Sides
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        {% for item in menu_item %}
+                        {% if 'side' in item.course %}
+                        <div class="row border-bottom border-light menu-item-container">
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
+                            <div class="col">
+                                <p>{{ item.description }}</p>
                             </div>
-                            <br>
-                            {% endif %}
-                            {% endfor %}
+                            <div class="col"><img class="menu-image-container border border-ligth"
+                                    src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
                         </div>
+                        <br>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            <!-- Desert menu items, colapsable -->
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingFour">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                Deserts
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                        <div class="card-body">
-                            {% for item in menu_item %}
-                            {% if 'desert' in item.course %}
-                            <div class="row border-bottom border-light menu-item-container">
-                                <h4>{{ item.name }} : £ {{ item.price }}</h4>
-                                <div class="col">
-                                    <p>{{ item.description }}</p>
-                                </div>
-                                <div class="col"><img class="menu-image-container border border-ligth"
-                                        src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
+        </div>
+        <!-- Desert menu items, colapsable -->
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFour"
+                            aria-expanded="true" aria-controls="collapseOne">
+                            Deserts
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body">
+                        {% for item in menu_item %}
+                        {% if 'desert' in item.course %}
+                        <div class="row border-bottom border-light menu-item-container">
+                            <h4>{{ item.name }} : £ {{ item.price }}</h4>
+                            <div class="col">
+                                <p>{{ item.description }}</p>
                             </div>
-                            <br>
-                            {% endif %}
-                            {% endfor %}
+                            <div class="col"><img class="menu-image-container border border-ligth"
+                                    src="{{ item.img.url }}" alt="Image of {{ item.name }}"></div>
                         </div>
+                        <br>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

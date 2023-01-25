@@ -3,8 +3,8 @@
 {% load crispy_forms_tags %}
 <div class="container text-center text-main">
     {% if user.is_staff %}
-    <!-- Tables row -->
-    <div class="dropdown row-md-auto">
+    <!-- Create/Delete - Tables / Menu row -->
+    <div class="dropdown row-md-auto border border-dark">
         <div class="col-md-auto text-center">
             <h3><u>Table Management</u></h3>
             <!-- Create new table -->
@@ -32,7 +32,7 @@
                     Delete Table
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel2">
-                    <form id="delete-table-form" method="post">
+                    <form id="delete-table-form" class="form-style" method="post">
                         <strong>Select table to delete</strong>
                         {{ delete_table_form | crispy }}
                         {% csrf_token %}
@@ -45,19 +45,6 @@
                 </div>
             </div>
         </div>
-        <!-- List of tables -->
-        <div class="col-md-auto text-center">
-            <h3><u>List of all tables</u></h3>
-            {% for table in tables %}
-            <strong>Table: {{ table.table_number }}</strong>
-            <p>Number of seats: {{ table.num_seats }}</p>
-            <p>Number of bookings: {{ table.num_of_bookings }}</p>
-            <br>
-            {% endfor %}
-        </div>
-    </div>
-    <!-- Menu and bookings row -->
-    <div class="dropdown row-md-auto">
         <div class="col-md-auto text-center">
             <h3><u>Manage Menu</u></h3>
             <!-- Create menu item -->
@@ -84,7 +71,7 @@
                     Delete Menu Item
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dLabel4">
-                    <form id="delete-menu-item-form" method="post">
+                    <form id="delete-menu-item-form" class="form-style" method="post">
                         <strong>Select menu item to delete</strong>
                         {{ delete_menu_item_form | crispy }}
                         {% csrf_token %}
@@ -97,97 +84,78 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-auto">
-            <h3><u>Manage Bookings</u></h3>
-            <!-- Bookings collapsible -->
-            <div id="accordion">
-                {% for table in tables %}
-                <div class="card">
-                    <div class="card-header" id="heading{{ table.id }}">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link text-main-a" data-toggle="collapse"
-                                data-target="#collapse{{ table.id }}" aria-expanded="true">
-                                Table {{ table.table_number }} Bookings
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapse{{ table.id }}" class="collapse" aria-labelledby="heading{{ table.id }}"
-                        data-parent="#accordion">
-                        <div class="card-body">
-                            {% for booking in bookings %}
-                            {% if booking.table == table %}
-                            <div class="container text-success">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="border border-primary rounded-0 booking-border">
-                                            <p>Booking Number: {{ booking.id }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="border border-success rounded-0 booking-border">
-                                            <p>Time: {{ booking.booking_time }}</p>
-                                            <p>Date: {{ booking.booking_date }}</p>
-                                            <p>Booked by: {{ booking.booked_by }}</p>
-                                            <p>Number of guests: {{booking.number_of_guests }}</p>
-                                            <p>Guest name: {{booking.first_name }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Delete/Edit bookings -->
-                                <div class="dropdown">
-                                    <div class="container">
-                                        <div class="row-md-auto">
-                                            <!-- Edit booking -->
-                                            <div class="col-md-auto">
-                                                <div class="row-md">
-                                                    <button id="dLabel5" type="button" data-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false" class="btn btn-warning">
-                                                    Edit
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dLabel5">
-                                                        <form id="edit-table-form" method="post">
-                                                            {{ edit_booking_form | crispy }}
-                                                            {% csrf_token %}
-                                                            <input type="hidden" name="id" value="{{ booking.id }}">
-                                                            <div class="col-2">
-                                                                <button type="submit" class="btn btn-warning"
-                                                                    name="edit-booking">
-                                                                    Update
-                                                                </button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Delete booking -->
-                                            <div class="col-md-auto">
-                                                <div class="row-md">
-                                                    <form id="delete-booking-form" method="post">
-                                                        {{ delete_booking_form | crispy }}
-                                                        {% csrf_token %}
-                                                        <input type="hidden" name="id" value="{{ booking.id }}">
-                                                        <div class="col">
-                                                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                                form="delete-booking-form" data-target="#confirmModal"
-                                                                name="delete-booking" value="delete-booking">
-                                                                Delete
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+        <br>
+    </div>
+    <br>
+    <!-- List of tables -->
+    <div class="row-md-auto border border-dark">
+        <h3><u>List of all tables</u></h3>
+        <br>
+        <div class="col-12">
+            <div class="row">
+            {% for table in tables %}
+                <div class="col-md text-center">
+                    <strong>Table: {{ table.table_number }}</strong>
+                    <p>Number of seats: {{ table.num_seats }}</p>
+                    <p>Number of bookings: {{ table.num_of_bookings }}</p>
+                </div>
+            {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="row">
+            {% endif %}
+            {% endfor%}
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Bookings row -->
+    <div class="row-md-auto border border-dark">
+        <h3><u>Manage Bookings</u></h3>
+        <br>
+        <div class="col-12">
+            <div class="row">
+            {% for booking in bookings %}
+                <div class="col-md-6 text-center">
+                    <h5>Booking number {{ booking.id }}</h5>
+                    <p>Booking Name: {{ booking.booked_by }}</p>
+                    <p>For: {{ booking.booking_date }} at: {{ booking.booking_time }}</p>
+                    <div class="col">
+                        <form id="delete-booking-form" method="post">
+                            {{ delete_booking_form | crispy }}
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ booking.id }}">
+                            <br>
+                            <div class="col">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
+                                data-target="#confirmModal" name="delete-booking" value="delete-booking">
+                                Cancel Booking
+                                </button>
                             </div>
-                            {% endif %}
-                            {% endfor %}
+                        </form>
+                    </div>
+                    <br>
+                    <div class="dropdown">
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Edit Booking
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <form id="edit-table-form" class="form-style" method="post">
+                                <strong>Update Booking</strong>
+                                {{ edit_booking_form | crispy }}
+                                {% csrf_token %}
+                                <br>
+                                <input type="hidden" name="id" value="{{ booking.id }}">
+                                <button type="submit" class="btn btn-warning" name="edit-booking">Update</button>
+                            </form>
                         </div>
                     </div>
+                    <br>
                 </div>
-                {% endfor %}
+            {% if forloop.counter|divisibleby:2 %}
+            </div>
+            <div class="row">
+            {% endif %}
+            {% endfor%}
             </div>
         </div>
     </div>

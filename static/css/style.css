@@ -141,8 +141,8 @@ body {
 }
 
 .form-style {
-    max-width: 50%;
-    margin-left: 25%;
+    max-width: 85%;
+    margin-left: 10%;
 }
 
 .booking-border {
@@ -158,6 +158,10 @@ body {
 
 .form-control {
     text-align: center;
+}
+
+.dropdown-menu {
+    width: 20%;
 }
 
 @media (min-width: 1920px) {

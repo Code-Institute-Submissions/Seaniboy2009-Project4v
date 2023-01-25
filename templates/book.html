@@ -3,41 +3,64 @@
 {% load crispy_forms_tags %}
 
 <div class="container text-main text-center">
-    <h2>Book a table today</h2>
+    <h2><u>Book a table today</u></h2>
     <div class="container">
         <div class="row text-center">
+            {% if user.is_authenticated %}
             <div class="col-md">
                 <form method="post" class="form-style text-center">
                     <strong>Please select your booking details below <br>For large groups please call to arange</strong>
                     {{ booking_form | crispy }}
                     {% csrf_token %}
+                    <input type="hidden" name="booked_by" value="{{ user.id }}">
                     <br>
-                    <button type="submit" class="btn btn-success btn-lg" name="submit-booking">Book</button>
+                    <button type="submit" class="btn btn-success btn-lg" name="submit-booking"
+                    value="submit-booking">Book</button>
                 </form>
+                <br>
             </div>
-            {% if user.is_authenticated %}
+
             <div class="col-md">
                 <h4>Thank you for making your booking with us</h4>
                 <strong>Your bookings</strong>
                 {% for booking in bookings %}
                 {% if user.is_authenticated %}
-                <div class="navbar-text text-muted">
+                <div class="navbar-text">
                     {% if user.id is booking.booked_by.id %}
-                    <h5>Your booking number {{ booking.id }}</h5>
-                    <p>Booking Name: {{ booking.first_name }}</p>
-                    <p>For: {{ booking.booking_date }} at: {{ booking.booking_time }}</p>
-                    <form id="delete-booking-form" method="post">
-                        {{ delete_booking_form | crispy }}
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="{{ booking.id }}">
+                    <div class="col border border-dark">
+                        <h5>Your booking number {{ booking.id }}</h5>
+                        <p>For: {{ booking.booking_date }} <br> At: {{ booking.booking_time }}</p>
+                        <form id="delete-booking-form" method="post">
+                            {{ delete_booking_form | crispy }}
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ booking.id }}">
+                            <br>
+                            <div class="col">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
+                                data-target="#confirmModal" name="delete-booking" value="delete-booking">
+                                Cancel Booking
+                                </button>
+                            </div>
+                        </form>
                         <br>
-                        <div class="col">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
-                            data-target="#confirmModal" name="delete-booking" value="delete-booking">
-                            Cancel Booking
+                        <div class="dropdown">
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Edit Booking
                             </button>
+                            <br>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <form id="edit-table-form" class="form-style" method="post">
+                                    <strong>Update Booking</strong>
+                                    {{ edit_booking_form | crispy }}
+                                    {% csrf_token %}
+                                    <br>
+                                    <input type="hidden" name="id" value="{{ booking.id }}">
+                                    <button type="submit" class="btn btn-warning" name="edit-booking">Update</button>
+                                </form>
+                            </div>
                         </div>
-                    </form>
+                        <br>
+                    </div>
                     {% endif %}
                 </div>
                 {% endif %}

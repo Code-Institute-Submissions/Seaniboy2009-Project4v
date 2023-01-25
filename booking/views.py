@@ -13,6 +13,18 @@ from django.views import generic, View
 from django.contrib import messages
 import datetime
 
+ADMIN_ALLOWED_OPERATIONS = ['create-table', 'delete_table',
+                            'create-menu-item', 'delete-menu-item']
+
+
+def is_user_allowed(user, operation_name):
+    if operation_name in ADMIN_ALLOWED_OPERATIONS:
+        if user.is_staff:
+            return True
+        else:
+            return False
+    return False
+
 
 def compare_dates(request, submited_booking):
     """
@@ -120,7 +132,7 @@ def check_available_tables(submited_booking, request, edit):
                 booking_to_edit.booking_date = submited_booking.booking_date
                 booking_to_edit.booking_time = submited_booking.booking_time
                 booking_to_edit.save()
-                messages.info(request, 'Booking updated'
+                messages.info(request, 'Booking updated '
                               f'{submited_booking.booking_date}')
 
             else:
@@ -155,7 +167,7 @@ class BookingPage(View):
                 'booking_form': BookingForm(),
                 'create_table_form': CreateTableForm(),
                 'delete_booking_form': DeleteBookingForm(),
-                'tables': tables,
+                'edit_booking_form': EditBookingForm(),
                 'bookings': bookings,
             },
         )
@@ -163,35 +175,38 @@ class BookingPage(View):
     def post(self, request, *args, **kwargs):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
-        booking_form = BookingForm(data=request.POST)
 
-        if booking_form.is_valid():
-            submited_booking = booking_form.save(commit=False)
+        if 'submit-booking' in request.POST:
+            booking_form = BookingForm(data=request.POST)
+            booking_form.booked_by = request.user.id
 
-            if compare_dates(request, submited_booking):
-                # check if user has booked before and if its the same booking
-                has_booked = False
-                if bookings:
-                    for booking in bookings:
-                        if (booking.first_name == submited_booking.first_name
-                           and booking.last_name == submited_booking.last_name
-                           and booking.booking_date ==
-                           submited_booking.booking_date
-                           and booking.booking_time ==
-                           submited_booking.booking_time):
+            if booking_form.is_valid():
+                submited_booking = booking_form.save(commit=False)
 
-                            has_booked = True
-                            break
+                if compare_dates(request, submited_booking):
+                    # check if user has booked before and if its
+                    # the same booking
+                    has_booked = False
+                    if bookings:
+                        for booking in bookings:
+                            if (booking.booked_by == submited_booking.booked_by
+                                and booking.booking_date ==
+                                submited_booking.booking_date
+                                and booking.booking_time ==
+                                submited_booking.booking_time):
 
-                if has_booked:
-                    messages.info(request, 'You have already made a '
-                                           'booking with us')
+                                has_booked = True
+                                break
 
-                else:
-                    free_table = check_available_tables(submited_booking,
-                                                        request, False)
-                    if free_table:
-                        make_booking(request, free_table, submited_booking)
+                    if has_booked:
+                        messages.info(request, 'You have already made a '
+                                               'booking with us')
+
+                    else:
+                        free_table = check_available_tables(submited_booking,
+                                                            request, False)
+                        if free_table:
+                            make_booking(request, free_table, submited_booking)
 
         elif 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
@@ -204,17 +219,26 @@ class BookingPage(View):
                 booking.delete()
                 messages.warning(request, 'Booking has been deleted')
 
+        elif 'edit-booking' in request.POST:
+            edit_booking = EditBookingForm(data=request.POST)
+            submited_booking = edit_booking.save(commit=False)
+
+            if compare_dates(request, submited_booking):
+                list_of_tables = list(tables)
+                booked_tables = []
+                check_available_tables(submited_booking, request, True)
+
         else:
             booking_form = BookingForm()
 
         return render(
             request,
-            "book.html",
+            "index.html",
             {
                 'booking_form': BookingForm(),
                 'create_table_form': CreateTableForm(),
                 'delete_booking_form': DeleteBookingForm(),
-                'tables': tables,
+                'edit_booking_form': EditBookingForm(),
                 'bookings': bookings,
             },
         )
@@ -259,7 +283,8 @@ class ManagementPage(LoginRequiredMixin, View):
         tables = Table.objects.all()
         bookings = Booking.objects.all()
 
-        if 'create-table' in request.POST:
+        if ('create-table' in request.POST
+           and is_user_allowed(request.user, 'create-table')):
             create_table = CreateTableForm(data=request.POST)
 
             if create_table.is_valid():
@@ -269,7 +294,8 @@ class ManagementPage(LoginRequiredMixin, View):
                 messages.warning(request,
                                  'Table with that name/number already exists')
 
-        elif 'delete-table' in request.POST:
+        elif ('delete-table' in request.POST
+              and is_user_allowed(request.user, 'create-table')):
             delete_table = DeleteTableForm(data=request.POST)
             table = get_object_or_404(Table,
                                       id=request.POST
@@ -278,7 +304,7 @@ class ManagementPage(LoginRequiredMixin, View):
             if table:
                 table.delete()
                 messages.warning(request, f'{table} deleted')
-   
+
             else:
                 messages.info(request, 'table does not exist')
 
@@ -293,7 +319,8 @@ class ManagementPage(LoginRequiredMixin, View):
                 booking.delete()
                 messages.warning(request, 'Booking has been deleted')
 
-        elif 'create-menu-item' in request.POST:
+        elif ('create-menu-item' in request.POST
+              and is_user_allowed(request.user, 'create-table')):
             create_menu_item = CreateMenuItemForm(request.POST, request.FILES)
 
             if create_menu_item.is_valid():
@@ -302,7 +329,8 @@ class ManagementPage(LoginRequiredMixin, View):
             else:
                 messages.warning(request, 'Form invalid')
 
-        elif 'delete-menu-item' in request.POST:
+        elif ('delete-menu-item' in request.POST
+              and is_user_allowed(request.user, 'create-table')):
             delete_menu_item = DeleteMenuItemForm(data=request.POST)
             menuItem = get_object_or_404(MenuItem, id=request.POST['name'])
 
@@ -321,6 +349,8 @@ class ManagementPage(LoginRequiredMixin, View):
                 list_of_tables = list(tables)
                 booked_tables = []
                 check_available_tables(submited_booking, request, True)
+        else:
+            return render(request, 'notallowed.html')
 
         return render(
             request,
