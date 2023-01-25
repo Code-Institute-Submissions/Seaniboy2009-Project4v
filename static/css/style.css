@@ -79,6 +79,7 @@ body {
     height: 7%;
 }
 
+/* for the message alerts to fix it at top below nav bar */
 .message-container {
     align-items: center;
     position: fixed;
@@ -172,7 +173,6 @@ body {
     .container-md,
     .container-sm,
     .container {
-        max-width: 1920px;
         margin-top: 5%;
     }
 }

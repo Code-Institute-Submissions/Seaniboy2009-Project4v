@@ -70,6 +70,10 @@ for the time and date that is selected
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673955041/Wireframe/tablelayout_fvmdnk.png)
 
+- interaction of table class and booking class
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674680477/Wireframe/table_booking_relationship_t6uraf.png)
+
 ## 7. Technology
 - Frameworks
     - Django is the main framework [Django](https://www.djangoproject.com/)
@@ -208,7 +212,10 @@ for the time and date that is selected
 - once done i then clicked on the deploy tab linked to my github, selected the main branch then deployed, i set this to automatic deploys so when ever i made a change it would do it. New app > settings > config var > build packs > deploy
    
 - via gitpod
-   - Deployment from gitpod was done by adding changes to the python3 command line, command to add changes git add ., adds each file to the commit, then type in commit -m "changes in here", once i was happy with that i could then push them to github, using git push command, as i set up heroku with auto deploy it would pull the updates sent from github.
+   - Deployment from gitpod was done by adding changes to the python3 command line.
+   - git add .
+   - git commit -m "changes in here"
+   - git push
 
 ## 10. Credits
 

@@ -27,7 +27,7 @@ class TableAdmin(admin.ModelAdmin):
 class BookingAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'booked_by', 'table', 'booking_time',
-                    'booking_date', 'booked_on', 'first_name',)
+                    'booking_date', 'booked_on',)
 
 
 @admin.register(MenuItem)
