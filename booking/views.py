@@ -18,9 +18,9 @@ ADMIN_ALLOWED_OPERATIONS = ['create-table', 'delete_table',
 
 
 def is_user_allowed(user, operation_name):
-    '''
+    """
     Check to confirm a user can access some functions like deleting a table
-    '''
+    """
     if operation_name in ADMIN_ALLOWED_OPERATIONS:
         if user.is_staff:
             return True
@@ -30,9 +30,9 @@ def is_user_allowed(user, operation_name):
 
 
 def delete_booking_object(request, booking):
-    '''
+    """
     Deletes the passed booking from the DB
-    '''
+    """
     table = booking.table
     table.remove_num_of_bookings()
     table.save()

@@ -15,7 +15,8 @@
 - as a admin i want to be able to create menu items
 - as a admin i want to be able to delete menu items
 ## 3. Features: 
-- The booking system needs to have one table created for any bookings to be made, each booking request date and time is checked against the tables bookings, if no bookins then a booking can happen, if one table is booked for the time and date but another is not, a booking can happen, if all tables have a booking for the time and date then no bookings can happen, there is also a check for the date and time slot so users cant book the same time and date regardless of how many tables there are(avoid duplicate bookings)  
+- The booking system needs to have one table created for any bookings to be made, each booking request date and time is checked against the tables bookings, if no bookins then a booking can happen, if one table is booked for the time and date but another is not, a booking can happen, if all tables have a booking for the time and date then no bookings can happen, there is also a check for the date and time slot so users cant book the same time and date regardless of how many tables there are(avoid duplicate bookings)
+- the django admin pannel should not be used to update/create any bookings as no checks can be done
 - navigation bar
 - no login
 
@@ -43,7 +44,7 @@
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/book1_e90voq.png)
 
 - login, logout and sign up page
-- management/admin page where an admin and create/delete tables, also update or delete bookings
+- management/admin page where an admin can create/delete tables, also update or delete bookings
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/management_wfjttr.png)
 
@@ -57,7 +58,6 @@
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674750360/Wireframe/mybookings_whmpmv.png)
 
 ## 4. Future features
-- ability for users to update there booking rather than over the phone
 - a UI layout of where the table are in the restaurant
 - a reminder function that sends the user an email 1 hour before the booking
 - ability of the app to combine tables together for larger group size

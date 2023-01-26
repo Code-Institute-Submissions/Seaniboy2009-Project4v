@@ -19,7 +19,7 @@ main {
 .navbar-colour,
 .footer,
 .table-admin-pannel {
-    background-color: rgb(0, 0, 0)
+    background-color: rgb(33 37 41)
 }
 
 .text-main-a,
@@ -38,6 +38,9 @@ body {
     padding: 0%;
     margin: 0%;
     max-width: 100%;
+    min-height: 400px;
+    margin-bottom: 135px;
+    clear: both;
 }
 
 .image-container {
@@ -109,12 +112,14 @@ body {
 }
 
 .footer {
-    align-items: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
     left: 0;
     right: 0;
-    margin-top: 5%;
-    bottom: 0;
-    position: relative;
+    margin-top: 0;
+    z-index: 1;
+    height: 130px;
 }
 
 .review-ul-list,
