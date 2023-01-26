@@ -36,8 +36,8 @@
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'booking' %}">Book
                             a table now</a></li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
-                        href="{% url 'mybookings' %}">My Bookings</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{% url 'mybookings' %}">My
+                            Bookings</a></li>
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
                             href="{% url 'account_logout' %}">Logout</a></li>
                     {% else %}
@@ -94,7 +94,7 @@
                         style="display: none;" value="delete-menu-item" name="delete-menu-item">Delete</button>
                     <button id="delete-booking-button" form="delete-booking-form" type="submit" class="btn btn-danger"
                         style="display: none;" value="delete-booking" name="delete-booking">Delete</button>
-                        <button id="booking-button" form="booking-form" type="submit" class="btn btn-success"
+                    <button id="booking-button" form="booking-form" type="submit" class="btn btn-success"
                         style="display: none;" value="submit-booking" name="submit-booking">Confirm Booking</button>
                 </div>
             </div>

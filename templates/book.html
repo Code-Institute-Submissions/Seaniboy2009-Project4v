@@ -7,7 +7,7 @@
         {% if user.is_authenticated %}
         <h2><u>MAKE AN ONLINE RESERVATION</u></h2>
         <div class="row">
-            <form method="post" class="form-style text-center" id="booking-form" >
+            <form method="post" class="form-style text-center" id="booking-form">
                 <strong>Please select your booking details below <br>For large groups please call to arange</strong>
                 {{ booking_form | crispy }}
                 {% csrf_token %}

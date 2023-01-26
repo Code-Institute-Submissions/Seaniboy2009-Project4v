@@ -21,6 +21,10 @@
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673958261/Wireframe/nav_pwjiku.png)
 
+- user login
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674750357/Wireframe/nav_bn9gud.png)
+
 - admin login
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673958261/Wireframe/navfull_q5evlf.png)
@@ -46,6 +50,11 @@
 - Table management, create and delete tables, no bookings can be made without a table created
 - Menu item creation and deletion
 - bookings edit and deletion
+
+- My bookings page
+- users can see there bookings and edit or delete
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674750360/Wireframe/mybookings_whmpmv.png)
 
 ## 4. Future features
 - ability for users to update there booking rather than over the phone
