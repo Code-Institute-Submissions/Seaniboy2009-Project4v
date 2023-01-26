@@ -1,4 +1,6 @@
 from .models import Booking, Table, TIME_SLOTS, MenuItem
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 from django import forms
 from crispy_forms.helper import FormHelper
 from django.forms import SelectDateWidget
@@ -41,7 +43,7 @@ class EditBookingForm(forms.ModelForm):
         booking_time = forms.ChoiceField(choices=TIME_SLOTS,)
         fields = ('number_of_guests', 'booking_date', 'booking_time',)
         widgets = {
-            'booking_date': forms.TextInput(attrs={'type': 'date'}),
+            'booking_date': SelectDateWidget(years=range(2023, 2025)),
         }
 
 

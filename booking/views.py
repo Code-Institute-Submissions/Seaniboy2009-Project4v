@@ -319,8 +319,13 @@ class ManagementPage(LoginRequiredMixin, View):
             create_table = CreateTableForm(data=request.POST)
 
             if create_table.is_valid():
-                table = create_table.save()
-                messages.success(request, 'New table created')
+                table = create_table.save(commit=False)
+                # Check if the inpute was 0 or negative and if so dont allow
+                if table.table_number <= 0:
+                    messages.warning(request, 'Cant create table with 0 or negative')
+                else:
+                    table = create_table.save()
+                    messages.success(request, 'New table created')
             else:
                 messages.warning(request,
                                  'Table with that name/number already exists')
