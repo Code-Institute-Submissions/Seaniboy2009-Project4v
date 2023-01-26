@@ -43,6 +43,10 @@ body {
     clear: both;
 }
 
+.navbar-nav {
+    padding-left: 2%;
+}
+
 .image-container {
     position: inherit;
     text-align: center;

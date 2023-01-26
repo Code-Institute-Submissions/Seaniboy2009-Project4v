@@ -41,7 +41,7 @@
 
 - booking page with the option to book a table and if you have an account see your previous/current bookings
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/book1_e90voq.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674767324/Wireframe/book1_qf4kwm.png)
 
 - login, logout and sign up page
 - management/admin page where an admin can create/delete tables, also update or delete bookings
@@ -94,6 +94,13 @@ for the time and date that is selected
     - elephantsql for the database [elephantsql](https://customer.elephantsql.com/)
 
 ## 8. testing
+- Agile 
+    - the booking function/view was to complex and making it hard to change
+    - changes to the booking and my bookins had to be made to simplify the view
+    and be more user friendly
+    - rework of the main views.py to cut down the size of each view class
+    - rework of the UI to assist and avoid confusion to both staff and users
+
 - code validation
     - CSS validation [CSS](https://jigsaw.w3.org/css-validator/validator)
     - HTML validation [HTML](https://validator.w3.org/)
@@ -126,7 +133,7 @@ for the time and date that is selected
     - user can enter amount of people, date, time, name and email
     - user can then click submit
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/booking-loggedout_eekm6l.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674767324/Wireframe/book1_qf4kwm.png)
 
 - user will be told if its booked
 
@@ -142,7 +149,7 @@ for the time and date that is selected
 
 - user viewing  there bookings (Login and active account required)
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/booking-loggedin_enhwat.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674750360/Wireframe/mybookings_whmpmv.png)
 
 - admin viewing tables (admin account required)
     - management url is available and visible in the navigation bar
@@ -174,13 +181,13 @@ for the time and date that is selected
     - management url is available and visible in the navigation bar
     - admin can click the table then on the booking update button, then can then change all the values and click update
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131806/Wireframe/edit_booking_vndjwo.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/management_wfjttr.png)
 
 - admin deleting a booking (admin account required)
     - management url is available and visible in the navigation bar
-    - admin can click the table then on the delete button of the booking
+    - admin can click the delete button under the booking
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674131807/Wireframe/manage_bookings_open_fnuyku.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/management_wfjttr.png)
 
 - admin creating menu item (admin account required)
     - management url is available and visible in the navigation bar
@@ -226,6 +233,8 @@ for the time and date that is selected
    - git add .
    - git commit -m "changes in here"
    - git push
+
+   - to run the server from gitpod type python3 manage.py runserver
 
 ## 10. Credits
 
