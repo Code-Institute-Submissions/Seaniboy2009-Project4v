@@ -27,22 +27,21 @@
 
 - Main page with the name of the site/restaurant
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954942/Wireframe/home_ikqjjp.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741247/Wireframe/home1_cb6u5e.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741247/Wireframe/home2_fsipfe.png)
 
 - Menu page with a list of starters, mains, sides and deserts
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954942/Wireframe/menu_qay4dp.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741247/Wireframe/menu_i2svus.png)
 
 - booking page with the option to book a table and if you have an account see your previous/current bookings
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/booking-loggedout_eekm6l.png)
-
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/booking-loggedin_enhwat.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/book1_e90voq.png)
 
 - login, logout and sign up page
 - management/admin page where an admin and create/delete tables, also update or delete bookings
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673954941/Wireframe/management_wwjxda.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741246/Wireframe/management_wfjttr.png)
 
 - Table management, create and delete tables, no bookings can be made without a table created
 - Menu item creation and deletion
@@ -60,7 +59,7 @@
 ## 5. Typography and color scheme
 - main scheme is black and white
 
-![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1673958261/Wireframe/scheme_ymejbb.png)
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741247/Wireframe/home1_cb6u5e.png)
 
 - with green as hyperlinks
 
