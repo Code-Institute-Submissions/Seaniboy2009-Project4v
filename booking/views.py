@@ -219,7 +219,9 @@ class BookingPage(View):
             if booking_form.is_valid():
                 submited_booking = booking_form.save(commit=False)
 
+                # Check the dates are not in the past
                 if compare_dates(request, submited_booking):
+                    # Check if the user has a booking like this one
                     if check_if_booked_before(request, submited_booking):
                         messages.info(request, 'You have already made a '
                                                'booking with us')
@@ -229,8 +231,12 @@ class BookingPage(View):
                                                             request, False)
                         if free_table:
                             make_booking(request, free_table, submited_booking)
-                            messages.success(request, 'Thank you for making a booking with us, '
-                                             f'see you on {submited_booking.booking_date}')
+                            messages.success(request,
+                                             'Thank you for making a '
+                                             'booking with us, '
+                                             'see you on '
+                                             f'{submited_booking.booking_date}'
+                                             )
 
         elif 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
@@ -244,7 +250,8 @@ class BookingPage(View):
             edit_booking = EditBookingForm(data=request.POST)
             submited_booking = edit_booking.save(commit=False)
 
-            booking_to_delete = get_object_or_404(Booking, id=request.POST['id'])
+            booking_to_delete = get_object_or_404(Booking,
+                                                  id=request.POST['id'])
             submited_booking.booked_by = booking_to_delete.booked_by
 
             if compare_dates(request, submited_booking):
@@ -322,7 +329,8 @@ class ManagementPage(LoginRequiredMixin, View):
                 table = create_table.save(commit=False)
                 # Check if the inpute was 0 or negative and if so dont allow
                 if table.table_number <= 0:
-                    messages.warning(request, 'Cant create table with 0 or negative')
+                    messages.warning(request, 'Cant create table with 0 or '
+                                              'negative')
                 else:
                     table = create_table.save()
                     messages.success(request, 'New table created')
@@ -377,7 +385,8 @@ class ManagementPage(LoginRequiredMixin, View):
             edit_booking = EditBookingForm(data=request.POST)
             submited_booking = edit_booking.save(commit=False)
 
-            booking_to_delete = get_object_or_404(Booking, id=request.POST['id'])
+            booking_to_delete = get_object_or_404(Booking,
+                                                  id=request.POST['id'])
             submited_booking.booked_by = booking_to_delete.booked_by
 
             if compare_dates(request, submited_booking):
