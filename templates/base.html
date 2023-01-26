@@ -37,6 +37,8 @@
                             a table now</a></li>
                     {% if user.is_authenticated %}
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
+                        href="{% url 'mybookings' %}">My Bookings</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"
                             href="{% url 'account_logout' %}">Logout</a></li>
                     {% else %}
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase"

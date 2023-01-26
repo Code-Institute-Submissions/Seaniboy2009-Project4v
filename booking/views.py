@@ -238,7 +238,83 @@ class BookingPage(View):
                                              f'{submited_booking.booking_date}'
                                              )
 
-        elif 'delete-booking' in request.POST:
+        # elif 'delete-booking' in request.POST:
+        #     delete_booking = DeleteBookingForm(data=request.POST)
+
+        #     if delete_booking.is_valid():
+        #         booking = get_object_or_404(Booking, id=request.POST['id'])
+        #         delete_booking_object(request, booking)
+        #         messages.warning(request, 'Booking has been deleted')
+
+        # elif 'edit-booking' in request.POST:
+        #     edit_booking = EditBookingForm(data=request.POST)
+        #     submited_booking = edit_booking.save(commit=False)
+
+        #     booking_to_delete = get_object_or_404(Booking,
+        #                                           id=request.POST['id'])
+        #     submited_booking.booked_by = booking_to_delete.booked_by
+
+        #     if compare_dates(request, submited_booking):
+        #         if not check_if_booked_before(request, submited_booking):
+        #             free_table = check_available_tables(submited_booking,
+        #                                                 request, False)
+        #             if free_table:
+        #                 make_booking(request, free_table, submited_booking)
+        #                 delete_booking_object(request, booking_to_delete)
+        #                 messages.info(request, 'Booking updated '
+        #                               f'{submited_booking.booking_date}')
+        #         else:
+        #             messages.warning(request, 'Already booked')
+
+        else:
+            booking_form = BookingForm()
+
+        return render(
+            request,
+            "book.html",
+            {
+                'booking_form': BookingForm(),
+                'create_table_form': CreateTableForm(),
+                'delete_booking_form': DeleteBookingForm(),
+                'edit_booking_form': EditBookingForm(),
+                'bookings': bookings,
+            },
+        )
+
+
+class MenuPage(View):
+
+    def get(self, request, *args, **kwargs):
+        menu_items = MenuItem.objects.all()
+
+        return render(
+            request,
+            "menu.html",
+            {
+                'menu_item': menu_items,
+            }
+        )
+
+
+class MyBookingsPage(LoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        bookings = Booking.objects.all()
+
+        return render(
+            request,
+            "mybookings.html",
+            {
+                'bookings': bookings,
+                'delete_booking_form': DeleteBookingForm(),
+                'edit_booking_form': EditBookingForm(),
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        bookings = Booking.objects.all()
+
+        if 'delete-booking' in request.POST:
             delete_booking = DeleteBookingForm(data=request.POST)
 
             if delete_booking.is_valid():
@@ -271,27 +347,11 @@ class BookingPage(View):
 
         return render(
             request,
-            "book.html",
+            "mybookings.html",
             {
-                'booking_form': BookingForm(),
-                'create_table_form': CreateTableForm(),
+                'bookings': bookings,
                 'delete_booking_form': DeleteBookingForm(),
                 'edit_booking_form': EditBookingForm(),
-                'bookings': bookings,
-            },
-        )
-
-
-class MenuPage(View):
-
-    def get(self, request, *args, **kwargs):
-        menu_items = MenuItem.objects.all()
-
-        return render(
-            request,
-            "menu.html",
-            {
-                'menu_item': menu_items,
             }
         )
 
