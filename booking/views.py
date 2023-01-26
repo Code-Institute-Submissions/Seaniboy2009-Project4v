@@ -79,7 +79,7 @@ def compare_dates(request, submited_booking):
         return True
 
 
-def make_booking(request, table_to_book, submited_booking):
+def make_booking(request, table_to_book, submited_booking, booked_by):
     """
     Update the booking form with the table and user then update
     the form and save.
@@ -87,14 +87,16 @@ def make_booking(request, table_to_book, submited_booking):
     this will also update the tables number of bookings
     """
     submited_booking.table = table_to_book
+    if booked_by:
+        submited_booking.booked_by = booked_by
     # the admin account is needed for users who did not
     # login
     user_admin = User.objects.get(username='admin')
 
-    if request.user.is_authenticated:
-        submited_booking.booked_by = request.user
-    else:
-        submited_booking.booked_by = user_admin
+    # if request.user.is_authenticated:
+    #     submited_booking.booked_by = request.user
+    # else:
+    #     submited_booking.booked_by = user_admin
 
     submited_booking.save()
     table_to_book.add_num_of_bookings()
@@ -238,34 +240,6 @@ class BookingPage(View):
                                              f'{submited_booking.booking_date}'
                                              )
 
-        # elif 'delete-booking' in request.POST:
-        #     delete_booking = DeleteBookingForm(data=request.POST)
-
-        #     if delete_booking.is_valid():
-        #         booking = get_object_or_404(Booking, id=request.POST['id'])
-        #         delete_booking_object(request, booking)
-        #         messages.warning(request, 'Booking has been deleted')
-
-        # elif 'edit-booking' in request.POST:
-        #     edit_booking = EditBookingForm(data=request.POST)
-        #     submited_booking = edit_booking.save(commit=False)
-
-        #     booking_to_delete = get_object_or_404(Booking,
-        #                                           id=request.POST['id'])
-        #     submited_booking.booked_by = booking_to_delete.booked_by
-
-        #     if compare_dates(request, submited_booking):
-        #         if not check_if_booked_before(request, submited_booking):
-        #             free_table = check_available_tables(submited_booking,
-        #                                                 request, False)
-        #             if free_table:
-        #                 make_booking(request, free_table, submited_booking)
-        #                 delete_booking_object(request, booking_to_delete)
-        #                 messages.info(request, 'Booking updated '
-        #                               f'{submited_booking.booking_date}')
-        #         else:
-        #             messages.warning(request, 'Already booked')
-
         else:
             booking_form = BookingForm()
 
@@ -387,7 +361,7 @@ class ManagementPage(LoginRequiredMixin, View):
 
             if create_table.is_valid():
                 table = create_table.save(commit=False)
-                # Check if the inpute was 0 or negative and if so dont allow
+                # Check if the input was 0 or negative and if so dont allow
                 if table.table_number <= 0:
                     messages.warning(request, 'Cant create table with 0 or '
                                               'negative')
@@ -454,7 +428,7 @@ class ManagementPage(LoginRequiredMixin, View):
                     free_table = check_available_tables(submited_booking,
                                                         request, False)
                     if free_table:
-                        make_booking(request, free_table, submited_booking)
+                        make_booking(request, free_table, submited_booking, booking_to_delete.booked_by)
                         delete_booking_object(request, booking_to_delete)
                         messages.info(request, 'Booking updated '
                                       f'{submited_booking.booking_date}')
