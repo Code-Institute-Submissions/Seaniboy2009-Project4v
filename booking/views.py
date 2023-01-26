@@ -93,11 +93,6 @@ def make_booking(request, table_to_book, submited_booking, booked_by):
     # login
     user_admin = User.objects.get(username='admin')
 
-    # if request.user.is_authenticated:
-    #     submited_booking.booked_by = request.user
-    # else:
-    #     submited_booking.booked_by = user_admin
-
     submited_booking.save()
     table_to_book.add_num_of_bookings()
     table_to_book.save()
@@ -232,7 +227,7 @@ class BookingPage(View):
                         free_table = check_available_tables(submited_booking,
                                                             request, False)
                         if free_table:
-                            make_booking(request, free_table, submited_booking)
+                            make_booking(request, free_table, submited_booking, None)
                             messages.success(request,
                                              'Thank you for making a '
                                              'booking with us, '
@@ -309,7 +304,7 @@ class MyBookingsPage(LoginRequiredMixin, View):
                     free_table = check_available_tables(submited_booking,
                                                         request, False)
                     if free_table:
-                        make_booking(request, free_table, submited_booking)
+                        make_booking(request, free_table, submited_booking, submited_booking.booked_by)
                         delete_booking_object(request, booking_to_delete)
                         messages.info(request, 'Booking updated '
                                       f'{submited_booking.booking_date}')
