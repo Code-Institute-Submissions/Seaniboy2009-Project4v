@@ -18,6 +18,9 @@ ADMIN_ALLOWED_OPERATIONS = ['create-table', 'delete_table',
 
 
 def is_user_allowed(user, operation_name):
+    '''
+    Check to confirm a user can access some functions like deleting a table
+    '''
     if operation_name in ADMIN_ALLOWED_OPERATIONS:
         if user.is_staff:
             return True
@@ -27,7 +30,9 @@ def is_user_allowed(user, operation_name):
 
 
 def delete_booking_object(request, booking):
-
+    '''
+    Deletes the passed booking from the DB
+    '''
     table = booking.table
     table.remove_num_of_bookings()
     table.save()
@@ -36,14 +41,16 @@ def delete_booking_object(request, booking):
 
 def check_if_booked_before(request, submited_booking):
     """
-    Check if the requested booking is from the same person and the same time and date
-    If booked by user has a booking already then cant book
+    Check if the requested booking is from the same person and the same time
+    and date, if booked by the user then cant book
     """
     bookings = Booking.objects.all()
 
     booked_before = False
     for booking in bookings:
-        if (booking.booked_by == submited_booking.booked_by and booking.booking_date == submited_booking.booking_date and booking.booking_time == submited_booking.booking_time):
+        if (booking.booked_by == submited_booking.booked_by and
+           booking.booking_date == submited_booking.booking_date and
+           booking.booking_time == submited_booking.booking_time):
 
             booked_before = True
 
@@ -55,7 +62,7 @@ def check_if_booked_before(request, submited_booking):
 
 def compare_dates(request, submited_booking):
     """
-    Compare todays today to the submitted booking and if
+    Compare todays date to the submitted booking and if
     booking is less than todays date cant book, else
     you can book
     """

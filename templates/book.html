@@ -15,7 +15,7 @@
                     <input type="hidden" name="booked_by" value="{{ user.id }}">
                     <br>
                     <button type="submit" class="btn btn-success btn-lg" name="submit-booking"
-                    value="submit-booking">Book</button>
+                        value="submit-booking">Book</button>
                 </form>
                 <br>
             </div>
@@ -23,6 +23,7 @@
             <div class="col-md">
                 <h4>Thank you for making your booking with us</h4>
                 <strong>Your bookings</strong>
+                <br>
                 {% for booking in bookings %}
                 {% if user.is_authenticated %}
                 <div class="navbar-text">
@@ -36,16 +37,18 @@
                             <input type="hidden" name="id" value="{{ booking.id }}">
                             <br>
                             <div class="col">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
-                                data-target="#confirmModal" name="delete-booking" value="delete-booking">
-                                Cancel Booking
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    form="delete-booking-form" data-target="#confirmModal" name="delete-booking"
+                                    value="delete-booking">
+                                    Cancel Booking
                                 </button>
                             </div>
                         </form>
                         <br>
                         <div class="dropdown">
-                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Edit Booking
+                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Edit Booking
                             </button>
                             <br>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -65,13 +68,15 @@
                 </div>
                 {% endif %}
                 {% endfor %}
-                <strong>If you would like to update your booking, please contact us below, quoting your booking number <br> Number: 0141 124 0000
+                <strong>If you have any issues with your booking please contact us below, quoting your booking number
+                    <br> Number: 0141 124 0000
                     Email: contact@clarks.com</strong>
             </div>
             {% else %}
             <div class="col">
                 <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a
-                        href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a>You have to have an account to view your bookings.
+                        href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a>You have to have an
+                    account to view your bookings.
                 </p>
             </div>
             {% endif %}

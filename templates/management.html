@@ -93,17 +93,17 @@
         <br>
         <div class="col-12">
             <div class="row">
-            {% for table in tables %}
+                {% for table in tables %}
                 <div class="col-md text-center">
                     <strong>Table: {{ table.table_number }}</strong>
                     <p>Number of seats: {{ table.num_seats }}</p>
                     <p>Number of bookings: {{ table.num_of_bookings }}</p>
                 </div>
-            {% if forloop.counter|divisibleby:4 %}
+                {% if forloop.counter|divisibleby:4 %}
             </div>
             <div class="row">
-            {% endif %}
-            {% endfor%}
+                {% endif %}
+                {% endfor%}
             </div>
         </div>
     </div>
@@ -114,7 +114,7 @@
         <br>
         <div class="col-12">
             <div class="row">
-            {% for booking in bookings %}
+                {% for booking in bookings %}
                 <div class="col-md-6 text-center">
                     <h5>Booking number {{ booking.id }}</h5>
                     <p>Booking Name: {{ booking.booked_by }}</p>
@@ -127,17 +127,19 @@
                             <input type="hidden" name="id" value="{{ booking.id }}">
                             <br>
                             <div class="col">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
-                                data-target="#confirmModal" name="delete-booking" value="delete-booking">
-                                Cancel Booking
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    form="delete-booking-form" data-target="#confirmModal" name="delete-booking"
+                                    value="delete-booking">
+                                    Cancel Booking
                                 </button>
                             </div>
                         </form>
                     </div>
                     <br>
                     <div class="dropdown">
-                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Edit Booking
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Edit Booking
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <form id="edit-table-form" class="form-style" method="post">
@@ -152,11 +154,11 @@
                     </div>
                     <br>
                 </div>
-            {% if forloop.counter|divisibleby:2 %}
+                {% if forloop.counter|divisibleby:2 %}
             </div>
             <div class="row">
-            {% endif %}
-            {% endfor%}
+                {% endif %}
+                {% endfor%}
             </div>
         </div>
     </div>

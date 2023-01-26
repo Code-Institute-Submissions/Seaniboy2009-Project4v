@@ -1,4 +1,4 @@
-/* ************************************************* Colour */
+/* ************************************************* Color */
 .text-main,
 .text-faded,
 .model-text-colour {
@@ -50,6 +50,10 @@ body {
     text-align: center;
 }
 
+.text-left {
+    text-align: left;
+}
+
 .text-main-a {
     list-style-type: none;
     margin: 0;
@@ -59,7 +63,7 @@ body {
 
 .center-image-text {
     position: absolute;
-    top: 35%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
