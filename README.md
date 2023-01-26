@@ -54,6 +54,8 @@
 - a reminder function that sends the user an email 1 hour before the booking
 - ability of the app to combine tables together for larger group size
 - users to leave a review on the page
+- booking events
+- booking as a guest
 
 ## 5. Typography and color scheme
 - main scheme is black and white

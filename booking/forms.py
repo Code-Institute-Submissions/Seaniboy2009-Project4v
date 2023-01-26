@@ -19,9 +19,6 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         booking_time = forms.ChoiceField(choices=TIME_SLOTS,)
-        # first_name = forms.CharField(required=True)
-        # last_name = forms.CharField(required=True)
-        # email = forms.EmailField(required=True, max_length=100)
         fields = ('number_of_guests',
                   'booking_date',
                   'booking_time',

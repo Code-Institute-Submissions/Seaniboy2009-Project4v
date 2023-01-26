@@ -2,85 +2,105 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="container text-main text-center">
-    <h2><u>Book a table today</u></h2>
-    <div class="container">
-        <div class="row text-center">
-            {% if user.is_authenticated %}
-            <div class="col-md">
-                <form method="post" class="form-style text-center">
-                    <strong>Please select your booking details below <br>For large groups please call to arange</strong>
-                    {{ booking_form | crispy }}
-                    {% csrf_token %}
-                    <input type="hidden" name="booked_by" value="{{ user.id }}">
+<div class="container">
+    <div class="row">
+        {% if user.is_authenticated %}
+        <h2><u>MAKE AN ONLINE RESERVATION</u></h2>
+        <div class="col-md">
+            <form method="post" class="form-style text-center">
+                <strong>Please select your booking details below <br>For large groups please call to arange</strong>
+                {{ booking_form | crispy }}
+                {% csrf_token %}
+                <input type="hidden" name="booked_by" value="{{ user.id }}">
+                <br>
+                <button type="submit" class="btn btn-success btn-lg" name="submit-booking"
+                    value="submit-booking">Book</button>
+            </form>
+            <br>
+        </div>
+        <div class="row border-bottom border-success mt-4"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>RESERVE BY PHONE</strong>
+                <p>To make a reservation at our steakhouse by phone, please call us at 0141 124 0000. Your table will be
+                    waiting when you arrive. We look forward to welcoming you to our restaurant.
                     <br>
-                    <button type="submit" class="btn btn-success btn-lg" name="submit-booking"
-                        value="submit-booking">Book</button>
-                </form>
-                <br>
-            </div>
+                    Our hours are:
+                    <br>
+                    Monday – Thursday 10 am – 4 pm
+                    <br>
+                    Friday – Sunday 10 am – 4 pm
 
-            <div class="col-md">
-                <h4>Thank you for making your booking with us</h4>
-                <strong>Your bookings</strong>
-                <br>
-                {% for booking in bookings %}
-                {% if user.is_authenticated %}
-                <div class="navbar-text">
-                    {% if user.id is booking.booked_by.id %}
-                    <div class="col border border-dark">
-                        <h5>Your booking number {{ booking.id }}</h5>
-                        <p>For: {{ booking.booking_date }} <br> At: {{ booking.booking_time }}</p>
-                        <form id="delete-booking-form" method="post">
-                            {{ delete_booking_form | crispy }}
-                            {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ booking.id }}">
-                            <br>
-                            <div class="col">
-                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                    form="delete-booking-form" data-target="#confirmModal" name="delete-booking"
-                                    value="delete-booking">
-                                    Cancel Booking
-                                </button>
-                            </div>
-                        </form>
+                </p>
+                <div class="row border-bottom border-success mt-4"></div>
+            </div>
+            <div class="col-md-6">
+                <strong>PRIVATE DINING & EVENTS</strong>
+                <p>Whatever your event or celebration, we are here to make your special day a truly memorable one
+                    (Privat events coming soon).
+                </p>
+                <div class="row border-bottom border-success mt-4"></div>
+            </div>
+        </div>
+        <div class="col-md">
+            <h4>Thank you for making your booking with us</h4>
+            <strong>Your bookings</strong>
+            <br>
+            {% for booking in bookings %}
+            {% if user.is_authenticated %}
+            <div class="navbar-text">
+                {% if user.id is booking.booked_by.id %}
+                <div class="col border border-dark">
+                    <h5>Your booking number {{ booking.id }}</h5>
+                    <p>For: {{ booking.booking_date }} <br> At: {{ booking.booking_time }}</p>
+                    <form id="delete-booking-form" method="post">
+                        {{ delete_booking_form | crispy }}
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ booking.id }}">
                         <br>
-                        <div class="dropdown">
-                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Edit Booking
+                        <div class="col">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" form="delete-booking-form"
+                                data-target="#confirmModal" name="delete-booking" value="delete-booking">
+                                Cancel Booking
                             </button>
-                            <br>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <form id="edit-table-form" class="form-style" method="post">
-                                    <strong>Update Booking</strong>
-                                    {{ edit_booking_form | crispy }}
-                                    {% csrf_token %}
-                                    <br>
-                                    <input type="hidden" name="id" value="{{ booking.id }}">
-                                    <button type="submit" class="btn btn-warning" name="edit-booking">Update</button>
-                                </form>
-                            </div>
                         </div>
+                    </form>
+                    <br>
+                    <div class="dropdown">
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Edit Booking
+                        </button>
                         <br>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <form id="edit-table-form" class="form-style" method="post">
+                                <strong>Update Booking</strong>
+                                {{ edit_booking_form | crispy }}
+                                {% csrf_token %}
+                                <br>
+                                <input type="hidden" name="id" value="{{ booking.id }}">
+                                <button type="submit" class="btn btn-warning" name="edit-booking">Update</button>
+                            </form>
+                        </div>
                     </div>
-                    {% endif %}
+                    <br>
                 </div>
                 {% endif %}
-                {% endfor %}
-                <strong>If you have any issues with your booking please contact us below, quoting your booking number
-                    <br> Number: 0141 124 0000
-                    Email: contact@clarks.com</strong>
-            </div>
-            {% else %}
-            <div class="col">
-                <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a
-                        href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a>You have to have an
-                    account to view your bookings.
-                </p>
             </div>
             {% endif %}
+            {% endfor %}
+            <strong>If you have any issues with your booking please contact us below, quoting your booking number
+                <br> Number: 0141 124 0000
+                Email: contact@clarks.com</strong>
         </div>
+        {% else %}
+        <div class="col">
+            <p>Please<br><a href="{% url 'account_login' %}" class="text-main-a">Login</a><br> or <br><a
+                    href="{% url 'account_signup' %}" class="text-main-a">Sign up <br></a>You have to have an
+                account to view your bookings.
+            </p>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
