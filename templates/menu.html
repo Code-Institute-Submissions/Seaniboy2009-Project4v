@@ -8,17 +8,17 @@
 <div class="container text-center text-main">
     <div class="row text-center">
         <!-- Starter menu items, colapsable -->
-        <div id="accordion">
+        <div id="accordion1">
             <div class="card">
                 <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
+                    <strong class="mb-0">
                         <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseOne"
                             aria-expanded="true" aria-controls="collapseOne">
                             Starter
                         </button>
-                    </h5>
+                    </strong>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion1">
                     <div class="card-body">
                         {% for item in menu_item %}
                         {% if 'starter' in item.course %}
@@ -38,17 +38,17 @@
             </div>
         </div>
         <!-- Mains menu items, colapsable -->
-        <div id="accordion">
+        <div id="accordion2">
             <div class="card">
                 <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
+                    <strong class="mb-0">
                         <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseTwo"
                             aria-expanded="true" aria-controls="collapseOne">
                             Mains
                         </button>
-                    </h5>
+                    </strong>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
                     <div class="card-body">
                         {% for item in menu_item %}
                         {% if 'main' in item.course %}
@@ -68,17 +68,17 @@
             </div>
         </div>
         <!-- Sides menu items, colapsable -->
-        <div id="accordion">
+        <div id="accordion3">
             <div class="card">
                 <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
+                    <strong class="mb-0">
                         <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseThree"
                             aria-expanded="true" aria-controls="collapseOne">
                             Sides
                         </button>
-                    </h5>
+                    </strong>
                 </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion3">
                     <div class="card-body">
                         {% for item in menu_item %}
                         {% if 'side' in item.course %}
@@ -98,17 +98,17 @@
             </div>
         </div>
         <!-- Desert menu items, colapsable -->
-        <div id="accordion">
+        <div id="accordion4">
             <div class="card">
                 <div class="card-header" id="headingFour">
-                    <h5 class="mb-0">
+                    <strong class="mb-0">
                         <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseFour"
                             aria-expanded="true" aria-controls="collapseOne">
                             Deserts
                         </button>
-                    </h5>
+                    </strong>
                 </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion4">
                     <div class="card-body">
                         {% for item in menu_item %}
                         {% if 'desert' in item.course %}
