@@ -227,7 +227,8 @@ class BookingPage(View):
                         free_table = check_available_tables(submited_booking,
                                                             request, False)
                         if free_table:
-                            make_booking(request, free_table, submited_booking, None)
+                            make_booking(request, free_table,
+                                         submited_booking, None)
                             messages.success(request,
                                              'Thank you for making a '
                                              'booking with us, '
@@ -304,7 +305,8 @@ class MyBookingsPage(LoginRequiredMixin, View):
                     free_table = check_available_tables(submited_booking,
                                                         request, False)
                     if free_table:
-                        make_booking(request, free_table, submited_booking, submited_booking.booked_by)
+                        make_booking(request, free_table, submited_booking,
+                                     submited_booking.booked_by)
                         delete_booking_object(request, booking_to_delete)
                         messages.info(request, 'Booking updated '
                                       f'{submited_booking.booking_date}')
@@ -356,6 +358,7 @@ class ManagementPage(LoginRequiredMixin, View):
 
             if create_table.is_valid():
                 table = create_table.save(commit=False)
+
                 # Check if the input was 0 or negative and if so dont allow
                 if table.table_number <= 0:
                     messages.warning(request, 'Cant create table with 0 or '
@@ -423,7 +426,8 @@ class ManagementPage(LoginRequiredMixin, View):
                     free_table = check_available_tables(submited_booking,
                                                         request, False)
                     if free_table:
-                        make_booking(request, free_table, submited_booking, booking_to_delete.booked_by)
+                        make_booking(request, free_table, submited_booking,
+                                     booking_to_delete.booked_by)
                         delete_booking_object(request, booking_to_delete)
                         messages.info(request, 'Booking updated '
                                       f'{submited_booking.booking_date}')

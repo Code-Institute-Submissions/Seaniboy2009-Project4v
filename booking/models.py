@@ -33,10 +33,9 @@ TIME_SLOTS = (
 
 class Review(models.Model):
     """
-    Model for reviews
+    Model for reviews only for admin to create a review
     """
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="blog_posts"
     )

@@ -6,7 +6,7 @@ from .models import Review, Table, Booking, MenuItem
 class ReviewAdmin(admin.ModelAdmin):
 
     list_filter = ('created_on',)
-    list_display = ('id', 'title', 'slug', 'content',
+    list_display = ('id', 'title', 'content',
                     'stars', 'created_on', 'status')
     search_fields = ['title', 'content']
     actions = ['approved_comments']

@@ -64,11 +64,16 @@
 - users to leave a review on the page
 - booking events
 - booking as a guest
+- more dates and times currently limited to 2023-2024 and 10 am to 4 pm
 
 ## 5. Typography and color scheme
 - main scheme is black and white
 
 ![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674741247/Wireframe/home1_cb6u5e.png)
+
+- crud Green for create or good, yellow for change or edit and red for delete or bad/error
+
+![Header](https://res.cloudinary.com/dgj9rjuka/image/upload/v1674768260/Wireframe/schema_fgyxmh.png)
 
 - with green as hyperlinks
 
